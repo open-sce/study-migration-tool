@@ -1,0 +1,630 @@
+,Unnamed: 0,Source 1,Source 1.1,Therapeutic Area in CTMS,TA Code in Directory,Compound,Study,DPN(Compound-Study),Exist in File Size Extract,new studies,Study Status,DM CRO for AWS SAS,Snapshot Flag,Other Flag,Status,Phase,Protocol Approval,FPFV,LPLV Final,Last DBL,Final CSR,Data Scenario
+0,15,A,A,Immunoscience,jN,165,661,jN165-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase I,,21/04/2006,,,,7
+1,17,A,A,Immunoscience,jN,165,61,jN165-061,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase II,,17/04/2008,,,,7
+2,19,A,A,Cardiovascular,gt,396,204,gt396-204,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase III,08/07/1999,15/02/1999,15/02/2002,11/03/2002,04/12/2003,1e
+3,307,A,B,Cardiovascular,gt,710,661,gt710-661,Yes,,Not Applicable,Not Available,Not Applicable,Not Available,Operationally Closed,Phase I,28/02/2003,24/11/2003,22/02/2004,10/01/2006,30/06/2006,1d
+4,308,A,B,Cardiovascular,gt,62,661,gt062-661,Yes,,Not Applicable,Not Available,Not Applicable,Not Available,Operationally Closed,Phase I,15/10/2002,04/12/2002,02/02/2003,18/06/2004,06/10/2005,1d
+5,310,A,B,Cardiovascular,gt,710,61,gt710-061,Yes,,Not Applicable,Not Available,Not Applicable,Not Available,Operationally Closed,Phase I,09/08/2004,09/05/2005,08/11/2005,16/02/2006,29/06/2006,1d
+6,311,A,B,Cardiovascular,gt,233,980,gt233-980,Yes,,Not Applicable,Not Available,Not Applicable,Not Available,Operationally Closed,Phase I,16/12/2002,13/03/2003,30/04/2003,18/02/2005,14/12/2005,1d
+7,312,A,B,Cardiovascular,gt,233,733,gt233-733,Yes,,Not Applicable,Not Available,Not Applicable,Not Available,Operationally Closed,Phase I,02/10/2003,13/10/2003,21/11/2003,23/03/2005,11/04/2006,1d
+8,314,A,B,Cardiovascular,gt,233,450,gt233-450,Yes,,Not Applicable,Not Available,Not Applicable,Not Available,Operationally Closed,Phase I,29/07/2003,23/08/2003,05/09/2003,16/07/2004,06/06/2005,1d
+9,315,A,B,Cardiovascular,gt,233,166,gt233-166,Yes,,Not Applicable,Not Available,Not Applicable,Not Available,Operationally Closed,Phase I,11/11/2003,04/12/2003,24/12/2003,30/08/2004,09/02/2005,1d
+10,317,A,B,Virology,lo,846,992,lo846-992,Yes,,Not Applicable,Not Available,Not Applicable,Study not in Extract,Operationally Closed,Phase I,20/01/2004,28/01/2004,03/03/2004,12/05/2004,06/04/2005,1e
+11,322,A,B,Virology,lo,846,456,lo846-456,Yes,,Not Applicable,Not Available,Not Applicable,Study not in Extract,Operationally Closed,Phase I,05/04/2004,18/05/2004,27/06/2004,18/10/2004,05/04/2005,1e
+12,323,A,B,Virology,lo,846,718,lo846-718,Yes,,Not Applicable,Not Available,Not Applicable,Study not in Extract,Operationally Closed,Phase I,28/05/2004,08/06/2004,29/06/2004,05/11/2004,25/04/2005,1e
+13,332,A,B,Neuroscience,JB,395,198,JB395-198,Yes,,Not Applicable,Not Available,Not Applicable,Study not in Extract,Operationally Closed,Phase I,16/02/2005,14/04/2005,09/07/2005,07/09/2005,11/11/2005,1e
+14,335,A,B,Cardiovascular,gt,233,350,gt233-350,Yes,,Not Applicable,Not Available,Not Applicable,Not Available,Operationally Closed,Phase II,22/03/2001,09/07/2001,02/02/2003,28/03/2003,31/03/2004,1d
+15,353,A,A,Oncology,DN,296,861,DN296-861,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,22/12/2008,19/05/2009,31/10/2013,13/02/2014,26/09/2014,1d
+16,354,A,A,Immunoscience,jN,342,937,jN342-937,No,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase II/III,07/09/2007,28/11/2007,18/01/2011,11/04/2011,26/08/2011,1d
+17,355,A,A,Neuroscience,JB,377,841,JB377-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,20/04/2012,20/03/2013,30/12/2013,04/03/2014,08/12/2014,1d
+18,356,A,A,Oncology,DN,163,97,DN163-097,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,17/10/2013,12/12/2013,24/02/2015,07/04/2015,28/01/2016,1d
+19,357,A,A,Virology,lo,666,456,lo666-456,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,18/10/2013,13/12/2013,26/11/2014,29/01/2015,17/06/2015,1d
+20,358,A,A,Oncology,DN,53,819,DN053-819,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase IV,22/12/2014,06/01/2015,21/12/2015,,24/02/2016,7
+21,359,A,A,Virology,lo,45,468,lo045-468,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase II,07/01/2011,31/03/2011,01/09/2014,14/10/2014,01/04/2015,1d
+22,360,A,A,Virology,lo,672,951,lo672-951,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,20/11/2013,17/03/2014,05/01/2016,18/02/2016,09/06/2016,1d
+23,361,A,A,Virology,lo,666,590,lo666-590,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,23/01/2014,01/07/2014,09/09/2015,15/10/2015,22/12/2015,1d
+24,362,A,A,Virology,lo,672,958,lo672-958,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,25/11/2013,28/01/2014,29/12/2014,09/01/2015,26/05/2015,1d
+25,363,A,A,Oncology,DN,296,394,DN296-394,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,09/11/2009,04/02/2010,10/06/2014,24/10/2014,19/02/2015,1d
+26,364,A,A,Virology,lo,666,373,lo666-373,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,22/03/2013,17/05/2013,16/06/2013,12/08/2013,29/01/2014,1d
+27,365,A,A,Cardiovascular,gt,967,468,gt967-468,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,04/06/2012,20/11/2012,17/06/2013,02/10/2013,26/02/2014,1d
+28,366,A,A,Oncology,DN,53,68,DN053-068,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Pre-clinical,,,,,10/11/2014,7
+29,367,A,A,Virology,lo,852,661,lo852-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,12/09/2011,09/11/2011,07/05/2012,25/02/2013,02/04/2013,1d
+30,368,A,A,Virology,lo,666,450,lo666-450,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIB,04/08/2010,01/10/2010,06/11/2012,03/04/2013,04/11/2013,1d
+31,369,A,A,Oncology,DN,296,767,DN296-767,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,15/01/2012,01/04/2012,07/11/2013,26/02/2014,08/06/2014,1d
+32,370,A,A,Cardiovascular,gt,279,450,gt279-450,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,19/09/2016,17/11/2016,24/06/2017,23/08/2017,27/06/2018,2a
+33,371,A,A,Virology,lo,672,415,lo672-415,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,11/10/2011,13/12/2011,10/09/2014,27/10/2014,01/04/2015,1d
+34,372,A,A,Neuroscience,JB,803,61,JB803-061,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIB,27/07/2011,25/10/2011,04/05/2012,14/06/2012,02/04/2013,1d
+35,373,A,A,Virology,lo,166,324,lo166-324,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,26/09/2012,08/10/2012,18/12/2012,28/02/2013,11/08/2013,1d
+36,374,A,A,Oncology,DN,709,839,DN709-839,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,01/10/2008,01/04/2009,14/06/2012,06/11/2012,16/05/2013,1d
+37,375,A,A,Oncology,DN,709,179,DN709-179,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,13/04/2009,05/10/2009,11/12/2012,29/05/2013,30/09/2013,1d
+38,376,A,A,Virology,lo,45,572,lo045-572,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,21/08/2012,17/09/2012,07/02/2013,17/04/2013,06/11/2013,2a
+39,377,A,A,Virology,lo,960,661,lo960-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,19/12/2011,02/01/2012,05/02/2013,12/04/2013,03/02/2014,1d
+40,378,A,A,Virology,lo,45,980,lo045-980,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,27/08/2012,11/09/2012,27/03/2013,16/07/2013,28/03/2014,2a
+41,379,A,A,Virology,lo,166,511,lo166-511,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,13/01/2013,01/02/2013,08/04/2013,21/06/2013,31/10/2013,2a
+42,380,A,A,Virology,lo,45,861,lo045-861,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,31/08/2012,08/04/2013,25/09/2014,28/10/2014,08/10/2015,1d
+43,381,A,A,Oncology,DN,709,33,DN709-033,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,16/11/2011,07/02/2012,07/04/2012,07/06/2012,30/11/2012,1d
+44,382,A,A,Oncology,DN,753,608,DN753-608,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase OTH,30/03/2011,03/08/2011,30/03/2015,20/04/2015,03/06/2015,7
+45,383,A,A,Cardiovascular,gt,58,268,gt058-268,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,18/11/2010,20/05/2011,13/06/2012,30/07/2012,04/02/2013,1d
+46,384,A,A,Cardiovascular,gt,868,950,gt868-950,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,PHASE 0,17/12/2014,10/07/2015,08/08/2018,15/11/2018,05/09/2019,1d
+47,385,A,A,Oncology,DN,178,461,DN178-461,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,01/11/2011,15/12/2011,23/06/2014,22/09/2014,05/02/2015,1d
+48,386,A,A,Oncology,DN,178,468,DN178-468,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,20/04/2012,16/07/2012,04/12/2014,03/03/2015,26/08/2015,1d
+49,387,A,A,Virology,lo,672,854,lo672-854,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,13/07/2012,27/07/2012,16/10/2012,09/01/2013,25/06/2013,2a
+50,388,A,A,Oncology,DN,163,805,DN163-805,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase OTH,03/10/2012,19/03/2013,30/07/2014,18/11/2014,24/07/2015,1d
+51,389,A,A,Virology,lo,208,954,lo208-954,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,25/05/2015,07/07/2015,21/09/2015,18/11/2015,27/04/2016,2a
+52,390,A,A,Neuroscience,JB,800,268,JB800-268,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase I,18/03/2008,11/03/2008,09/06/2008,15/07/2008,04/06/2009,1e
+53,391,A,A,Oncology,DN,296,916,DN296-916,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase I,02/02/2007,23/05/2000,21/02/2013,10/11/2009,15/04/2010,1d
+54,392,A,A,Oncology,DN,623,953,DN623-953,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,13/11/2012,22/03/2013,23/08/2016,04/10/2016,10/08/2017,1c
+55,393,A,A,Oncology,DN,623,980,DN623-980,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,26/08/2011,15/02/2012,13/04/2016,03/06/2016,07/04/2017,1d
+56,394,A,A,Virology,lo,672,394,lo672-394,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,12/05/2014,04/06/2014,29/07/2014,15/09/2014,21/01/2015,2a
+57,395,A,A,Virology,lo,846,607,lo846-607,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase OTH,09/03/2010,28/05/2010,16/04/2015,,04/09/2015,7
+58,396,A,A,Neuroscience,JB,513,839,JB513-839,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,26/01/2012,22/02/2012,12/04/2012,15/06/2012,17/12/2012,2a
+59,397,A,A,Virology,lo,208,428,lo208-428,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,31/10/2011,06/02/2012,27/05/2012,15/11/2012,23/05/2013,1d
+60,398,A,A,Immunoscience,jN,255,428,jN255-428,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,23/12/2016,26/01/2017,24/02/2017,19/04/2017,03/10/2017,2a
+61,399,A,A,Cardiovascular,gt,290,916,gt290-916,Yes,,Not Applicable,Yes,Active,Not Available,Operationally Closed,Phase I,09/05/2017,22/06/2017,20/07/2017,07/12/2017,12/06/2018,1d
+62,400,A,A,Cardiovascular,gt,867,862,gt867-862,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,02/11/2016,10/11/2016,16/01/2017,08/03/2017,21/08/2017,2a
+63,401,A,A,Oncology,DN,123,949,DN123-949,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,25/10/2017,06/11/2017,23/12/2017,04/04/2018,05/12/2018,1d
+64,402,A,A,Cardiovascular,gt,179,950,gt179-950,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,01/07/2013,25/07/2013,04/11/2013,31/01/2014,03/07/2014,2a
+65,403,A,A,Immunoscience,jN,163,566,jN163-566,Yes,,Not Applicable,Not Available,Not Available,Study not in Extract,Operationally Closed,Phase OTH,16/06/2008,16/04/2009,30/08/2011,09/11/2011,30/09/2012,7
+66,404,A,A,Oncology,DN,53,179,DN053-179,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase I,10/06/2010,13/08/2010,13/01/2017,,03/06/2019,7
+67,405,A,A,Neuroscience,JB,377,661,JB377-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,19/09/2011,21/11/2011,15/06/2012,13/12/2012,09/07/2013,1d
+68,406,A,A,Cardiovascular,gt,179,841,gt179-841,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,29/08/2012,04/01/2013,27/03/2013,15/05/2013,03/03/2014,2a
+69,407,A,A,Immunoscience,jN,741,661,jN741-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,20/03/2017,03/05/2017,29/11/2017,27/02/2018,27/11/2018,1c
+70,408,A,A,Cardiovascular,gt,512,461,gt512-461,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,11/02/2015,08/09/2015,02/03/2016,10/10/2016,14/02/2017,1c
+71,409,A,A,Virology,lo,672,394,lo672-394,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,21/09/2011,09/02/2012,19/03/2018,03/05/2018,11/09/2018,1c
+72,410,A,A,Virology,lo,252,95,lo252-095,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,06/09/2015,16/12/2015,12/04/2017,09/10/2017,23/02/2018,1c
+73,411,A,A,Oncology,DN,163,342,DN163-342,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase IV,29/09/2011,29/02/2012,17/08/2017,13/09/2017,25/01/2018,1a
+74,412,A,A,Virology,lo,762,937,lo762-937,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase IIIB,02/02/2010,07/07/2010,03/04/2018,02/05/2018,04/09/2018,1d
+75,413,A,A,Oncology,DN,753,219,DN753-219,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,13/06/2008,20/02/2009,14/12/2012,11/02/2013,24/06/2013,1d
+76,414,A,A,Virology,lo,762,668,lo762-668,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIIB,08/10/2009,17/05/2010,18/02/2014,02/04/2014,22/09/2014,1d
+77,415,A,A,Oncology,DN,813,881,DN813-881,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase II,26/02/2014,08/03/2014,11/07/2018,10/09/2018,09/01/2019,7
+78,416,A,A,Oncology,DN,387,841,DN387-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,10/03/2008,24/07/2008,31/03/2014,10/09/2014,15/01/2015,1d
+79,417,A,A,Immunoscience,jN,163,317,jN163-317,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I/II,19/07/2012,28/10/2013,06/12/2016,22/02/2017,19/05/2017,1c
+80,418,A,A,Metabolics,Tb,192,661,Tb192-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,19/06/2012,30/08/2012,23/07/2013,18/03/2014,15/07/2014,1d
+81,419,A,A,Virology,lo,166,953,lo166-953,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,16/12/2009,27/04/2010,07/05/2012,18/06/2012,15/11/2012,1d
+82,420,A,A,Virology,lo,166,801,lo166-801,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,23/04/2012,02/07/2012,24/07/2012,11/10/2012,04/06/2013,1d
+83,421,A,A,Neuroscience,JB,832,980,JB832-980,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,17/01/2012,25/02/2012,29/05/2012,24/10/2012,20/05/2013,1d
+84,422,A,A,Virology,lo,666,385,lo666-385,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,14/03/2014,09/04/2014,21/05/2014,18/07/2014,02/03/2015,2a
+85,423,A,A,Oncology,DN,53,845,DN053-845,No,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IV,04/12/2014,,,,07/12/2017,7
+86,424,A,A,Virology,lo,166,862,lo166-862,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,16/03/2012,11/05/2012,09/12/2013,10/01/2014,22/07/2014,1d
+87,425,A,A,Oncology,DN,163,572,DN163-572,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase II,17/01/2008,31/07/2008,23/10/2012,31/01/2011,16/12/2011,1d
+88,426,A,A,Immunoscience,jN,163,360,jN163-360,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,30/07/2007,22/01/2008,02/05/2011,20/06/2011,14/09/2011,1d
+89,427,A,A,Metabolics,Tb,397,503,Tb397-503,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase IIA,11/11/2011,03/02/2012,17/10/2012,07/02/2013,07/10/2013,1d
+90,428,A,A,Oncology,DN,296,166,DN296-166,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,28/10/2008,19/03/2009,19/05/2015,02/07/2015,01/09/2015,1d
+91,429,A,A,Cardiovascular,gt,62,254,gt062-254,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase IV,19/03/2014,14/07/2014,08/02/2017,,07/07/2017,7
+92,430,A,A,Virology,lo,166,415,lo166-415,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,21/12/2012,01/02/2013,12/03/2013,09/04/2013,11/07/2013,1d
+93,431,A,A,Neuroscience,JB,832,461,JB832-461,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIB,01/05/2011,28/07/2011,14/05/2013,21/06/2013,03/01/2014,1d
+94,432,A,A,Neuroscience,JB,832,179,JB832-179,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIB,09/12/2010,19/04/2011,30/01/2013,11/03/2013,03/12/2013,1d
+95,433,A,A,Virology,lo,672,3,lo672-003,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase II,21/05/2012,24/07/2012,21/11/2013,13/02/2014,20/10/2014,1d
+96,434,A,A,Virology,lo,672,292,lo672-292,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIB,21/10/2010,20/12/2010,13/09/2012,19/10/2012,10/07/2013,1d
+97,435,A,A,Oncology,DN,123,954,DN123-954,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,12/06/2017,19/07/2017,15/10/2017,04/01/2018,05/02/2019,1d
+98,436,A,A,Cardiovascular,gt,279,801,gt279-801,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,11/10/2017,18/10/2017,27/11/2017,04/01/2018,08/08/2018,1d
+99,437,A,A,Oncology,DN,123,718,DN123-718,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,03/11/2017,09/11/2017,01/02/2018,07/03/2018,23/09/2018,1d
+100,438,A,A,Oncology,DN,53,958,DN053-958,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase N/A,26/06/2014,28/08/2014,07/12/2017,,03/12/2018,7
+101,439,A,A,Immunoscience,jN,342,728,jN342-728,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase III,01/04/2013,12/09/2013,30/07/2018,12/09/2018,24/01/2019,1a
+102,440,A,A,Immunoscience,jN,165,839,jN165-839,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIB,04/10/2010,21/03/2011,05/01/2015,30/03/2015,09/12/2015,1d
+103,441,A,A,Virology,lo,672,268,lo672-268,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIB,20/04/2010,14/07/2010,29/08/2012,15/11/2012,31/05/2013,1d
+104,442,A,A,Cardiovascular,gt,279,373,gt279-373,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,29/09/2017,15/11/2017,28/12/2017,09/03/2018,19/11/2018,1b
+105,443,A,A,Virology,lo,960,854,lo960-854,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,23/10/2015,05/01/2016,24/01/2016,03/08/2016,31/10/2016,1c
+106,444,A,A,Virology,lo,846,786,lo846-786,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IV,07/03/2011,18/10/2011,18/02/2014,04/04/2014,12/11/2014,1d
+107,445,A,A,Oncology,DN,53,188,DN053-188,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase III,21/09/2017,27/12/2017,22/05/2018,18/06/2018,21/08/2018,1d
+108,446,A,A,Metabolics,Tb,803,468,Tb803-468,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIB,13/04/2012,09/07/2012,12/11/2012,23/10/2013,24/01/2014,1d
+109,447,A,A,Virology,lo,672,954,lo672-954,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,05/12/2011,22/02/2012,20/03/2014,23/05/2014,28/10/2014,1d
+110,448,A,A,Oncology,DN,617,661,DN617-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,12/03/2010,20/08/2010,18/11/2014,01/05/2015,05/11/2015,1d
+111,449,A,A,Oncology,DN,617,841,DN617-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I/II,30/03/2011,29/09/2011,03/03/2016,15/06/2016,23/03/2017,1d
+112,450,A,A,Neuroscience,JB,832,839,JB832-839,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,07/09/2011,26/03/2012,20/09/2012,03/06/2013,02/09/2013,1d
+113,451,A,A,Oncology,DN,753,18,DN753-018,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,20/06/2012,09/08/2012,14/09/2012,30/11/2012,16/04/2013,1d
+114,452,A,A,Virology,lo,672,980,lo672-980,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIB,15/06/2010,12/08/2010,20/12/2012,07/03/2013,10/09/2013,1d
+115,453,A,A,Virology,lo,166,528,lo166-528,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,01/04/2009,18/05/2009,01/07/2009,29/09/2009,07/06/2010,1d
+116,454,A,A,Metabolics,Tb,132,841,Tb132-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,07/12/2011,26/01/2012,24/07/2012,12/11/2012,08/01/2013,1d
+117,455,A,A,Immunoscience,jN,163,626,jN163-626,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase IV,04/05/2010,26/05/2010,06/05/2011,,01/02/2014,7
+118,456,A,A,Immunoscience,jN,163,496,jN163-496,No,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IV,19/10/2011,31/10/2011,31/07/2012,,11/02/2014,7
+119,457,A,A,Metabolics,Tb,132,661,Tb132-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,27/09/2010,10/11/2010,30/01/2012,18/09/2012,08/01/2013,1d
+120,458,A,A,Cardiovascular,gt,290,450,gt290-450,Yes,,Not Applicable,Yes,Active,Not Available,Operationally Closed,Phase I,20/09/2016,14/10/2016,26/05/2017,30/08/2017,09/08/2018,1d
+121,459,A,A,Virology,lo,846,373,lo846-373,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I/II,17/11/2000,15/02/2002,15/09/2014,12/12/2014,26/02/2015,1d
+122,460,A,A,Immunoscience,jN,321,775,jN321-775,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,27/02/2014,27/03/2014,12/05/2014,03/07/2014,02/12/2014,2a
+123,461,A,A,Virology,lo,208,121,lo208-121,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,08/11/2015,11/01/2016,22/03/2016,15/04/2016,06/10/2016,2a
+124,462,A,A,Oncology,DN,53,339,DN053-339,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Pre-clinical,,,,,30/10/2017,7
+125,463,A,A,Neuroscience,JB,803,950,JB803-950,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,14/09/2011,17/11/2011,14/09/2012,11/02/2013,26/06/2013,1d
+126,464,A,A,Virology,lo,960,936,lo960-936,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,04/07/2014,08/08/2014,19/09/2014,17/12/2014,16/09/2015,2a
+127,465,A,A,Virology,lo,960,23,lo960-023,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,05/05/2014,02/06/2014,24/08/2014,05/11/2014,18/03/2015,2a
+128,466,A,A,Neuroscience,JB,868,450,JB868-450,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase II/III,12/12/2016,12/03/2017,30/06/2020,12/08/2020,27/03/2017,1d
+129,467,A,A,Oncology,DN,163,237,DN163-237,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,02/04/2009,03/08/2009,31/10/2012,06/12/2012,18/03/2014,1d
+130,468,A,A,Cardiovascular,gt,90,661,gt090-661,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,15/03/2012,15/05/2012,07/05/2013,22/01/2014,05/05/2014,2a
+131,469,A,A,Virology,lo,29,661,lo029-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,15/08/2012,27/09/2012,20/02/2013,27/09/2013,24/01/2014,1d
+132,470,A,A,Virology,lo,672,910,lo672-910,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,19/06/2011,02/09/2011,30/04/2014,12/06/2014,17/11/2014,1d
+133,471,A,A,Metabolics,Tb,867,841,Tb867-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,31/08/2014,27/10/2014,10/05/2015,31/08/2015,01/06/2016,1d
+134,472,A,A,Cardiovascular,gt,179,839,gt179-839,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,12/02/2014,01/08/2014,01/06/2016,14/07/2016,15/11/2016,1d
+135,473,A,A,Virology,lo,672,124,lo672-124,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,11/10/2011,18/04/2012,10/05/2012,13/07/2012,24/12/2012,1d
+136,474,A,A,Oncology,DN,296,798,DN296-798,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,23/09/2008,19/02/2009,29/08/2017,28/09/2018,06/02/2019,1d
+137,475,A,A,Oncology,DN,296,461,DN296-461,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,30/12/2008,25/08/2009,26/01/2018,28/09/2018,18/01/2019,1d
+138,476,A,A,Virology,lo,666,428,lo666-428,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,26/02/2014,01/04/2014,24/07/2014,17/09/2014,31/03/2015,2a
+139,477,A,A,Neuroscience,JB,631,661,JB631-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,07/05/2010,21/07/2011,15/03/2013,11/03/2013,02/07/2013,1d
+140,478,A,A,Oncology,DN,387,61,DN387-061,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,10/10/2008,01/07/2009,05/03/2012,30/11/2012,01/03/2013,1d
+141,479,A,A,Metabolics,Tb,803,841,Tb803-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,29/03/2010,01/07/2010,11/01/2011,21/03/2011,14/12/2011,1d
+142,480,A,A,Oncology,DN,90,839,DN090-839,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,12/07/2010,10/01/2011,29/11/2012,30/05/2013,22/11/2013,1d
+143,481,A,A,Oncology,DN,163,215,DN163-215,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase II,22/05/2012,08/10/2012,12/05/2015,23/06/2015,29/04/2016,1d
+144,482,A,A,Metabolics,Tb,323,179,Tb323-179,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,21/10/2009,18/11/2009,05/10/2010,08/12/2010,14/09/2011,1d
+145,483,A,A,Virology,lo,672,501,lo672-501,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIIB,24/11/2014,16/02/2015,18/12/2015,14/01/2016,26/08/2016,1d
+146,484,A,A,Immunoscience,jN,165,572,jN165-572,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,04/06/2012,08/08/2012,18/10/2012,25/01/2013,04/10/2013,1d
+147,485,A,A,Virology,lo,762,51,lo762-051,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase IIB,10/10/2006,18/06/2007,04/09/2017,04/10/2017,01/02/2018,1a
+148,486,A,A,Virology,lo,960,861,lo960-861,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,23/09/2013,14/10/2013,16/01/2014,05/03/2014,15/01/2015,2a
+149,487,A,A,Virology,lo,166,910,lo166-910,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,06/01/2013,28/02/2013,08/08/2013,11/10/2013,15/07/2014,1d
+150,488,A,A,Virology,lo,559,839,lo559-839,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,10/08/2012,12/10/2012,07/11/2012,14/01/2013,30/05/2013,1d
+151,489,A,A,Virology,lo,258,950,lo258-950,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase IIA,30/04/2010,26/07/2010,05/08/2010,24/02/2011,15/04/2011,7
+152,490,A,A,Oncology,DN,753,450,DN753-450,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase I,20/09/2005,21/03/2006,22/05/2019,18/04/2017,07/05/2020,1a
+153,491,A,A,Neuroscience,JB,526,661,JB526-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,27/03/2014,27/05/2014,04/02/2016,17/03/2016,02/09/2016,1d
+154,492,A,A,Virology,lo,45,936,lo045-936,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,21/06/2012,29/01/2013,13/10/2014,25/11/2014,02/09/2015,1d
+155,493,A,A,Oncology,DN,163,876,DN163-876,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase II,06/07/2012,23/04/2013,07/07/2016,01/08/2016,16/11/2016,1c
+156,494,A,A,Virology,lo,166,861,lo166-861,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,01/10/2012,14/11/2012,06/03/2013,30/05/2013,09/08/2013,1d
+157,495,A,A,Metabolics,Tb,397,374,Tb397-374,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase III,19/10/2010,,31/05/2011,,30/04/2011,7
+158,496,A,A,Metabolics,Tb,323,450,Tb323-450,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,01/07/2011,23/08/2011,09/10/2011,21/03/2012,16/04/2013,1d
+159,497,A,A,Virology,lo,666,366,lo666-366,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,10/06/2014,26/06/2014,05/09/2014,24/10/2014,02/04/2015,2a
+160,498,A,A,Oncology,DN,813,718,DN813-718,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase OTH,31/01/2014,25/03/2014,,,16/08/2018,7
+161,499,A,A,Virology,lo,672,488,lo672-488,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,25/11/2013,10/02/2014,30/01/2015,09/03/2015,19/06/2015,1d
+162,500,A,A,Virology,lo,846,13,lo846-013,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,30/07/2012,29/11/2012,20/02/2017,03/04/2017,12/06/2017,1c
+163,501,A,A,Virology,lo,666,179,lo666-179,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,16/04/2013,13/05/2013,07/09/2013,14/11/2013,12/06/2014,1d
+164,502,A,A,Neuroscience,JB,868,661,JB868-661,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,30/09/2014,04/12/2014,07/04/2016,27/06/2016,19/01/2017,2a
+165,503,A,A,Virology,lo,166,936,lo166-936,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,03/10/2013,26/02/2014,15/07/2015,18/08/2015,11/12/2015,1d
+166,504,A,A,Oncology,DN,163,415,DN163-415,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase III,10/03/2009,26/05/2009,03/08/2015,13/07/2015,04/03/2016,1d
+167,505,A,A,Virology,lo,762,595,lo762-595,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase IV,22/09/2006,29/12/2006,25/08/2016,04/05/2017,14/09/2017,1a
+168,506,A,A,Virology,lo,666,795,lo666-795,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,18/10/2013,13/12/2013,18/11/2014,29/01/2015,11/06/2015,1d
+169,507,A,A,Virology,lo,672,461,lo672-461,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,30/07/2008,24/09/2008,08/06/2009,09/07/2009,10/07/2010,1d
+170,508,A,A,Neuroscience,JB,513,841,JB513-841,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase IIA,07/12/2010,14/03/2011,17/05/2012,17/07/2012,01/11/2012,1d
+171,509,A,A,Oncology,DN,53,366,DN053-366,No,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IV,21/08/2013,21/10/2013,12/01/2017,,06/02/2020,7
+172,510,A,A,Oncology,DN,753,871,DN753-871,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,12/04/2013,09/08/2013,14/10/2013,26/11/2013,04/03/2014,1d
+173,511,A,A,Oncology,DN,296,874,DN296-874,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I/II,14/09/2007,28/05/2008,21/12/2012,29/04/2013,06/10/2013,1d
+174,512,A,A,Virology,lo,45,428,lo045-428,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,16/12/2011,08/03/2012,11/11/2014,12/12/2014,16/10/2015,1d
+175,513,A,A,Virology,lo,45,324,lo045-324,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,02/05/2013,18/07/2013,27/08/2015,08/10/2015,26/02/2016,1d
+176,514,A,A,Immunoscience,jN,347,839,jN347-839,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,17/05/2012,22/11/2012,23/04/2013,03/09/2013,18/12/2013,1d
+177,515,A,A,Virology,DN,53,563,DN053-563,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,09/09/2016,07/01/2017,05/01/2018,23/03/2018,20/07/2018,1b
+178,516,A,A,Oncology,DN,760,340,DN760-340,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase II,10/02/2015,14/05/2015,01/05/2018,,10/12/2017,7
+179,517,A,A,Virology,lo,166,450,lo166-450,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,11/11/2009,28/12/2009,07/08/2011,14/12/2011,18/07/2012,1d
+180,518,A,A,Metabolics,Tb,397,411,Tb397-411,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,08/12/2008,17/06/2010,27/03/2013,01/08/2013,08/09/2014,1d
+181,519,A,A,Virology,lo,846,306,lo846-306,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase III,25/07/2002,25/11/2002,16/02/2016,29/04/2016,31/10/2016,1d
+182,520,A,A,Oncology,DN,474,841,DN474-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,31/07/2007,14/12/2007,25/03/2010,12/10/2010,07/04/2011,1d
+183,521,A,A,Oncology,DN,387,950,DN387-950,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,23/04/2009,20/11/2009,27/11/2012,30/04/2013,31/10/2013,1d
+184,522,A,A,Virology,lo,166,718,lo166-718,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,11/06/2015,26/08/2015,27/02/2017,22/03/2017,02/08/2017,1c
+185,523,A,A,Metabolics,Tb,240,61,Tb240-061,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,04/05/2010,28/06/2010,03/11/2010,05/05/2011,14/11/2011,1d
+186,524,A,A,Neuroscience,JB,962,661,JB962-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,27/09/2011,05/01/2011,01/10/2012,19/02/2013,29/07/2013,1d
+187,525,A,A,Immunoscience,jN,342,577,jN342-577,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,08/10/2007,17/01/2008,12/09/2014,29/12/2014,10/09/2015,1d
+188,526,A,A,Virology,lo,208,572,lo208-572,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,27/05/2015,07/07/2015,11/01/2016,04/05/2016,14/11/2016,2a
+189,527,A,A,Virology,lo,960,954,lo960-954,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,16/03/2016,01/04/2016,17/05/2016,18/07/2016,14/11/2016,2a
+190,528,A,A,Virology,lo,672,508,lo672-508,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase II,08/06/2011,06/10/2011,17/12/2014,17/06/2015,30/10/2015,1d
+191,529,A,A,Oncology,DN,709,132,DN709-132,No,,Not Applicable,Yes,Active,Not Available,Operationally Closed,Phase I,14/10/2011,23/01/2012,16/03/2012,26/04/2012,04/09/2012,2a
+192,530,A,A,Immunoscience,jN,784,366,jN784-366,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIB,29/10/2013,04/02/2014,18/06/2015,26/06/2015,21/07/2015,1d
+193,531,A,A,Oncology,DN,163,692,DN163-692,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,07/04/2006,08/08/2006,18/10/2013,14/11/2013,22/09/2014,1d
+194,532,A,A,Oncology,DN,623,68,DN623-068,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,28/07/2015,27/11/2015,11/11/2016,15/03/2019,14/06/2019,1d
+195,533,A,A,Cardiovascular,gt,179,661,gt179-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,11/03/2011,31/05/2011,02/04/2013,10/06/2013,25/11/2013,1d
+196,534,A,A,Virology,lo,666,881,lo666-881,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,19/02/2014,01/04/2014,31/05/2014,25/07/2014,12/11/2014,1d
+197,535,A,A,Virology,lo,166,51,lo166-051,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,27/03/2012,23/05/2012,29/09/2014,20/02/2015,18/09/2015,1d
+198,536,A,A,Virology,lo,45,166,lo045-166,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,13/09/2012,25/03/2013,22/01/2015,23/02/2015,23/11/2015,1d
+199,537,A,A,Virology,lo,846,957,lo846-957,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIIB,22/02/2011,08/07/2011,22/01/2018,06/03/2018,28/06/2018,1c
+200,538,A,A,Neuroscience,JB,513,61,JB513-061,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,08/03/2011,07/06/2011,14/10/2011,28/11/2011,22/08/2012,1d
+201,539,A,A,Oncology,DN,163,951,DN163-951,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,30/10/2008,17/02/2009,30/10/2012,18/12/2012,25/03/2014,1d
+202,540,A,A,Oncology,DN,163,896,DN163-896,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase II,24/08/2014,16/12/2014,15/12/2016,27/04/2017,03/08/2017,1d
+203,541,A,A,Metabolics,Tb,323,839,Tb323-839,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,10/04/2009,20/05/2009,25/07/2009,21/10/2009,22/07/2010,1d
+204,542,A,A,Oncology,DN,709,61,DN709-061,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,12/02/2009,08/09/2009,04/07/2011,24/08/2011,22/06/2012,1d
+205,543,A,A,Oncology,DN,296,450,DN296-450,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase I,12/12/2006,05/10/2007,08/03/2010,12/05/2010,22/03/2011,7
+206,544,A,A,Oncology,DN,753,503,DN753-503,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase IIB,21/09/2006,01/10/2006,28/02/2009,,15/07/2016,1d
+207,545,A,A,Virology,lo,846,524,lo846-524,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,21/07/2011,18/08/2011,03/09/2011,10/10/2011,21/02/2013,1d
+208,546,A,A,Virology,lo,762,339,lo762-339,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,02/03/2017,20/07/2017,19/12/2017,28/02/2018,05/04/2019,1c
+209,547,A,A,Neuroscience,JB,832,528,JB832-528,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,30/09/2010,18/02/2011,31/05/2011,26/07/2011,23/04/2012,1d
+210,548,A,A,Neuroscience,JB,832,132,JB832-132,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,07/06/2011,06/09/2011,21/05/2012,28/06/2012,23/04/2013,1d
+211,549,A,A,Immunoscience,jN,163,268,jN163-268,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase II,15/08/2006,04/01/2007,07/06/2013,27/11/2013,12/01/2015,1d
+212,550,A,A,Metabolics,Tb,397,862,Tb397-862,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,17/03/2008,19/06/2008,21/06/2011,01/08/2011,10/01/2012,1d
+213,551,A,A,Neuroscience,JB,800,450,JB800-450,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase I,09/10/2008,06/10/2008,14/07/2009,20/08/2009,23/06/2010,1e
+214,552,A,A,Virology,lo,166,292,lo166-292,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,31/08/2012,19/11/2012,24/12/2014,24/03/2015,08/12/2015,1d
+215,553,A,A,Neuroscience,JB,513,661,JB513-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,07/12/2010,21/03/2011,06/07/2012,13/08/2012,18/12/2012,1d
+216,554,A,A,Cardiovascular,gt,419,841,gt419-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,PHASE 0,16/10/2016,22/12/2016,29/01/2017,11/10/2017,08/01/2018,1d
+217,555,A,A,Virology,lo,166,874,lo166-874,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,08/06/2012,01/08/2012,11/12/2012,25/01/2013,27/06/2013,1d
+218,556,A,A,Cardiovascular,gt,62,104,gt062-104,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,27/03/2018,30/04/2018,15/06/2018,18/07/2018,28/11/2018,1d
+219,557,A,A,Immunoscience,jN,163,393,jN163-393,No,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,PHASE 0,01/07/2015,13/11/2015,25/08/2017,18/04/2019,08/09/2019,1d
+220,558,A,A,Metabolics,Tb,803,950,Tb803-950,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,28/11/2011,14/03/2012,05/06/2012,13/08/2012,17/05/2013,1d
+221,559,A,A,Metabolics,Tb,803,528,Tb803-528,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,21/12/2011,19/03/2012,21/09/2012,21/11/2012,24/05/2013,1d
+222,560,A,A,Virology,lo,672,393,lo672-393,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase III,17/12/2015,29/03/2016,26/05/2017,06/07/2017,25/10/2017,2c
+223,561,A,A,Oncology,DN,123,301,DN123-301,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,27/10/2017,02/04/2018,19/04/2018,02/08/2018,04/09/2018,7
+224,562,A,A,Oncology,DN,813,186,DN813-186,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Pre-clinical,,,,,03/10/2018,7
+225,563,A,A,Oncology,DN,163,132,DN163-132,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase III,16/08/2010,22/08/2011,02/06/2017,19/09/2017,13/04/2016,2a
+226,564,A,A,Cardiovascular,gt,62,798,gt062-798,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,28/08/2006,07/11/2006,28/05/2008,11/07/2008,03/04/2009,1d
+227,565,A,A,Oncology,DN,813,106,DN813-106,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIIB,18/07/2016,28/09/2016,01/12/2016,26/01/2017,30/08/2017,1c
+228,566,A,A,Immunoscience,jN,342,532,jN342-532,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Pre-clinical,,,,,26/02/2016,7
+229,567,A,A,Virology,lo,45,373,lo045-373,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase II/III,16/04/2012,19/06/2012,15/05/2015,22/04/2015,30/01/2016,1d
+230,568,A,A,Immunoscience,jN,163,798,jN163-798,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase II,18/01/2007,02/12/2002,08/08/2012,17/10/2012,02/07/2013,1d
+231,569,A,A,Virology,lo,672,572,lo672-572,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,12/09/2011,12/12/2011,23/01/2014,14/03/2014,02/07/2014,1d
+232,570,A,A,Virology,lo,846,92,lo846-092,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIIB,25/02/2010,18/11/2010,11/09/2017,23/10/2017,14/03/2018,1c
+233,571,A,A,Virology,lo,45,661,lo045-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,24/11/2009,06/04/2010,26/10/2010,08/02/2011,26/10/2011,1d
+234,572,A,A,Oncology,DN,163,874,DN163-874,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase II,08/11/2005,09/05/2006,07/04/2014,22/05/2014,04/12/2014,1d
+235,573,A,A,Oncology,DN,90,661,DN090-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I/II,31/01/2010,08/07/2010,29/08/2011,09/11/2011,27/07/2012,1d
+236,574,A,A,Metabolics,Tb,397,798,Tb397-798,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,25/11/2008,13/04/2009,12/05/2010,24/06/2010,09/11/2010,1d
+237,575,A,A,Virology,lo,166,340,lo166-340,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,25/01/2013,19/02/2013,23/05/2013,21/08/2013,30/12/2013,2a
+238,576,A,A,Oncology,DN,53,749,DN053-749,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase IV,05/02/2018,,,,27/11/2019,7
+239,577,A,A,Virology,lo,672,503,lo672-503,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase N/A,08/01/2014,12/05/2014,30/04/2016,22/01/2016,22/03/2017,7
+240,578,A,A,Metabolics,Tb,192,841,Tb192-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,31/01/2014,14/07/2014,17/05/2016,03/10/2016,19/04/2017,1c
+241,579,A,A,Neuroscience,JB,803,461,JB803-461,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,02/07/2012,19/07/2012,04/09/2012,14/11/2012,07/05/2013,2a
+242,580,A,A,Oncology,DN,526,661,DN526-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,PHASE 0,09/05/2013,23/03/2015,02/09/2015,02/09/2015,01/12/2016,1c
+243,581,A,A,Virology,lo,846,577,lo846-577,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,31/12/2012,29/04/2013,10/06/2013,30/08/2013,03/12/2013,1d
+244,582,A,A,Oncology,DN,753,477,DN753-477,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,10/07/2008,30/10/2008,31/07/2015,11/09/2015,23/12/2015,1d
+245,583,A,A,Oncology,DN,163,468,DN163-468,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase II,06/07/2005,06/06/2006,24/07/2007,09/11/2007,27/06/2008,1d
+246,584,A,A,Neuroscience,JB,832,33,JB832-033,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,17/02/2012,02/03/2012,21/08/2012,29/10/2012,03/06/2013,2a
+247,585,A,A,Metabolics,Tb,803,450,Tb803-450,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,09/03/2012,03/04/2012,12/05/2012,28/08/2012,09/04/2013,2a
+248,586,A,A,Metabolics,Tb,192,360,Tb192-360,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,03/02/2015,12/05/2015,19/06/2017,28/11/2017,19/06/2018,1c
+249,587,A,A,Virology,lo,672,132,lo672-132,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,03/03/2009,23/06/2009,24/01/2011,28/02/2011,29/12/2011,1d
+250,588,A,A,Oncology,DN,387,268,DN387-268,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,21/06/2011,01/11/2011,15/11/2012,08/07/2013,28/10/2013,1d
+251,589,A,A,Cardiovascular,gt,512,841,gt512-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,24/10/2013,09/12/2013,28/07/2014,05/03/2015,28/07/2015,1d
+252,590,A,A,Neuroscience,JB,832,450,JB832-450,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,16/08/2011,06/10/2011,18/04/2012,14/08/2012,01/03/2013,1d
+253,591,A,A,Cardiovascular,gt,62,767,gt062-767,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,31/08/2011,05/10/2011,11/11/2011,31/01/2012,02/08/2012,1d
+254,592,A,A,Virology,lo,666,311,lo666-311,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,02/01/2014,22/01/2014,17/04/2014,02/07/2014,07/11/2014,2a
+255,593,A,A,Oncology,DN,813,839,DN813-839,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,12/10/2010,24/02/2011,16/01/2017,06/04/2017,15/09/2017,1c
+256,594,A,A,Virology,lo,45,33,lo045-033,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,27/09/2011,15/11/2011,30/04/2012,29/06/2012,29/01/2013,1d
+257,595,A,A,Virology,lo,666,68,lo666-068,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,10/03/2014,08/04/2014,12/06/2014,06/08/2014,19/11/2014,2a
+258,596,A,A,Immunoscience,jN,342,845,jN342-845,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIIB,09/03/2010,10/12/2010,27/10/2014,20/05/2015,12/10/2015,1d
+259,597,A,A,Virology,lo,45,839,lo045-839,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIB,13/08/2010,15/11/2010,13/12/2013,27/01/2014,29/07/2014,1d
+260,598,A,A,Immunoscience,jN,165,468,jN165-468,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,29/08/2011,13/12/2011,29/12/2014,15/04/2015,22/10/2015,1d
+261,599,A,A,Oncology,DN,709,841,DN709-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,14/08/2007,08/04/2008,12/04/2013,24/06/2013,15/04/2014,1d
+262,600,A,A,Virology,lo,45,953,lo045-953,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,12/04/2012,20/07/2012,24/09/2014,30/10/2014,14/05/2015,1d
+263,601,A,A,Virology,lo,208,204,lo208-204,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,11/12/2015,14/01/2016,27/06/2016,30/08/2016,21/11/2016,2a
+264,602,A,A,Neuroscience,JB,832,268,JB832-268,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,28/04/2011,04/08/2011,23/10/2013,09/12/2013,31/03/2014,1d
+265,603,A,A,Oncology,DN,753,798,DN753-798,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase III,11/05/2005,13/07/2005,14/07/2014,02/09/2014,02/02/2015,1d
+266,604,A,A,Virology,lo,666,936,lo666-936,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,10/01/2014,07/02/2014,10/04/2014,10/06/2014,03/03/2015,2a
+267,605,A,A,Virology,lo,672,883,lo672-883,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase N/A,05/03/2014,28/03/2014,31/10/2015,,19/06/2017,7
+268,606,A,A,Immunoscience,jN,163,814,jN163-814,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase IV,02/11/2010,01/02/2012,12/04/2011,,30/12/2013,7
+269,607,A,A,Virology,lo,960,839,lo960-839,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,09/08/2013,11/10/2013,26/11/2013,21/05/2014,28/09/2014,2a
+270,608,A,A,Oncology,DN,753,198,DN753-198,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase II,23/07/2007,11/10/2007,12/12/2014,30/01/2015,23/04/2015,1d
+271,609,A,A,Virology,lo,666,814,lo666-814,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,05/02/2014,08/05/2014,26/08/2015,10/09/2015,11/12/2015,1d
+272,610,A,A,Immunoscience,jN,784,950,jN784-950,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIB,13/09/2011,04/01/2012,18/06/2015,26/06/2015,30/06/2015,1d
+273,611,A,A,Immunoscience,jN,784,661,jN784-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIB,28/01/2011,15/06/2011,10/06/2015,29/06/2015,30/06/2015,1d
+274,612,A,A,Virology,lo,672,767,lo672-767,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,21/08/2012,05/12/2012,07/11/2013,18/02/2014,18/07/2014,1d
+275,613,A,A,Virology,lo,208,389,lo208-389,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,22/08/2014,05/09/2014,31/10/2014,15/12/2014,18/03/2015,2a
+276,614,A,A,Virology,lo,166,572,lo166-572,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,28/11/2012,08/01/2013,07/11/2013,29/02/2016,20/05/2016,1d
+277,615,A,A,Oncology,DN,387,839,DN387-839,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,06/05/2009,11/02/2010,19/09/2012,15/02/2013,12/09/2013,1d
+278,616,A,A,Virology,lo,166,798,lo166-798,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,06/06/2012,27/08/2013,24/09/2013,08/11/2013,10/04/2014,1d
+279,617,A,A,Virology,lo,672,237,lo672-237,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,28/11/2012,08/01/2013,06/02/2015,15/06/2015,29/01/2016,1d
+280,618,A,A,Virology,lo,672,511,lo672-511,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,01/04/2011,01/06/2011,04/10/2013,18/11/2013,26/03/2014,1d
+281,619,A,A,Virology,lo,666,767,lo666-767,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,14/03/2014,02/04/2014,03/05/2014,01/07/2014,19/11/2014,2a
+282,620,A,A,Virology,lo,208,572,lo208-572,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,23/05/2014,24/06/2014,25/07/2014,23/09/2014,27/02/2015,1d
+283,621,A,A,Oncology,DN,53,773,DN053-773,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Pre-clinical,,,,,30/11/2015,7
+284,622,A,A,Oncology,DN,813,461,DN813-461,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,06/06/2011,06/01/2012,18/07/2016,29/09/2016,13/02/2017,1d
+285,623,A,A,Oncology,DN,753,500,DN753-500,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase IV,25/06/2012,28/12/2012,01/10/2015,26/01/2016,20/07/2016,7
+286,624,A,A,Immunoscience,jN,342,520,jN342-520,Yes,,Not Applicable,Yes,Active,Not Available,Operationally Closed,Phase IV,17/11/2012,24/04/2013,26/12/2016,03/04/2017,11/08/2017,2a
+287,625,A,A,Virology,lo,672,936,lo672-936,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,11/09/2009,03/12/2009,02/08/2011,13/09/2011,30/07/2012,1d
+288,626,A,A,Virology,lo,867,61,lo867-061,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,17/02/2016,22/04/2016,14/12/2016,31/03/2017,26/07/2017,1d
+289,627,A,A,Cardiovascular,gt,58,980,gt058-980,Yes,,Not Applicable,Yes,Active,Not Available,Operationally Closed,Phase I,07/03/2012,02/04/2012,25/05/2012,14/08/2012,27/03/2013,2a
+290,628,A,A,Neuroscience,JB,631,61,JB631-061,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,28/11/2011,16/02/2012,01/10/2013,09/01/2014,04/04/2014,1d
+291,629,A,A,Oncology,DN,813,661,DN813-661,No,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,12/09/2007,17/10/2007,20/10/2009,03/12/2009,17/12/2010,1e
+292,630,A,A,Virology,lo,666,980,lo666-980,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase I,11/06/2009,01/10/2014,03/02/2015,14/03/2015,31/07/2015,1d
+293,631,A,A,Virology,lo,208,33,lo208-033,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,10/02/2012,14/03/2012,31/03/2012,25/05/2012,26/09/2012,2a
+294,632,A,A,Neuroscience,JB,600,841,JB600-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,01/03/2010,09/05/2011,18/11/2011,05/04/2012,09/11/2012,1d
+295,633,A,A,Oncology,DN,53,916,DN053-916,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase OTH,22/06/2011,10/06/2011,30/09/2011,,06/09/2011,7
+296,634,A,A,Oncology,DN,709,950,DN709-950,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,17/09/2008,20/07/2009,15/11/2011,16/11/2011,08/06/2012,1d
+297,635,A,A,Virology,lo,672,916,lo672-916,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,11/09/2009,03/12/2009,13/10/2011,29/11/2011,12/10/2012,1d
+298,636,A,A,Metabolics,Tb,240,950,Tb240-950,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,01/12/2010,01/02/2011,01/11/2011,08/02/2012,07/11/2012,1d
+299,637,A,A,Oncology,DN,53,661,DN053-661,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase I,20/09/2006,25/10/2006,27/11/2009,20/07/2009,30/09/2011,1d
+300,638,A,A,Immunoscience,jN,784,61,jN784-061,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase IIB,22/09/2011,15/12/2011,05/01/2015,16/02/2015,05/05/2015,7
+301,639,A,A,Cardiovascular,gt,62,461,gt062-461,No,,Not Applicable,Not Available,Active,Not Available,Cancelled,Phase III,29/01/2010,15/04/2010,22/02/2012,04/04/2012,06/06/2012,7
+302,640,A,A,Virology,lo,258,839,lo258-839,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase I,13/07/2010,20/03/2012,13/05/2012,21/06/2012,17/10/2012,1d
+303,641,A,A,Metabolics,gt,470,253,gt470-253,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase OTH,01/09/2011,01/09/2011,31/12/2011,,,7
+304,644,A,A,Virology,lo,166,508,lo166-508,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,03/11/2011,05/01/2012,19/06/2013,24/07/2013,11/11/2013,1d
+305,645,A,A,Oncology,DN,163,814,DN163-814,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Pre-clinical,,,,,31/12/2014,7
+306,646,A,A,Virology,lo,672,908,lo672-908,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,23/04/2012,14/05/2012,28/06/2012,05/09/2012,01/03/2013,2a
+307,647,A,A,Virology,lo,166,166,lo166-166,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,20/03/2012,13/04/2012,07/06/2012,14/08/2012,04/06/2013,2a
+308,648,A,A,Virology,lo,208,23,lo208-023,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,25/04/2014,14/05/2014,24/07/2014,05/09/2014,15/04/2015,2a
+309,649,A,A,Virology,lo,208,373,lo208-373,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,03/02/2014,19/02/2014,13/05/2014,11/07/2014,14/04/2015,2a
+310,650,A,A,Cardiovascular,gt,512,179,gt512-179,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,11/07/2014,15/08/2014,12/02/2015,20/04/2015,12/10/2015,1d
+311,651,A,A,Oncology,DN,837,468,DN837-468,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,13/07/2016,24/10/2016,06/09/2017,14/02/2018,25/04/2018,1b
+312,652,A,A,Virology,lo,672,301,lo672-301,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,12/07/2012,11/09/2012,08/06/2013,22/07/2013,06/02/2014,1d
+313,653,A,A,Oncology,DN,753,106,DN753-106,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase II,22/10/2010,25/10/2010,31/03/2015,,31/03/2015,7
+314,654,A,A,Virology,lo,166,428,lo166-428,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase II,16/11/2009,09/02/2010,23/10/2012,12/03/2013,31/07/2013,1d
+315,655,A,A,Metabolics,Tb,397,767,Tb397-767,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase OTH,21/03/2011,21/03/2011,31/07/2011,,31/05/2011,7
+316,656,A,A,Virology,lo,208,953,lo208-953,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,02/08/2011,02/02/2012,02/03/2012,17/05/2012,21/02/2013,1d
+317,657,A,A,Oncology,DN,813,268,DN813-268,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase II,22/12/2011,11/06/2012,17/03/2016,26/05/2016,09/08/2016,1d
+318,658,A,A,Metabolics,Tb,397,908,Tb397-908,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,04/12/2008,14/06/2010,29/03/2012,18/05/2012,27/09/2012,1d
+319,659,A,A,Oncology,DN,753,992,DN753-992,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,20/02/2007,19/07/2007,03/01/2013,22/03/2013,24/06/2013,1d
+320,660,A,A,Oncology,DN,753,950,DN753-950,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,05/03/2007,28/06/2007,30/10/2012,17/12/2012,30/05/2013,1d
+321,661,A,A,Oncology,DN,709,980,DN709-980,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,24/09/2010,14/06/2011,10/11/2014,25/02/2015,29/10/2015,1d
+322,662,A,A,Immunoscience,jN,867,428,jN867-428,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase IIA,14/09/2015,24/02/2016,03/05/2018,12/06/2018,20/05/2019,1c
+323,663,A,A,Cardiovascular,gt,62,113,gt062-113,Yes,,Not Applicable,Not Available,Active,EMBARC,Active,Phase II,27/10/2016,19/01/2017,01/11/2021,16/12/2021,24/03/2022,1c
+324,664,A,A,Oncology,DN,123,342,DN123-342,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase I/II,06/03/2018,31/12/2018,25/03/2021,06/05/2021,30/11/2021,6
+325,665,A,A,Oncology,DN,53,734,DN053-734,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase III,07/10/2015,01/03/2016,31/08/2021,01/11/2021,31/01/2022,1c
+326,666,A,A,Virology,lo,960,95,lo960-095,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,09/10/2014,23/10/2014,15/08/2016,15/09/2016,12/06/2017,1c
+327,667,A,A,Cardiovascular,gt,62,303,gt062-303,Yes,,Not Applicable,Not Available,Active,Not Available,Clinically Complete,Phase I,26/08/2016,29/09/2016,11/11/2016,20/01/2017,18/05/2017,1d
+328,668,A,A,Oncology,DN,813,468,DN813-468,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase OTH,01/03/2012,13/06/2012,31/01/2024,,16/09/2020,7
+329,669,A,A,Neuroscience,JB,800,862,JB800-862,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,22/01/2010,21/04/2010,20/12/2010,10/03/2011,01/09/2011,1d
+330,670,A,A,Virology,lo,527,733,lo527-733,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase II,16/10/2012,29/11/2012,02/06/2014,31/03/2015,15/08/2016,7
+331,671,A,A,Immunoscience,jN,342,601,jN342-601,Yes,,Not Applicable,Yes,*Closed,Not Available,Clinically Complete,Phase I,13/09/2018,23/10/2018,02/04/2019,21/05/2019,27/09/2019,2a
+332,672,A,A,Oncology,DN,419,661,DN419-661,Yes,,Not Applicable,Yes,*Closed,eDM-SDTM,Active,Phase IIA,10/02/2016,09/05/2016,08/01/2020,17/03/2020,18/10/2021,1b
+333,673,A,A,Oncology,DN,53,511,DN053-511,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase I/II,13/06/2012,30/10/2012,29/04/2022,13/06/2022,14/09/2022,1c
+334,674,A,A,Virology,lo,672,324,lo672-324,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase I,21/12/2010,01/03/2011,09/04/2011,20/05/2011,01/11/2011,1d
+335,675,A,A,Neuroscience,JB,800,51,JB800-051,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,13/10/2009,30/08/2010,29/10/2010,28/04/2011,01/11/2011,7
+336,676,A,A,Oncology,DN,277,841,DN277-841,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase IIA,10/11/2017,12/02/2018,08/06/2024,06/08/2024,02/10/2024,6
+337,677,A,A,Cardiovascular,gt,290,874,gt290-874,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,21/04/2018,16/04/2018,22/09/2018,08/11/2018,29/11/2019,7
+338,678,A,A,Cardiovascular,gt,279,450,gt279-450,Yes,,Not Applicable,Yes,*Closed,Not Available,Clinically Complete,Phase I,12/05/2017,06/07/2017,04/03/2018,03/07/2018,03/06/2019,1b
+339,679,A,A,Cardiovascular,gt,279,980,gt279-980,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,11/05/2017,28/06/2017,12/12/2017,25/01/2018,17/09/2018,1b
+340,680,A,A,Immunoscience,jN,163,366,jN163-366,Yes,,Not Applicable,Yes,*Closed,Not Available,Clinically Complete,Phase III,22/05/2012,17/04/2013,24/10/2019,06/12/2019,18/03/2020,2c
+341,681,A,A,Immunoscience,jN,163,86,jN163-086,Yes,,Not Applicable,Yes,*Closed,Not Available,Clinically Complete,Phase IIB,06/08/2013,24/12/2015,05/02/2019,30/07/2019,21/02/2020,"2a,2c"
+342,682,A,A,Cardiovascular,gt,279,733,gt279-733,Yes,,Not Applicable,Yes,*Closed,unix only,Clinically Complete,Phase I,08/11/2016,02/03/2018,28/09/2018,08/02/2019,28/08/2019,1b
+343,683,A,A,Cardiovascular,gt,279,798,gt279-798,Yes,,Not Applicable,Yes,*Closed,Not Available,Active,Phase I,21/09/2018,04/10/2018,19/02/2019,03/04/2019,28/01/2020,1b
+344,684,A,A,Oncology,DN,171,373,DN171-373,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase I,12/07/2013,05/11/2013,31/12/2023,12/01/2026,03/01/2028,1c
+345,685,A,A,Neuroscience,JB,800,373,JB800-373,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,21/08/2009,28/09/2009,09/02/2010,08/03/2010,07/10/2010,1d
+346,686,A,A,Virology,lo,208,179,lo208-179,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,22/07/2009,23/11/2009,22/06/2010,15/09/2010,13/04/2011,1d
+347,687,A,A,Oncology,DN,296,33,DN296-033,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,14/11/2006,09/07/2007,14/06/2010,21/01/2011,28/07/2011,1d
+348,688,A,A,Cardiovascular,gt,290,980,gt290-980,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase IIB,28/06/2016,24/04/2017,12/11/2019,13/12/2019,05/08/2020,1d
+349,689,A,A,Immunoscience,jN,163,342,jN163-342,Yes,,Not Applicable,Yes,*Closed,Not Available,Clinically Complete,Phase IV,08/08/2011,15/02/2012,12/04/2019,12/06/2019,16/09/2019,1d
+350,690,A,A,Oncology,DN,53,812,DN053-812,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase II,09/05/2016,21/10/2016,10/12/2020,04/02/2021,07/05/2021,1c
+351,691,A,A,Oncology,DN,53,66,DN053-066,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase III,01/11/2013,07/02/2014,13/04/2021,24/05/2021,25/05/2022,1c
+352,692,A,A,Oncology,DN,753,845,DN753-845,Yes,,Not Applicable,Not Available,*Closed,eMOM,Active,Phase IIA,31/07/2008,20/03/2009,23/09/2021,05/11/2021,16/05/2022,1a
+353,693,A,A,Oncology,DN,171,798,DN171-798,Yes,,Not Applicable,Not Available,Active,eDM-SDTM,Active,Phase I,19/07/2016,04/01/2017,01/07/2022,12/08/2022,23/12/2022,1b
+354,694,A,A,Virology,lo,166,268,lo166-268,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,10/02/2009,31/03/2009,06/05/2009,03/08/2009,09/03/2010,1d
+355,695,A,A,Neuroscience,JB,800,340,JB800-340,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,25/02/2011,17/03/2011,10/07/2011,19/07/2011,02/03/2012,1d
+356,696,A,A,Immunoscience,jN,255,874,jN255-874,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,20/11/2017,07/02/2018,25/03/2018,03/05/2018,26/09/2018,7
+357,697,A,A,Oncology,DN,617,385,DN617-385,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I/II,08/04/2015,27/07/2015,27/01/2017,10/04/2017,16/01/2018,1c
+358,698,A,A,Neuroscience,JB,800,450,JB800-450,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase IIA,12/03/2009,26/05/2009,09/07/2013,29/07/2013,25/04/2014,1d
+359,699,A,A,Immunoscience,jN,255,340,jN255-340,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,15/08/2017,30/08/2017,19/12/2017,07/03/2018,04/01/2019,7
+360,700,A,A,Immunoscience,jN,255,292,jN255-292,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,27/07/2017,14/09/2017,15/11/2017,07/03/2018,09/10/2018,7
+361,701,A,A,Immunoscience,jN,638,950,jN638-950,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,15/07/2016,04/07/2017,27/09/2017,20/11/2017,23/08/2018,1c
+362,702,A,A,Immunoscience,Tb,796,839,Tb796-839,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,11/08/2015,27/10/2015,05/11/2016,04/04/2017,07/11/2017,1c
+363,703,A,A,Oncology,DN,53,241,DN053-241,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase N/A,06/03/2014,26/06/2014,27/08/2018,,03/08/2022,7
+364,704,A,A,Oncology,DN,53,342,DN053-342,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase N/A,06/03/2014,01/10/2015,01/05/2019,,03/10/2022,7
+365,705,A,A,Oncology,DN,53,577,DN053-577,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase IIIB,25/11/2015,04/04/2016,15/04/2022,27/05/2022,30/09/2022,1c
+366,706,A,A,Immunoscience,jN,784,839,jN784-839,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase IIB,06/02/2012,11/06/2012,30/12/2013,07/03/2014,03/12/2014,1d
+367,707,A,A,Oncology,DN,123,573,DN123-573,Yes,,Not Applicable,Yes,*Closed,Not Available,Clinically Complete,Phase I,12/03/2019,08/05/2019,20/07/2019,29/08/2019,09/01/2020,1d
+368,708,A,A,Oncology,DN,123,340,DN123-340,Yes,,Not Applicable,Yes,*Closed,Not Available,Clinically Complete,Phase I,26/09/2017,09/10/2017,06/12/2017,04/01/2018,25/04/2018,1d
+369,709,A,A,Oncology,DN,512,661,DN512-661,No,,Not Applicable,Not Available,Active,Not Available,Active,Phase I/II,01/06/2014,05/07/2014,01/09/2033,,01/03/2034,7
+370,710,A,A,Neuroscience,JB,832,61,JB832-061,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,20/08/2010,28/10/2010,19/01/2011,02/02/2011,09/08/2011,1d
+371,711,A,A,Immunoscience,jN,347,950,jN347-950,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase IIA,06/07/2011,28/09/2011,13/02/2013,27/03/2013,12/09/2013,1d
+372,712,A,A,Virology,lo,672,209,lo672-209,Yes,,Not Applicable,Yes,*Closed,eDM-SDTM,Clinically Complete,Phase III,30/11/2017,17/07/2018,18/10/2018,18/11/2020,18/03/2021,1b
+373,713,A,A,Oncology,DN,123,514,DN123-514,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,03/11/2017,05/01/2018,16/02/2018,05/06/2018,10/02/2020,1b
+374,714,A,A,Immunoscience,jN,163,532,jN163-532,Yes,,Not Applicable,Yes,*Closed,Not Available,Clinically Complete,Phase I,23/09/2015,14/10/2015,27/01/2017,29/11/2018,20/03/2019,2c
+375,715,A,A,Immunoscience,jN,163,466,jN163-466,Yes,,Not Applicable,Yes,*Closed,Not Available,Clinically Complete,Phase I,03/11/2017,04/12/2017,02/04/2019,04/06/2019,25/10/2019,1d
+376,716,A,A,Oncology,DN,400,841,DN400-841,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase I/II,02/06/2017,01/09/2017,21/12/2021,18/02/2022,21/06/2022,6
+377,717,A,A,Immunoscience,jN,533,461,jN533-461,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,23/12/2016,25/01/2017,08/05/2017,06/06/2017,16/08/2017,1d
+378,718,A,A,Oncology,DN,53,951,DN053-951,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase III,22/03/2013,11/12/2015,03/02/2022,14/03/2022,01/09/2022,1c
+379,719,A,A,Immunoscience,jN,255,121,jN255-121,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,02/08/2018,17/08/2018,18/10/2018,18/01/2019,18/10/2019,7
+380,720,A,A,Immunoscience,jN,163,786,jN163-786,No,,Not Applicable,Not Available,Active,Not Available,Planned,Phase IIIB,04/04/2019,29/01/2021,24/08/2027,06/10/2027,28/03/2028,7
+381,721,A,A,Metabolics,Tb,397,514,Tb397-514,No,,Not Applicable,Yes,Active,Not Available,Active,Phase III,05/02/2015,13/07/2016,20/04/2018,25/05/2018,06/11/2018,2c
+382,722,A,A,Immunoscience,jN,255,695,jN255-695,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase I,04/10/2018,04/04/2019,13/02/2020,25/03/2020,11/01/2021,7
+383,723,A,A,Oncology,DN,296,292,DN296-292,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,01/07/2008,13/08/2008,29/09/2008,01/04/2009,02/09/2009,1d
+384,724,A,A,Oncology,DN,53,859,DN053-859,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase II,18/08/2017,01/02/2018,30/01/2026,16/03/2026,23/06/2026,6
+385,725,A,A,Immunoscience,jN,526,661,jN526-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,14/05/2014,25/08/2014,16/07/2015,11/08/2015,27/03/2016,1d
+386,726,A,A,Oncology,DN,53,470,DN053-470,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase III,27/07/2015,29/11/2016,23/10/2020,19/11/2020,18/05/2021,7
+387,727,A,A,Oncology,DN,53,632,DN053-632,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase IV,06/02/2019,31/07/2020,01/11/2021,,30/12/2021,6
+388,728,A,A,Metabolics,Tb,397,953,Tb397-953,No,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,20/04/2007,08/06/2007,21/07/2007,27/11/2007,05/05/2008,1d
+389,729,A,A,Immunoscience,jN,629,841,jN629-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,18/06/2018,16/08/2018,09/10/2019,26/02/2020,04/09/2020,7
+390,730,A,A,Oncology,DN,53,477,DN053-477,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase II,10/11/2016,23/05/2017,28/02/2022,,28/02/2023,7
+391,731,A,A,Metabolics,Tb,240,661,Tb240-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,20/10/2009,01/12/2009,30/03/2010,19/05/2010,10/03/2011,1d
+392,732,A,A,Oncology,DN,760,661,DN760-661,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase I/II,27/06/2012,12/10/2012,12/12/2019,26/08/2020,19/10/2020,1c
+393,733,A,A,Oncology,DN,53,953,DN053-953,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase III,08/07/2019,20/11/2019,16/11/2026,30/11/2026,09/02/2027,6
+394,734,A,A,Oncology,DN,296,179,DN296-179,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase IIB,29/04/2006,21/12/2006,10/02/2010,01/06/2010,17/04/2011,1d
+395,735,A,A,Virology,lo,672,340,lo672-340,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,17/04/2011,16/05/2011,29/06/2011,31/08/2011,03/02/2012,1d
+396,736,A,A,Oncology,DN,400,428,DN400-428,Yes,,Not Applicable,Not Available,Active,Not Available,Cancelled,Phase I,16/05/2013,14/02/2014,19/03/2014,30/04/2014,24/10/2014,1d
+397,737,A,A,Oncology,DN,53,301,DN053-301,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase IIB,24/09/2012,16/11/2012,06/11/2020,15/01/2021,03/11/2021,1c
+398,738,A,A,Oncology,DN,53,576,DN053-576,Yes,,Not Applicable,Not Available,Active,Not Available,Cancelled,Phase III,15/12/2016,03/09/2018,25/03/2020,06/05/2020,14/08/2020,1d
+399,739,A,A,Oncology,DN,53,705,DN053-705,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase IIB,25/04/2014,12/08/2014,01/12/2021,14/01/2022,26/04/2022,1c
+400,740,A,A,Immunoscience,jN,255,827,jN255-827,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,20/08/2019,12/09/2019,29/10/2019,18/12/2019,18/11/2020,7
+401,741,A,A,Oncology,DN,753,775,DN753-775,Yes,,Not Applicable,Not Available,Active,eMOM,Active,Phase IIB,09/06/2011,13/04/2012,28/05/2021,12/07/2021,14/01/2022,"1a,1c"
+402,742,A,A,Virology,lo,672,528,lo672-528,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,30/09/2008,10/11/2008,20/12/2008,27/04/2009,10/12/2009,1d
+403,743,A,A,Cardiovascular,gt,279,661,gt279-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,19/10/2015,25/11/2015,23/07/2017,25/10/2017,12/03/2018,1d
+404,744,A,A,Oncology,DN,53,66,DN053-066,Yes,,Not Applicable,Not Available,Active,EMBARC,Active,Phase IIB,14/05/2015,13/10/2015,04/08/2022,16/09/2022,03/01/2023,1c
+405,745,A,A,Oncology,DN,277,661,DN277-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase I,02/06/2015,23/08/2015,29/11/2016,08/08/2017,30/11/2017,1d
+406,746,A,A,Cardiovascular,gt,62,937,gt062-937,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase IV,15/11/2012,14/04/2015,06/06/2018,20/09/2018,25/01/2019,1d
+407,747,A,A,Oncology,DN,53,621,DN053-621,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase II,21/08/2017,19/12/2017,18/11/2021,05/01/2022,15/04/2022,6
+408,748,A,A,Cardiovascular,gt,62,253,gt062-253,Yes,,Not Applicable,Not Available,Active,EMBARC,Active,Phase III,12/12/2014,22/10/2015,15/11/2021,15/12/2021,24/03/2022,1c
+409,749,A,A,Cardiovascular,gt,62,915,gt062-915,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase IV,14/11/2019,17/12/2019,16/09/2021,31/03/2022,29/12/2023,6
+410,750,A,A,Oncology,DN,296,301,DN296-301,No,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,14/02/2011,05/04/2011,14/05/2011,03/06/2011,14/12/2011,7
+411,751,A,A,Oncology,DN,760,166,DN760-166,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase I,27/02/2017,14/07/2017,06/08/2020,23/11/2020,04/03/2021,6
+412,752,A,A,Oncology,DN,53,450,DN053-450,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase I/II,22/08/2011,16/12/2011,18/03/2021,29/04/2021,28/09/2021,1c
+413,753,A,A,Immunoscience,jN,255,854,jN255-854,No,,Not Applicable,Not Available,Active,Not Available,Active,Phase IIB,24/12/2018,25/11/2019,25/01/2022,25/02/2022,24/02/2022,7
+414,754,A,A,Oncology,DN,400,953,DN400-953,Yes,,Not Applicable,Yes,*Closed,Not Available,Planned,Phase I,22/04/2013,15/07/2013,21/08/2013,29/04/2014,18/06/2014,2a
+415,755,A,A,Oncology,DN,299,661,DN299-661,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase I,24/07/2014,02/12/2014,08/06/2017,12/12/2017,26/03/2018,1d
+416,756,A,A,Oncology,DN,425,179,DN425-179,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase I,04/12/2018,26/03/2019,26/02/2023,10/04/2023,15/10/2025,6
+417,757,A,A,Virology,lo,672,61,lo672-061,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,17/01/2008,15/02/2008,07/07/2008,17/06/2009,05/01/2010,1d
+418,758,A,A,Cardiovascular,gt,279,839,gt279-839,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,20/05/2016,20/07/2016,29/08/2016,03/11/2016,10/04/2017,1d
+419,759,A,A,Oncology,DN,53,953,DN053-953,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase III,12/06/2012,16/10/2012,09/07/2014,23/02/2021,14/10/2022,1c
+420,760,A,A,Oncology,DN,53,750,DN053-750,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase II,12/12/2016,12/06/2017,15/02/2021,29/03/2021,12/04/2022,1c
+421,761,A,A,Oncology,DN,53,461,DN053-461,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase III,01/10/2012,21/12/2012,01/01/2021,02/02/2021,17/05/2021,1c
+422,762,A,A,Oncology,DN,753,666,DN753-666,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,23/06/2011,25/07/2011,04/09/2011,26/10/2011,05/07/2012,2c
+423,763,A,A,Virology,lo,846,479,lo846-479,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase I,03/08/2006,04/09/2006,18/11/2006,11/04/2007,30/08/2007,1d
+424,764,A,A,Virology,lo,672,661,lo672-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,08/10/2007,05/11/2007,14/05/2008,04/11/2008,20/04/2009,1d
+425,765,A,A,Virology,lo,672,841,lo672-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,09/10/2007,29/11/2007,12/05/2008,06/10/2008,25/06/2009,1d
+426,766,A,A,Oncology,DN,53,536,DN053-536,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase I/II,10/07/2018,31/10/2018,20/04/2025,15/05/2025,15/09/2025,6
+427,767,A,A,Oncology,DN,296,992,DN296-992,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase III,18/11/2009,19/05/2010,08/09/2014,23/12/2013,09/09/2014,1d
+428,768,A,A,Immunoscience,jN,321,479,jN321-479,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase I,15/10/2013,15/01/2014,14/01/2015,10/04/2015,10/11/2015,1d
+429,769,A,A,Immunoscience,jN,321,61,jN321-061,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase IIA,05/06/2012,20/03/2013,15/01/2016,14/03/2016,19/07/2016,1d
+430,770,A,A,Immunoscience,jN,321,950,jN321-950,Yes,,Not Applicable,Yes,*Closed,Not Available,Clinically Complete,Phase I,12/08/2014,05/09/2014,06/11/2014,29/12/2014,23/06/2015,2a
+431,771,A,A,Immunoscience,jN,342,128,jN342-128,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase II,18/05/2020,14/10/2020,07/04/2021,19/04/2021,03/06/2022,6
+432,772,A,A,Virology,lo,672,260,lo672-260,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,19/04/2010,24/05/2010,14/07/2010,01/10/2010,11/07/2011,1d
+433,773,A,A,Oncology,DN,813,951,DN813-951,No,,Not Applicable,Not Available,Active,Not Available,Active,Pre-clinical,,,,,05/10/2021,7
+434,774,A,A,Immunoscience,jN,255,366,jN255-366,No,,Not Applicable,Not Available,Active,Not Available,Active,Phase III,29/06/2018,10/04/2019,22/03/2021,23/04/2021,12/08/2021,7
+435,775,A,A,Oncology,DN,163,862,DN163-862,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase III,22/02/2008,24/06/2008,26/11/2018,25/01/2019,06/05/2019,1d
+436,776,A,A,Immunoscience,jN,255,33,jN255-033,Yes,,Not Applicable,Yes,*Closed,Not Available,Active,Phase I,17/01/2017,02/02/2017,27/03/2017,25/05/2017,30/10/2017,2a
+437,777,A,A,Metabolics,Tb,995,661,Tb995-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,13/03/2009,07/05/2009,10/09/2009,22/10/2009,09/09/2010,1d
+438,778,A,A,Cardiovascular,gt,62,166,gt062-166,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase III,08/11/2006,19/12/2006,25/05/2011,10/06/2011,01/09/2011,1d
+439,779,A,A,Oncology,DN,171,335,DN171-335,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase I/II,30/05/2019,07/10/2019,03/06/2024,31/07/2024,29/01/2025,6
+440,780,A,A,Oncology,DN,163,23,DN163-023,No,,Not Applicable,Not Available,Active,Not Available,Clinically Complete,Phase IIB,13/08/2007,12/02/2008,09/07/2013,12/08/2013,24/11/2014,1d
+441,781,A,A,Metabolics,Tb,397,854,Tb397-854,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,12/10/2009,16/11/2009,25/01/2010,24/02/2010,09/11/2010,1d
+442,782,A,A,Cardiovascular,gt,62,718,gt062-718,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIB,15/01/2009,08/04/2009,22/12/2010,31/01/2011,30/06/2011,7
+443,783,A,A,Oncology,DN,53,981,DN053-981,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase II,17/03/2016,11/10/2016,11/09/2019,20/08/2021,29/11/2021,7
+444,784,A,A,Oncology,DN,709,661,DN709-661,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase I,23/07/2007,02/10/2007,17/05/2008,23/12/2008,20/07/2009,1d
+445,785,A,A,Oncology,DN,123,3,DN123-003,No,,Not Applicable,Not Available,Active,Not Available,Cancelled,Phase III,30/10/2017,24/05/2018,20/08/2025,30/09/2025,14/11/2025,7
+446,786,A,A,Neuroscience,JB,832,661,JB832-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,27/05/2008,30/07/2008,08/04/2009,08/02/2010,21/05/2010,1d
+447,787,A,A,Cardiovascular,gt,587,268,gt587-268,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase IIA,19/02/2020,30/10/2020,05/11/2021,17/12/2021,06/04/2023,6
+448,788,A,A,Oncology,DN,53,867,DN053-867,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase III,17/07/2014,16/10/2014,28/10/2020,24/02/2021,01/06/2023,1c
+449,789,A,A,Virology,lo,672,692,lo672-692,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,23/07/2010,07/10/2010,18/11/2010,20/01/2011,06/07/2011,1d
+450,790,A,A,Virology,lo,672,801,lo672-801,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,18/08/2010,07/10/2010,18/11/2010,24/01/2011,06/07/2011,1d
+451,791,A,A,Immunoscience,jN,347,661,jN347-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,25/06/2009,28/09/2009,18/06/2010,30/07/2010,12/01/2011,1d
+452,792,A,A,Immunoscience,jN,255,389,jN255-389,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,26/04/2018,22/06/2018,25/08/2018,11/10/2018,22/07/2019,7
+453,793,A,A,Immunoscience,jN,255,919,jN255-919,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase III,05/02/2019,20/01/2020,26/01/2024,08/03/2024,27/06/2024,7
+454,794,A,A,Metabolics,Tb,397,936,Tb397-936,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,21/02/2008,02/06/2008,14/08/2009,02/10/2009,07/10/2010,1d
+455,795,A,A,Oncology,DN,479,841,DN479-841,Yes,,Not Applicable,Not Available,Active,eDM-SDTM,Active,Phase I/II,23/08/2016,30/11/2016,27/06/2025,15/08/2025,19/02/2026,1b
+456,796,A,A,Metabolics,Tb,397,990,Tb397-990,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase I,14/05/2009,21/07/2009,24/08/2009,08/10/2009,07/11/2010,1d
+457,797,A,A,Metabolics,Tb,397,3,Tb397-003,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,24/03/2010,19/04/2010,29/05/2010,29/05/2010,07/11/2010,1e
+458,798,A,A,Oncology,DN,53,94,DN053-094,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase III,02/07/2012,02/11/2012,15/01/2021,02/03/2021,16/11/2021,1c
+459,799,A,A,Neuroscience,JB,800,528,JB800-528,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,04/12/2009,26/01/2010,08/04/2010,08/06/2010,07/03/2011,1d
+460,800,A,A,Cardiovascular,gt,62,457,gt062-457,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,17/12/2009,03/02/2010,15/03/2010,04/05/2010,07/03/2011,1d
+461,801,A,A,Immunoscience,jN,277,528,jN277-528,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,05/01/2018,06/02/2018,02/03/2019,11/04/2019,12/12/2019,7
+462,802,A,A,Oncology,DN,53,256,DN053-256,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase IIA,28/09/2016,29/03/2017,14/12/2021,28/01/2022,04/04/2022,1c
+463,803,A,A,Immunoscience,jN,255,137,jN255-137,Yes,,Not Applicable,Not Available,Active,Not Available,Planned,Phase IIA,01/05/2020,13/11/2020,06/04/2023,18/05/2023,27/10/2023,7
+464,804,A,A,Cardiovascular,gt,279,936,gt279-936,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,09/04/2019,10/05/2019,11/07/2019,21/11/2019,29/06/2020,7
+465,805,A,A,Cardiovascular,gt,290,373,gt290-373,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase IIA,14/06/2017,30/11/2017,10/05/2019,07/06/2019,04/05/2020,1d
+466,806,A,A,Oncology,DN,296,450,DN296-450,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,22/12/2008,04/03/2009,28/03/2009,10/06/2009,16/11/2009,1d
+467,807,A,A,Cardiovascular,gt,977,661,gt977-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,24/03/2011,17/05/2011,02/09/2011,16/02/2012,02/08/2012,1d
+468,808,A,A,Cardiovascular,gt,619,661,gt619-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I/II,07/12/2009,04/02/2010,13/11/2010,19/01/2011,28/11/2011,1d
+469,809,A,A,Immunoscience,jN,255,992,jN255-992,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase III,16/05/2018,26/07/2018,20/11/2020,21/12/2020,06/04/2021,7
+470,810,A,A,Immunoscience,Tb,192,204,Tb192-204,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase IIB,07/03/2018,19/06/2018,12/11/2019,03/02/2022,13/05/2022,7
+471,811,A,A,Virology,lo,960,910,lo960-910,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase IIB,28/01/2015,12/05/2015,16/10/2017,29/11/2017,22/03/2018,1d
+472,812,A,A,Cardiovascular,gt,221,950,gt221-950,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,23/03/2009,23/07/2009,22/10/2009,26/01/2010,08/10/2010,1d
+473,813,A,A,Oncology,DN,53,38,DN053-038,Yes,,Not Applicable,Not Available,Active,eDM-SDTM,Clinically Complete,Phase IV,30/11/2016,07/04/2018,01/07/2019,08/01/2020,03/09/2020,1d
+474,814,A,A,Metabolics,Tb,323,528,Tb323-528,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,08/10/2010,11/11/2010,05/01/2011,09/02/2011,08/07/2011,7
+475,815,A,A,Virology,lo,258,841,lo258-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,22/07/2009,06/10/2009,09/08/2010,17/12/2010,08/06/2011,1d
+476,816,A,A,Virology,lo,258,61,lo258-061,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,27/01/2010,22/03/2010,21/08/2010,19/11/2010,08/06/2011,1d
+477,817,A,A,Oncology,DN,53,86,DN053-086,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase III,01/08/2019,06/02/2020,01/03/2027,12/04/2027,07/01/2028,6
+478,818,A,A,Cardiovascular,gt,62,94,gt062-094,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase III,14/02/2008,16/05/2008,24/08/2012,27/09/2012,27/03/2014,7
+479,819,A,A,Oncology,DN,53,359,DN053-359,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase III,14/02/2017,07/07/2017,01/07/2024,13/08/2024,20/11/2025,6
+480,820,A,A,Metabolics,Tb,465,839,Tb465-839,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,07/04/2008,16/02/2009,21/12/2009,05/03/2010,15/09/2010,1d
+481,821,A,A,Oncology,DN,53,685,DN053-685,Yes,,Not Applicable,Yes,Active,EMBARC,Active,Phase III,22/02/2017,26/06/2017,27/07/2023,08/09/2023,19/12/2023,2c
+482,822,A,A,Metabolics,Tb,397,718,Tb397-718,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,30/07/2010,05/11/2010,25/08/2011,18/11/2011,16/04/2012,1d
+483,823,A,A,Neuroscience,JB,803,661,JB803-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,13/10/2010,03/12/2010,05/09/2011,25/10/2011,29/08/2012,1d
+484,824,A,A,Virology,lo,672,992,lo672-992,Yes,,Not Applicable,Not Available,Active,Not Available,Cancelled,Phase III,16/08/2012,01/06/2014,28/11/2016,11/01/2017,17/03/2017,1d
+485,825,A,A,Cardiovascular,gt,619,90,gt619-090,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase I/II,23/05/2017,08/08/2017,28/09/2021,08/11/2021,14/03/2022,6
+486,826,A,A,Oncology,DN,53,639,DN053-639,Yes,,Not Applicable,Not Available,Active,EMBARC,Active,Phase III,23/03/2016,05/10/2016,02/06/2022,14/07/2022,01/12/2022,1c
+487,827,A,A,Neuroscience,JB,832,841,JB832-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,23/02/2009,04/05/2009,01/11/2010,20/01/2011,08/11/2011,1d
+488,828,A,A,Metabolics,Tb,397,827,Tb397-827,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,07/10/2011,20/12/2011,09/02/2012,09/03/2012,11/09/2012,2a
+489,829,A,A,Neuroscience,JB,832,953,JB832-953,Yes,,Not Applicable,Yes,Active,Not Available,Clinically Complete,Phase I,17/07/2012,06/08/2012,05/11/2012,18/01/2013,23/06/2013,2a
+490,830,A,A,Metabolics,Tb,526,841,Tb526-841,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase III,24/12/2009,18/06/2010,11/04/2018,23/05/2018,29/08/2018,1d
+491,831,A,A,Oncology,DN,296,528,DN296-528,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase II,16/08/2007,31/03/2008,16/04/2010,25/08/2011,22/02/2012,1d
+492,832,A,A,Oncology,DN,53,238,DN053-238,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase III,19/03/2013,11/06/2013,30/07/2021,13/09/2021,09/12/2021,1c
+493,833,A,A,Oncology,DN,53,876,DN053-876,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase IIIB,03/04/2018,05/08/2019,05/02/2026,20/03/2026,29/06/2026,6
+494,834,A,A,Virology,lo,672,468,lo672-468,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,15/09/2008,29/10/2008,01/12/2008,28/04/2009,30/10/2009,1d
+495,835,A,A,Immunoscience,jN,255,262,jN255-262,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,25/11/2019,30/12/2019,11/02/2020,31/03/2020,21/10/2020,7
+496,836,A,A,Oncology,DN,53,475,DN053-475,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase II,29/04/2013,23/08/2013,15/12/2020,27/01/2021,11/08/2021,1c
+497,837,A,A,Oncology,DN,53,690,DN053-690,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase III,18/01/2017,11/04/2017,30/05/2021,13/07/2021,10/06/2021,1c
+498,838,A,A,Oncology,DN,53,970,DN053-970,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase IIB,22/12/2015,15/02/2016,20/04/2022,10/06/2022,12/09/2022,1c
+499,839,A,A,Neuroscience,JB,832,950,JB832-950,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,25/10/2010,20/12/2010,05/02/2011,09/05/2011,20/10/2011,1d
+500,840,A,A,Oncology,DN,53,245,DN053-245,No,,Not Applicable,Not Available,Active,Not Available,Cancelled,Phase III,27/08/2018,28/06/2019,27/06/2024,09/08/2024,18/11/2024,7
+501,841,A,A,Oncology,DN,53,914,DN053-914,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase IIA,23/09/2016,28/03/2017,27/03/2024,08/05/2024,31/10/2024,1c
+502,842,A,A,Metabolics,Tb,397,733,Tb397-733,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase III,10/07/2007,19/09/2007,30/07/2010,27/09/2010,15/04/2011,1d
+503,843,A,A,Metabolics,Tb,803,839,Tb803-839,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,31/12/2010,02/02/2011,12/04/2011,10/05/2011,28/09/2011,1d
+504,844,A,A,Virology,lo,666,61,lo666-061,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,25/06/2008,14/07/2008,27/08/2009,30/11/2009,10/08/2010,1d
+505,845,A,A,Metabolics,Tb,397,659,Tb397-659,No,,Not Applicable,Not Available,Active,Not Available,Clinically Complete,Phase III,24/09/2012,31/03/2014,28/01/2016,28/03/2016,07/07/2016,1d
+506,846,A,A,Oncology,DN,574,950,DN574-950,No,,Not Applicable,Not Available,Active,Not Available,Cancelled,Phase II/III,05/06/2020,02/10/2020,02/10/2025,13/11/2025,27/02/2026,7
+507,847,A,A,Metabolics,Tb,397,881,Tb397-881,Yes,,Not Applicable,Not Available,Active,Not Available,Clinically Complete,Phase I,20/01/2012,27/08/2012,01/12/2012,15/02/2013,10/07/2013,1d
+508,848,A,A,Metabolics,Tb,397,979,Tb397-979,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase III,10/09/2014,11/11/2014,25/08/2017,03/11/2017,05/02/2018,1c
+509,849,A,A,Oncology,DN,753,111,DN753-111,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase II,08/04/2013,22/01/2014,10/10/2021,22/11/2021,24/01/2022,7
+510,850,A,A,Immunoscience,jN,419,61,jN419-061,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,30/12/2016,30/01/2017,10/08/2017,30/08/2017,05/07/2018,1d
+511,851,A,A,Virology,lo,208,980,lo208-980,Yes,,Not Applicable,Yes,*Closed,Not Available,Active,Phase IIB,02/05/2011,26/07/2011,23/06/2014,29/08/2014,25/06/2015,2c
+512,852,A,A,Oncology,DN,53,477,DN053-477,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase III,29/05/2015,05/08/2015,30/08/2024,14/10/2024,23/12/2024,1c
+513,853,A,A,Cardiovascular,gt,62,318,gt062-318,Yes,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase I,16/05/2011,01/07/2011,26/08/2011,09/12/2011,29/05/2012,1d
+514,854,A,A,Oncology,DN,53,266,DN053-266,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase III,14/11/2016,24/03/2017,15/07/2025,28/08/2025,15/12/2025,1c
+515,855,A,A,Immunoscience,jN,347,468,jN347-468,Yes,,Not Applicable,Yes,*Closed,Not Available,Cancelled,Phase I,15/03/2013,27/03/2013,10/05/2013,04/06/2013,11/08/2013,2a
+516,856,A,A,Immunoscience,jN,255,204,jN255-204,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,19/09/2018,14/11/2018,26/11/2018,12/04/2019,31/10/2019,7
+517,857,A,A,Oncology,DN,753,466,DN753-466,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,17/08/2006,25/01/2007,18/10/2010,09/12/2010,18/04/2011,1d
+518,858,A,A,Cardiovascular,gt,179,862,gt179-862,Yes,,Not Applicable,Yes,*Closed,Not Available,Clinically Complete,Phase I,03/03/2014,14/03/2014,06/05/2014,24/06/2014,23/02/2015,2a
+519,859,A,A,Virology,lo,666,661,lo666-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,04/03/2008,02/04/2008,16/07/2008,24/11/2008,30/07/2009,1d
+520,860,A,A,Oncology,DN,748,841,DN748-841,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase I,07/07/2015,14/10/2015,16/12/2019,26/05/2020,31/12/2020,1c
+521,861,A,A,Oncology,DN,53,840,DN053-840,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase III,06/05/2016,22/07/2016,31/03/2022,20/09/2022,20/10/2023,7
+522,862,A,A,Cardiovascular,gt,62,238,gt062-238,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIB,27/03/2008,23/06/2008,28/09/2009,14/10/2009,04/03/2010,1e
+523,863,A,A,Oncology,DN,400,661,DN400-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,27/09/2010,10/05/2011,19/11/2015,22/02/2016,13/06/2016,1d
+524,864,A,A,Virology,Tb,796,508,Tb796-508,No,,Not Applicable,Not Available,Active,Not Available,Planned,Phase I,07/04/2020,,,,11/02/2022,7
+525,865,A,A,Oncology,DN,574,132,DN574-132,No,,Not Applicable,Not Available,Active,Not Available,Cancelled,Phase III,03/01/2020,01/06/2020,02/06/2025,15/07/2025,22/10/2025,7
+526,866,A,A,Metabolics,Tb,465,179,Tb465-179,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,01/05/2008,07/07/2008,03/02/2009,14/04/2009,10/03/2010,1d
+527,867,A,A,Oncology,DN,163,496,DN163-496,No,,Not Applicable,Not Available,Active,Not Available,Clinically Complete,Phase III,24/11/2011,15/10/2014,03/05/2018,08/06/2018,24/01/2019,1d
+528,868,A,A,Oncology,DN,53,577,DN053-577,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase III,15/07/2015,23/03/2016,16/01/2025,03/03/2025,10/06/2025,1c
+529,869,A,A,Oncology,DN,98,61,DN098-061,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,03/05/2016,19/09/2016,08/01/2018,14/08/2018,24/09/2018,1d
+530,870,A,A,Oncology,DN,163,841,DN163-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,01/07/2004,14/09/2004,07/10/2009,29/10/2009,16/04/2010,1d
+531,871,A,A,Metabolics,Tb,397,238,Tb397-238,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase III,19/11/2009,16/02/2010,10/12/2012,11/01/2013,13/05/2013,1d
+532,872,A,A,Oncology,DN,753,587,DN753-587,No,,Not Applicable,Not Available,Active,eMOM,Active,Phase II/III,20/10/2014,31/07/2015,31/12/2021,03/03/2022,21/06/2022,1a
+533,873,A,A,Oncology,DN,387,661,DN387-661,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase I,15/01/2008,06/02/2008,01/03/2008,11/06/2008,25/02/2009,1d
+534,874,A,A,Immunoscience,Tb,192,475,Tb192-475,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase IIB,15/03/2018,12/06/2018,17/09/2019,29/11/2021,24/01/2022,7
+535,875,A,A,Immunoscience,jN,741,33,jN741-033,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase I,10/12/2019,16/01/2020,04/01/2021,05/03/2021,01/11/2021,7
+536,876,A,A,Immunoscience,jN,255,238,jN255-238,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,21/09/2018,10/12/2018,11/02/2019,27/03/2019,15/04/2020,7
+537,877,A,A,Oncology,DN,944,661,DN944-661,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase I/II,26/06/2018,11/09/2018,12/09/2023,24/10/2023,17/04/2024,6
+538,878,A,A,Cardiovascular,gt,967,661,gt967-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,26/05/2009,01/09/2009,02/04/2010,29/06/2010,01/03/2011,1d
+539,879,A,A,Oncology,DN,53,375,DN053-375,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase III,03/11/2017,20/02/2018,28/09/2022,16/11/2022,02/03/2023,6
+540,880,A,A,Immunoscience,jN,840,33,jN840-033,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,03/01/2008,26/03/2008,30/09/2009,09/11/2009,21/05/2010,1d
+541,881,A,A,Neuroscience,JB,526,179,JB526-179,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase I,05/07/2015,15/12/2015,04/08/2020,14/09/2020,09/03/2021,1c
+542,882,A,A,Virology,lo,672,733,lo672-733,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,17/02/2009,31/03/2009,22/09/2009,22/01/2010,13/09/2010,1d
+543,883,A,A,Virology,lo,672,572,lo672-572,Yes,,Not Applicable,Not Available,*Closed,Not Available,Planned,Phase I,14/02/2014,16/03/2014,14/07/2014,25/08/2014,02/01/2015,7
+544,884,A,A,Oncology,DN,171,237,DN171-237,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase I,03/07/2019,01/10/2019,18/08/2022,30/09/2022,06/12/2022,6
+545,885,A,A,Oncology,DN,419,839,DN419-839,Yes,,Not Applicable,Yes,Active,eDM-SDTM,Active,Phase IIA,29/08/2016,02/02/2017,18/01/2023,15/03/2023,07/07/2023,1b
+546,886,A,A,Virology,lo,666,841,lo666-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,03/03/2008,15/05/2008,29/06/2009,30/11/2009,13/07/2010,1d
+547,887,A,A,Immunoscience,jN,533,138,jN533-138,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase IIA,05/05/2016,25/10/2016,24/07/2017,26/09/2017,13/03/2018,1c
+548,888,A,A,Virology,lo,846,656,lo846-656,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,22/01/2009,22/09/2009,08/02/2011,16/02/2012,13/06/2012,1d
+549,889,A,A,Virology,lo,672,950,lo672-950,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,20/03/2008,19/05/2008,25/06/2009,18/09/2009,13/05/2010,1d
+550,890,A,A,Oncology,DN,53,428,DN053-428,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase I,09/09/2011,09/02/2012,18/05/2021,30/06/2021,08/09/2021,1c
+551,891,A,A,Cardiovascular,gt,62,204,gt062-204,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,22/12/2008,17/03/2009,04/03/2011,23/03/2011,06/07/2011,1d
+552,892,A,A,Neuroscience,JB,800,389,JB800-389,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,18/02/2011,07/04/2011,19/06/2011,23/09/2011,18/06/2012,1d
+553,893,A,A,Virology,lo,45,508,lo045-508,Yes,,Not Applicable,Yes,*Closed,Not Available,Clinically Complete,Phase I,24/01/2012,18/06/2012,20/12/2012,07/03/2013,28/07/2013,2a
+554,894,A,A,Oncology,DN,926,661,DN926-661,No,,Not Applicable,Not Available,Active,Not Available,Planned,Phase IIB,24/04/2020,17/05/2020,04/02/2021,18/03/2021,18/06/2021,7
+555,895,A,A,Oncology,DN,623,661,DN623-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,18/07/2005,09/12/2005,17/09/2009,23/11/2009,17/09/2010,1d
+556,896,A,A,Metabolics,Tb,397,479,Tb397-479,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,17/01/2011,28/02/2011,12/03/2012,25/04/2012,12/09/2012,1d
+557,897,A,A,Metabolics,Tb,397,695,Tb397-695,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase III,03/06/2009,10/10/2009,26/09/2011,24/11/2011,13/04/2012,1d
+558,898,A,A,Oncology,DN,53,186,DN053-186,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase II,03/10/2014,19/02/2015,01/11/2021,09/01/2023,20/04/2023,7
+559,899,A,A,Oncology,DN,53,216,DN053-216,Yes,,Not Applicable,Not Available,Active,Not Available,Planned,Phase IV,06/02/2020,30/10/2020,31/10/2023,01/02/2024,30/05/2024,6
+560,900,A,A,Oncology,DN,53,265,DN053-265,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase III,18/10/2016,04/03/2017,30/06/2024,13/08/2024,20/11/2024,1c
+561,901,A,A,Cardiovascular,gt,62,306,gt062-306,Yes,,Not Applicable,Not Available,Active,Not Available,Clinically Complete,Phase I/II,27/04/2010,28/02/2011,10/05/2013,14/02/2014,02/10/2014,1d
+562,902,A,A,Oncology,DN,53,380,DN053-380,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase III,31/07/2015,07/12/2015,30/12/2021,14/02/2022,24/05/2022,1c
+563,903,A,A,Virology,lo,45,950,lo045-950,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase I,23/07/2009,01/01/2010,03/12/2012,16/01/2013,01/05/2013,1d
+564,904,A,A,Oncology,DN,53,149,DN053-149,No,,Not Applicable,Not Available,Active,Not Available,Cancelled,Phase III,26/12/2017,30/11/2018,30/11/2022,13/01/2023,25/04/2023,7
+565,905,A,A,Metabolics,gt,470,910,gt470-910,No,,Not Applicable,Not Available,Active,Not Available,Operationally Closed,Phase III,23/03/2006,19/06/2006,03/11/2008,18/12/2008,27/10/2009,1d
+566,906,A,A,Virology,lo,166,980,lo166-980,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase IIA,16/10/2009,07/12/2009,19/02/2014,07/04/2014,12/11/2014,1d
+567,907,A,A,Immunoscience,jN,342,247,jN342-247,Yes,,Not Applicable,Not Available,Active,eMOM,Active,Phase IIA,05/10/2015,09/03/2016,28/01/2020,15/05/2020,15/07/2020,1a
+568,908,A,A,Immunoscience,jN,342,557,jN342-557,Yes,,Not Applicable,Yes,*Closed,Not Available,Operationally Closed,Phase I,31/08/2011,10/10/2011,11/02/2012,13/03/2012,19/09/2012,2a
+569,909,A,A,Oncology,DN,123,61,DN123-061,Yes,,Not Applicable,Not Available,Active,eDM-SDTM,Active,Phase I/II,02/12/2015,22/02/2016,01/04/2022,01/04/2022,31/10/2023,1b
+570,910,A,A,Oncology,DN,739,661,DN739-661,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase I/II,09/04/2019,06/09/2019,13/04/2024,28/05/2024,14/11/2024,6
+571,911,A,A,Neuroscience,JB,800,33,JB800-033,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,12/03/2010,24/05/2010,15/07/2010,19/08/2010,15/07/2011,1d
+572,912,A,A,Oncology,DN,53,386,DN053-386,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase II/III,26/07/2019,18/10/2019,28/04/2022,09/06/2022,26/09/2022,6
+573,913,A,A,Oncology,DN,638,950,DN638-950,Yes,,Not Applicable,Not Available,*Closed,eDM-SDTM,Active,Phase I/II,29/04/2016,17/06/2016,14/10/2024,12/12/2024,03/03/2025,1b
+574,914,A,A,Neuroscience,JB,800,908,JB800-908,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,16/03/2011,11/04/2011,14/06/2011,27/07/2011,11/06/2012,1d
+575,915,A,A,Immunoscience,jN,982,841,jN982-841,Yes,,Not Applicable,Yes,*Closed,Not Available,Clinically Complete,Phase I,25/04/2012,09/07/2012,28/04/2015,07/08/2015,14/01/2016,2c
+576,916,A,A,Oncology,DN,171,695,DN171-695,No,,Not Applicable,Not Available,Active,Not Available,Cancelled,Phase II,19/07/2018,31/10/2019,30/09/2024,11/11/2024,25/02/2025,7
+577,917,A,A,Oncology,DN,53,138,DN053-138,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase III,09/04/2019,05/11/2019,30/09/2024,11/11/2024,27/01/2025,6
+578,918,A,A,Oncology,DN,123,951,DN123-951,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase III,25/06/2018,06/11/2018,15/01/2025,28/02/2025,02/06/2025,6
+579,919,A,A,Virology,lo,672,373,lo672-373,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,26/08/2009,19/10/2009,08/02/2010,06/04/2010,15/09/2010,1d
+580,920,A,A,Cardiovascular,gt,62,557,gt062-557,Yes,,Not Applicable,Yes,*Closed,Not Available,Clinically Complete,Phase I,06/03/2014,25/03/2014,08/05/2014,04/09/2014,28/01/2015,2a
+581,921,A,A,Oncology,DN,617,428,DN617-428,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I/II,18/09/2014,10/04/2015,04/06/2019,10/09/2019,31/03/2020,1c
+582,922,A,A,Oncology,DN,53,7,DN053-007,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase II,21/05/2019,15/09/2020,16/07/2026,27/10/2026,12/01/2027,6
+583,923,A,A,Metabolics,Tb,803,61,Tb803-061,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,31/03/2010,29/06/2010,22/12/2010,14/03/2011,23/12/2011,1d
+584,924,A,A,Oncology,DN,649,61,DN649-061,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,25/06/2012,16/10/2012,03/03/2018,26/06/2018,30/10/2018,1c
+585,925,A,A,Oncology,DN,53,687,DN053-687,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase III,14/02/2014,29/05/2014,18/05/2021,29/06/2021,18/04/2022,1c
+586,926,A,A,Oncology,DN,53,986,DN053-986,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase II,20/12/2017,02/08/2018,15/09/2024,25/10/2024,30/01/2026,6
+587,927,A,A,Immunoscience,jN,741,953,jN741-953,No,,Not Applicable,Not Available,Active,Not Available,Planned,Phase IIB,06/12/2019,16/02/2021,21/12/2023,05/02/2024,14/05/2024,7
+588,928,A,A,Oncology,DN,123,411,DN123-411,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase III,30/08/2017,30/11/2017,02/07/2020,14/09/2020,01/02/2021,6
+589,929,A,A,Oncology,DN,53,324,DN053-324,Yes,,Not Applicable,Not Available,Active,EMBARC,Active,Phase II,10/07/2013,24/10/2013,24/10/2022,08/12/2022,14/03/2023,1c
+590,930,A,A,Oncology,DN,53,307,DN053-307,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase IIB,21/10/2016,31/10/2018,31/10/2023,14/12/2023,27/03/2024,6
+591,931,A,A,Oncology,DN,255,661,DN255-661,Yes,,Not Applicable,Not Available,Active,EMBARC,Active,Phase I/II,13/03/2015,19/06/2015,18/12/2023,15/12/2025,11/12/2023,1c
+592,932,A,A,Oncology,DN,53,344,DN053-344,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase IIIB,28/07/2016,17/11/2016,25/10/2019,23/12/2019,24/07/2020,1c
+593,933,A,A,Immunoscience,jN,629,916,jN629-916,Yes,,Not Applicable,Not Available,Active,Not Available,Clinically Complete,Phase I,10/06/2019,16/07/2019,16/10/2019,26/11/2019,20/08/2020,7
+594,934,A,A,Oncology,DN,53,306,DN053-306,Yes,,Not Applicable,Not Available,Active,EMBARC,Active,Phase I,25/03/2013,07/01/2016,03/09/2021,15/10/2021,09/02/2022,1c
+595,935,A,A,Oncology,DN,587,841,DN587-841,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase I/II,06/12/2017,08/03/2018,14/03/2025,25/04/2025,03/09/2025,6
+596,936,A,A,Oncology,DN,53,325,DN053-325,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase III,16/05/2019,28/10/2019,04/04/2025,16/05/2025,23/04/2025,6
+597,937,A,A,Immunoscience,jN,629,373,jN629-373,Yes,,Not Applicable,Not Available,Active,Not Available,Clinically Complete,Phase I,05/04/2019,20/05/2019,07/08/2019,23/09/2019,04/08/2020,7
+598,938,A,A,Immunoscience,jN,629,801,jN629-801,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase I,23/04/2020,26/08/2020,10/02/2022,23/03/2022,01/07/2022,6
+599,939,A,A,Oncology,DN,163,350,DN163-350,No,,Not Applicable,Not Available,Active,Not Available,Clinically Complete,Phase IIA,16/04/2012,16/11/2012,03/07/2019,21/08/2019,03/03/2020,1c
+600,940,A,A,Oncology,DN,774,661,DN774-661,Yes,,Not Applicable,Not Available,Active,Not Available,Active,Phase I/II,23/01/2018,05/04/2018,07/10/2023,13/11/2023,12/11/2025,6
+601,941,A,A,Virology,lo,166,373,lo166-373,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,22/07/2010,08/09/2010,17/12/2010,09/03/2011,16/11/2011,1d
+602,942,A,A,Cardiovascular,gt,90,841,gt090-841,No,,Not Applicable,Not Available,Active,Not Available,Cancelled,Phase I,27/11/2013,31/03/2014,09/02/2015,23/03/2015,23/02/2016,7
+603,943,A,A,Immunoscience,jN,342,720,jN342-720,Yes,,Not Applicable,Not Available,Active,eMOM,Active,Phase III,05/02/2013,30/08/2013,31/03/2023,05/07/2023,30/11/2023,"1a,1c"
+604,944,A,A,Immunoscience,jN,255,980,jN255-980,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase II,01/09/2016,16/11/2016,16/11/2017,01/02/2018,06/11/2018,1d
+605,945,A,A,Immunoscience,jN,867,61,jN867-061,Yes,,Not Applicable,Yes,*Closed,Not Available,Clinically Complete,Phase I,15/04/2015,20/05/2015,14/07/2015,01/09/2015,09/03/2016,2a
+606,946,A,A,Immunoscience,jN,867,292,jN867-292,Yes,,Not Applicable,Yes,*Closed,Not Available,Clinically Complete,Phase I,01/04/2016,02/05/2016,16/08/2016,14/10/2016,10/02/2017,2a
+607,947,A,A,Immunoscience,jN,299,428,jN299-428,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,17/07/2017,16/08/2017,05/10/2017,02/11/2017,11/04/2018,7
+608,948,A,A,Immunoscience,jN,867,916,jN867-916,Yes,,Not Applicable,Yes,*Closed,Not Available,Clinically Complete,Phase I,20/06/2016,17/08/2016,14/09/2016,15/12/2016,30/05/2017,2a
+609,949,A,A,Cardiovascular,gt,619,839,gt619-839,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,02/05/2011,31/05/2011,06/07/2011,03/08/2011,29/03/2012,1d
+610,950,A,A,Metabolics,Tb,397,595,Tb397-595,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase III,22/12/2009,15/03/2010,19/12/2012,24/01/2012,16/05/2013,1d
+611,951,A,A,Immunoscience,jN,299,661,jN299-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,09/02/2016,24/08/2016,16/08/2017,26/09/2017,27/07/2018,1c
+612,952,A,A,Oncology,DN,53,744,DN053-744,Yes,,Not Applicable,Yes,Active,EMBARC,Active,Phase III,14/03/2016,10/08/2016,18/10/2021,01/12/2021,27/04/2022,1c
+613,953,A,A,Immunoscience,jN,867,661,jN867-661,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,02/07/2014,15/09/2014,18/08/2015,20/10/2015,14/04/2016,1d
+614,954,A,A,Oncology,DN,123,767,DN123-767,No,,Not Applicable,Not Available,Active,Not Available,Cancelled,Phase III,30/05/2018,30/08/2018,31/08/2023,13/10/2023,26/01/2024,7
+615,955,A,A,Metabolics,Tb,192,854,Tb192-854,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,07/06/2018,19/10/2018,24/06/2019,31/07/2019,28/05/2020,7
+616,956,A,A,Oncology,DN,53,927,DN053-927,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase III,15/03/2017,22/08/2017,16/07/2024,17/09/2024,19/03/2025,6
+617,957,A,A,Virology,lo,208,450,lo208-450,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,31/05/2011,08/07/2011,05/10/2011,19/10/2011,16/07/2012,1d
+618,958,A,A,Metabolics,Tb,995,841,Tb995-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,23/04/2009,10/08/2009,23/06/2011,21/07/2011,21/06/2012,1d
+619,959,A,A,Immunoscience,jN,255,841,jN255-841,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,27/07/2015,14/10/2015,22/11/2016,26/01/2017,17/07/2017,1c
+620,960,A,A,Oncology,DN,53,984,DN053-984,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase IIIB,12/12/2018,21/06/2019,19/04/2025,03/06/2025,11/09/2025,6
+621,961,A,A,Virology,lo,166,839,lo166-839,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,23/09/2008,05/12/2008,12/08/2009,14/09/2009,17/05/2011,1d
+622,962,A,A,Virology,lo,666,165,lo666-165,Yes,,Not Applicable,Not Available,*Closed,Not Available,Clinically Complete,Phase I,14/11/2013,09/04/2014,09/05/2014,20/06/2014,17/10/2014,1d
+623,963,A,A,Immunoscience,jN,342,538,jN342-538,Yes,,Not Applicable,Not Available,Active,eMOM,Active,Phase III,12/05/2015,03/09/2015,21/03/2020,21/08/2020,29/01/2021,1a
+624,964,A,A,Oncology,DN,53,226,DN053-226,Yes,,Not Applicable,Not Available,*Closed,EMBARC,Active,Phase II,11/05/2016,20/10/2016,15/06/2021,27/07/2021,03/05/2022,1c
+625,965,A,A,Oncology,DN,741,179,DN741-179,Yes,,Not Applicable,Not Available,*Closed,Not Available,Active,Phase IIA,18/10/2017,19/12/2017,15/12/2020,09/02/2021,01/11/2022,6
+626,966,A,A,Immunoscience,jN,840,428,jN840-428,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase I,20/09/2010,15/10/2010,30/11/2010,23/12/2010,16/08/2011,1d
+627,967,A,A,Metabolics,Tb,323,61,Tb323-061,Yes,,Not Applicable,Not Available,*Closed,Not Available,Operationally Closed,Phase IIA,16/10/2009,12/05/2010,24/01/2011,28/03/2011,21/12/2011,1d
+628,968,A,A,Immunoscience,jN,867,324,jN867-324,Yes,,Not Applicable,Yes,Active,Not Available,Clinically Complete,Phase I,19/04/2016,17/05/2016,25/10/2016,09/05/2017,10/09/2018,1d
