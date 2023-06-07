@@ -18,7 +18,7 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SANDSTONE, dbc.icons.
 server = app.server
 
 app.title = "Study Migration Tool"
-version = "1.0.0"  # Release . Feature . Bugfix
+version = "1.1.0"  # Release . Feature . Bugfix
 
 app_config = AppConfiguration()
 app_data = data_processing.Data(app_config)
@@ -236,7 +236,6 @@ app.layout = html.Div([
                 dbc.Button(id="open-sidebar", children=[html.I(className="bi bi-arrow-bar-right")])
             ], style={"display": "none"})
         ]),
-        html.Div(id="dummy-div"),
         html.Div(className="content-right", id="content-right", children=[
             html.Section([
                 html.A(id="general-overview-section"),
