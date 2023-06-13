@@ -1,0 +1,122 @@
+body {
+    font-family: Verdana, Helvetica, sans-serif;
+    color: #3e3f3a;
+}
+
+.form-group {
+    margin-bottom: 1.5rem !important;
+}
+
+h2 {
+    padding-top: 55px;
+}
+
+.title-label {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+}
+
+.content-left {
+    flex-grow: 0;
+}
+
+.content-right {
+    flex-grow: 1;
+    margin-left: 1.5rem;
+    min-width: 0px; /* This means that a flex item can be smaller than its content */
+    padding-bottom: 1rem;
+}
+
+/* Sidebar */
+
+#sidebar {
+    height: calc(100vh - 6rem);
+    position: sticky;
+    top: 5rem;
+    min-width: 432px;
+    max-width: 30vw;
+}
+
+.sidebar-contents {
+    overflow-y: scroll;
+}
+
+.milestone-container .row {
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+#sidebar .dash-bootstrap, #sidebar .dash-bootstrap .card {
+    height: 100%
+}
+
+#collapsed-sidebar {
+    width: 55px;
+    position: sticky;
+    top: 5rem;
+    height: calc(100vh - 6rem);
+    border: 1px solid rgba(223,215,202,0.75);
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+}
+
+.sidebar-offset-header {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Graph Filters */
+
+.loading-wrapper {
+    min-height: 100px;
+}
+
+.filter-box {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.search-input{
+    width: 25%;
+}
+
+.search-selected{
+    margin-top: 5px;
+    overflow-y: auto;
+    max-height: 110px;
+}
+
+.search-output {
+    width: 75%;
+    overflow-y: auto;
+    max-height: 220px;
+}
+
+.checklist-found {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.checklist-found-label:hover{
+    background-color: #17a2b8;
+    transition-timing-function: ease;
+    transition: 2s;
+}
+
+.checklist-found-label{
+    border-radius: 5px;
+    padding: 2px;
+}
+
+#study-graph, #filter-study-graph, #filter-compound-graph {
+  height: calc(100vh - 6rem);
+}
