@@ -72,4 +72,4 @@ For support please contact the OpenSCE community.
 
 ## Lisense
 
-The Study Migration Tool is released under the Apache 2.0 License.
+The Study Migration Tool is released under the GNU General Public License.
