@@ -1,6 +1,11 @@
 # Study Migration Tool
 
-A Python application to assist in study migration analysis.
+A Plotly-Dash Python application developed by [Achieve Intelligence](https://www.achieveintelligence.com/) that 
+generates visualisations of study milestone activity for analysis and migration scheduling.
+
+We offer a fully validated version of this tool with additional features including automated milestone analysis and
+scheduling recommendations. For enquires regarding this version please contact us via email at: 
+[info@achieveintelligence.com](info@achieveintelligence.com) 
 
 ## Setup & Installation
 
