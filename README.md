@@ -60,7 +60,7 @@ specific utility [here](https://github.com/Achieveintelligence/)**
 This application is built using Dash which is a Python framework created by Plotly that uses Flask, Plotly.js and React 
 under the hood. If you are unfamiliar with this framework, please see the [Dash documentation.](https://dash.plotly.com/)
 
-To started contributing or report an issue, see our[Contribution Guidelines](/CONTRIBUTIONS.md).
+To start contributing or report an issue, see our [Contribution Guidelines](/CONTRIBUTIONS.md).
 
 ## Upcoming Features
 
