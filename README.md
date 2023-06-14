@@ -1,6 +1,11 @@
 # Study Migration Tool
 
-A Python application to assist in study migration analysis.
+A Plotly-Dash Python application developed by [Achieve Intelligence](https://www.achieveintelligence.com/) that 
+generates visualisations of study milestone activity for analysis and migration scheduling.
+
+We offer a fully validated version of this tool with additional features including automated milestone analysis and
+scheduling recommendations. For enquires regarding this version please contact us via email at: 
+[info@achieveintelligence.com](info@achieveintelligence.com) 
 
 ## Setup & Installation
 
@@ -54,13 +59,10 @@ you to quickly toggle the visibility of specific milestones on click.
 
 We encourage you to contribute to the Study Migration Tool!
 
-**Please do not make direct contributions to the OpenSCE repository! Instead, please visit the repository for this 
-specific utility [here](https://github.com/Achieveintelligence/)**
-
 This application is built using Dash which is a Python framework created by Plotly that uses Flask, Plotly.js and React 
 under the hood. If you are unfamiliar with this framework, please see the [Dash documentation.](https://dash.plotly.com/)
 
-To started contributing or report an issue, see our[Contribution Guidelines](/CONTRIBUTIONS.md).
+To start contributing or report an issue, see our [Contribution Guidelines](/CONTRIBUTIONS.md).
 
 ## Upcoming Features
 
@@ -72,4 +74,4 @@ For support please contact the OpenSCE community.
 
 ## Lisense
 
-The Study Migration Tool is released under the Apache 2.0 License.
+The Study Migration Tool is released under the GNU General Public License.
