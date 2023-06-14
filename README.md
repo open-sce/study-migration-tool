@@ -54,9 +54,6 @@ you to quickly toggle the visibility of specific milestones on click.
 
 We encourage you to contribute to the Study Migration Tool!
 
-**Please do not make direct contributions to the OpenSCE repository! Instead, please visit the repository for this 
-specific utility [here](https://github.com/Achieveintelligence/)**
-
 This application is built using Dash which is a Python framework created by Plotly that uses Flask, Plotly.js and React 
 under the hood. If you are unfamiliar with this framework, please see the [Dash documentation.](https://dash.plotly.com/)
 
