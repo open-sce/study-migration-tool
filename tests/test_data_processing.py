@@ -3,9 +3,11 @@ import os
 import pandas as pd
 import pytest
 
-from utils import Milestone
 from config import AppConfiguration
-from src.data_processing import Timeblock, Data
+from src.data_processing import Timeblock, MergedTimeblock, Data, ItemInformation, ItemStatus, Gap
+from test_app import load_json_test_dataframe
+from utils import Milestone
+from datetime import date
 
 
 @pytest.fixture
@@ -27,6 +29,8 @@ def app_test_configuration():
         "Milestone 4": Milestone("Milestone 4", offset_before=14, offset_after=14, active=True),
         "Milestone 5": Milestone("Milestone 5", offset_before=7, offset_after=7, active=True),
     }
+    app_config.day_weight_coefficient = 5
+    app_config.gap_weight_coefficient = 0.1
     return app_config
 
 
@@ -51,22 +55,83 @@ def app_test_dataclass(app_test_configuration):
     return Data(app_test_configuration)
 
 
-def test_date_parsing(app_test_configuration):
+@pytest.mark.parametrize(
+    "file_path, day_first_dates, test_id",
+    [
+        (
+            "data/test-data-1-eu.csv",
+            True,
+            "PYT21[Day First CSV]"
+        ),
+        (
+            "data/test-data-2-us.csv",
+            False,
+            "PYT21[Month First CSV]"
+        ),
+        (
+            "data/test-data-3-iso.csv",
+            True,
+            "PYT21[ISO 8601 CSV]"
+        ),
+        (
+            "data/test-data-1-eu.xlsx",
+            True,
+            "PYT21[Day First XLSX]"
+        ),
+        (
+            "data/test-data-2-us.xlsx",
+            False,
+            "PYT21[Month First XLSX]"
+        ),
+        (
+            "data/test-data-3-iso.xlsx",
+            True,
+            "PYT21[ISO 8601 XLSX]"
+        )
+    ],
+    ids=["PYT21[Day First CSV]", "PYT21[Month First CSV]", "PYT21[ISO 8601 CSV]", "PYT21[Day First XLSX]",
+         "PYT21[Month First XLSX]", "PYT21[ISO 8601 XLSX]"]
+)
+def test_date_parsing(file_path, day_first_dates, test_id, app_test_configuration, record_xml_attribute):
+    record_xml_attribute("qualification", "oq")
+    record_xml_attribute("test_id", test_id)
+    record_xml_attribute("srs_requirement", "SRSREQ2")
+    record_xml_attribute("frs_requirement", "FRSREQ7")
+    record_xml_attribute("scenario", "OQSCE2")
+
+    record_xml_attribute("purpose", "Test source data date parsing on import.")
+    record_xml_attribute("description",
+                         "Load a single study from csv file to df containing various date formats and compare "
+                         "milestones against expected date values.")
+    record_xml_attribute("acceptance_criteria", "Assert milestones are equal to expected Pandas Timestamp dates.")
+
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    app_test_configuration.data_path = os.path.join(dir_path, "data/test-data-2-us.csv")
-    app_test_configuration.day_first_dates = False
+    app_test_configuration.data_path = os.path.join(dir_path, file_path)
+    app_test_configuration.day_first_dates = day_first_dates
 
-    us_data = Data(app_test_configuration)
-    ambiguous_study = us_data.df.loc[us_data.df[app_test_configuration.unique_identity_label] == "gt396-204"]
+    data_ = Data(app_test_configuration)
+    ambiguous_study = data_.df.loc[data_.df[app_test_configuration.unique_identity_label] == "gt396-204"]
 
-    assert all(ambiguous_study['Milestone 1'] == [pd.Timestamp(year=1999, month=7, day=8)])
-    assert all(ambiguous_study['Milestone 2'] == [pd.Timestamp(year=1999, month=2, day=3)])
-    assert all(ambiguous_study['Milestone 3'] == [pd.Timestamp(year=2002, month=2, day=11)])
-    assert all(ambiguous_study['Milestone 4'] == [pd.Timestamp(year=2002, month=3, day=11)])
-    assert all(ambiguous_study['Milestone 5'] == [pd.Timestamp(year=2003, month=4, day=12)])
+    assert ambiguous_study.iloc[0]['Milestone 1'] == pd.Timestamp(year=1999, month=8, day=17)
+    assert ambiguous_study.iloc[0]['Milestone 2'] == pd.Timestamp(year=1999, month=3, day=7)
+    assert ambiguous_study.iloc[0]['Milestone 3'] == pd.Timestamp(year=2002, month=3, day=13)
+    assert ambiguous_study.iloc[0]['Milestone 4'] == pd.Timestamp(year=2002, month=12, day=13)
+    assert ambiguous_study.iloc[0]['Milestone 5'] == pd.Timestamp(year=2003, month=6, day=10)
 
 
-def test_create_timeblock_apply(app_test_dataclass, app_test_session_store):
+def test_create_timeblock_apply(app_test_dataclass, app_test_session_store, record_xml_attribute):
+    record_xml_attribute("qualification", "oq")
+    record_xml_attribute("test_id", "PYT22")
+    record_xml_attribute("srs_requirement", "SRSREQ4")
+    record_xml_attribute("frs_requirement", "FRSREQ6")
+    record_xml_attribute("scenario", "OQSCE3")
+
+    record_xml_attribute("purpose", "Test milestone offset creation from user configuration.")
+    record_xml_attribute("description",
+                         "Create test milestones and run create_timeblock_apply. Then test against expected "
+                         "Timeblock objects.")
+    record_xml_attribute("acceptance_criteria", "Assert created Timeblock objects are equal to expected Timeblocks.")
+
     test_milestone_1 = Milestone('Milestone 1', offset_before=14, offset_after=14, active=True)
     test_milestone_2 = Milestone('Milestone 2', offset_before=14, offset_after=14, active=True)
     test_milestone_1_date = pd.Timestamp(year=2020, month=3, day=20)
@@ -81,29 +146,61 @@ def test_create_timeblock_apply(app_test_dataclass, app_test_session_store):
         label: Milestone(**milestone_dict) for label, milestone_dict in app_test_session_store['milestones'].items()
     }
 
-    res = app_test_dataclass.create_timeblock_apply(test_series, milestones)
+    res = app_test_dataclass._create_timeblock_apply(test_series, milestones)
     assert res, "create_timeblock_apply expected to return data!"
     assert len(res) == 2, "Exactly 2 timeblocks expected in res!"
 
     expected_start_1, expected_end_1 = test_milestone_1.apply_offsets(test_milestone_1_date)
-    assert res[0] == Timeblock(start=expected_start_1, end=expected_end_1, milestone=test_milestone_1)
+    assert res[0] == Timeblock(start=expected_start_1, end=expected_end_1, milestone=test_milestone_1,
+                               timestamp=test_milestone_1_date)
 
     expected_start_2, expected_end_2 = test_milestone_2.apply_offsets(test_milestone_2_date)
-    assert res[1] == Timeblock(start=expected_start_2, end=expected_end_2, milestone=test_milestone_2)
+    assert res[1] == Timeblock(start=expected_start_2, end=expected_end_2, milestone=test_milestone_2,
+                               timestamp=test_milestone_2_date)
 
 
-def test_create_timeblock_with_active_milestones(app_test_dataclass, app_test_session_store):
-    app_test_dataclass.create_timeblock(app_test_session_store)
+def test_create_timeblock_with_active_milestones(app_test_dataclass, app_test_session_store, record_xml_attribute):
+    record_xml_attribute("qualification", "oq")
+    record_xml_attribute("test_id", "PYT23")
+    record_xml_attribute("srs_requirement", "SRSREQ4")
+    record_xml_attribute("frs_requirement", "FRSREQ6")
+    record_xml_attribute("scenario", "OQSCE3")
 
-    assert "Time Block" in app_test_dataclass.df.columns
-    assert app_test_dataclass.df["Time Block"][0] == []
+    record_xml_attribute("purpose", "Ensure timeblock classes are correctly generated and appended to the Data class "
+                                    "df during processing.")
+    record_xml_attribute("description",
+                         "Invokes create_timeblock on the app_test_session_store Data class instance and compares "
+                         "the state of its dataframe against expected values.")
+    record_xml_attribute("acceptance_criteria",
+                         "Assert that the first item in the Time Block column is an empty list corresponding to the "
+                         "first study in the test data with no milestones. Then assert other entries in the timeblock "
+                         "column from index 1 onwards are instances of the Timeblock class as expected.")
 
-    for timeblock_list in app_test_dataclass.df["Time Block"][1:]:
+    timeblock_df = app_test_dataclass.create_timeblock(app_test_session_store)
+
+    assert "Time Block" in timeblock_df.columns
+
+    # Ensure study with no milestones is represented as an empty list
+    assert timeblock_df["Time Block"][0] == []
+
+    for timeblock_list in timeblock_df["Time Block"][1:]:
         for timeblock in timeblock_list:
             assert isinstance(timeblock, Timeblock)
 
 
-def test_create_timeblock_without_active_milestones(app_test_dataclass, app_test_session_store):
+def test_create_timeblock_without_active_milestones(app_test_dataclass, app_test_session_store, record_xml_attribute):
+    record_xml_attribute("qualification", "oq")
+    record_xml_attribute("test_id", "PYT24")
+    record_xml_attribute("srs_requirement", "SRSREQ4")
+    record_xml_attribute("frs_requirement", "FRSREQ6")
+    record_xml_attribute("scenario", "OQSCE3")
+
+    record_xml_attribute("purpose", "Test milestone offset creation from user configuration with no active milestones.")
+    record_xml_attribute("description",
+                         "Create test session store with all inactive milestones then run method create_timeblock.")
+    record_xml_attribute("acceptance_criteria",
+                         "Assert no Timeblock present in app_test_dataclass df's attribute columns.")
+
     app_test_session_store['milestones'] = {
         "Milestone 1": {"label": "Milestone 1", "offset_before": 14, "offset_after": 14, "active": False},
         "Milestone 2": {"label": "Milestone 2", "offset_before": 14, "offset_after": 14, "active": False},
@@ -115,24 +212,42 @@ def test_create_timeblock_without_active_milestones(app_test_dataclass, app_test
     assert "Time Block" not in app_test_dataclass.df.columns
 
 
-def test_create_plotting_df_apply(app_test_dataclass, app_test_session_store):
+def test_create_plotting_df_apply(app_test_dataclass, app_test_session_store, record_xml_attribute):
+    record_xml_attribute("qualification", "oq")
+    record_xml_attribute("test_id", "PYT25")
+    record_xml_attribute("srs_requirement", "SRSREQ4")
+    record_xml_attribute("frs_requirement", "FRSREQ1")
+    record_xml_attribute("scenario", "OQSCE4")
+
+    record_xml_attribute("purpose", "Test plot dataframe data generation for visualisation.")
+    record_xml_attribute("description",
+                         "Create test df with three timeblocks and a timeframe start/end. Then run "
+                         "create_plotting_df_apply and test the output df against an expected df.")
+    record_xml_attribute("acceptance_criteria",
+                         "Assert test df is equal to an expected df.")
+
     test_df = pd.DataFrame(data={
         app_test_dataclass.study_label: "study",
         app_test_dataclass.compound_label: "compound",
         app_test_dataclass.unique_identity_label: "unique id",
         "Time Block": [
-            [Timeblock(start=pd.Timestamp(year=2015, month=1, day=1), end=pd.Timestamp(year=2017, month=1, day=1),
-                       milestone=Milestone("Milestone 1", offset_before=14, offset_after=14, active=True)),
-             Timeblock(start=pd.Timestamp(year=2018, month=1, day=1), end=pd.Timestamp(year=2019, month=1, day=1),
-                       milestone=Milestone("Milestone 2", offset_before=14, offset_after=14, active=True)),
-             Timeblock(start=pd.Timestamp(year=2025, month=1, day=1), end=pd.Timestamp(year=2027, month=1, day=1),
-                       milestone=Milestone("Milestone 3", offset_before=14, offset_after=14, active=True))]
+            [
+                Timeblock(start=pd.Timestamp(year=2015, month=1, day=1), end=pd.Timestamp(year=2017, month=1, day=1),
+                          milestone=Milestone("Milestone 1", offset_before=366, offset_after=366, active=True),
+                          timestamp=pd.Timestamp(2016, month=1, day=1)),
+                Timeblock(start=pd.Timestamp(year=2018, month=1, day=1), end=pd.Timestamp(year=2019, month=1, day=1),
+                          milestone=Milestone("Milestone 2", offset_before=183, offset_after=183, active=True),
+                          timestamp=pd.Timestamp(2018, month=7, day=3)),
+                Timeblock(start=pd.Timestamp(year=2025, month=1, day=1), end=pd.Timestamp(year=2027, month=1, day=1),
+                          milestone=Milestone("Milestone 3", offset_before=366, offset_after=366, active=True),
+                          timestamp=pd.Timestamp(2026, month=1, day=1))
+            ]
         ]
     })
 
     timeframe_start = pd.Timestamp(app_test_session_store['timeframe_start'])
     timeframe_end = pd.Timestamp(app_test_session_store['timeframe_end'])
-    plot_df = app_test_dataclass.create_plotting_df_apply(test_df, timeframe_start, timeframe_end)
+    plot_df = app_test_dataclass._create_plotting_df_apply(test_df, timeframe_start, timeframe_end)
 
     expected_df = pd.DataFrame(data={
         app_test_dataclass.unique_identity_label: ["unique id"] * 3,
@@ -155,41 +270,2033 @@ def test_create_plotting_df_apply(app_test_dataclass, app_test_session_store):
     assert plot_df.equals(expected_df)
 
 
-def test_create_plotting_df(app_test_dataclass, app_test_session_store):
+def test_create_plotting_df(app_test_dataclass, app_test_session_store, record_xml_attribute):
+    record_xml_attribute("qualification", "oq")
+    record_xml_attribute("test_id", "PYT26")
+    record_xml_attribute("srs_requirement", "SRSREQ4")
+    record_xml_attribute("frs_requirement", "FRSREQ1")
+    record_xml_attribute("scenario", "OQSCE4")
 
-    # Ensure plot df has been initialised as expected
-    assert len(app_test_dataclass.plot_df.columns) == 7
-    assert app_test_dataclass.plot_df.empty
+    record_xml_attribute("purpose", "Ensure plotting dataframe is created with the correct content as expected")
+    record_xml_attribute("description",
+                         "Invokes create_plotting_df under a variety of operating conditions and validates the "
+                         "contents, shape and columns of resulting dataframe.")
+    record_xml_attribute("acceptance_criteria",
+                         "Assert that the plot_df columns, contents and shape match the expected values after")
 
     # No timeblocks created
-    app_test_dataclass.create_plotting_df(app_test_session_store)
-    assert all(app_test_dataclass.plot_df.columns == [
-        app_test_dataclass.unique_identity_label, app_test_dataclass.study_label, app_test_dataclass.compound_label,
-        "start", "end", "type", "inside timeframe"
-    ])
-    assert app_test_dataclass.plot_df.empty
+    plot_df_1 = app_test_dataclass.create_plotting_df(app_test_dataclass.df, app_test_session_store)
+    assert not list(plot_df_1.columns)
+    assert plot_df_1.empty
 
     # With timeblocks created
-    app_test_dataclass.create_timeblock(app_test_session_store)
-    app_test_dataclass.create_plotting_df(app_test_session_store)
-    assert all(app_test_dataclass.plot_df.columns == [
+    tb_df = app_test_dataclass.create_timeblock(app_test_session_store)
+    plot_df_2 = app_test_dataclass.create_plotting_df(tb_df, app_test_session_store)
+    assert all(plot_df_2.columns == [
         app_test_dataclass.unique_identity_label, app_test_dataclass.study_label, app_test_dataclass.compound_label,
         "start", "end", "type", "inside timeframe"
     ])
-    assert app_test_dataclass.plot_df.shape == (2982, 7)
+    assert plot_df_2.shape == (2982, 7)
 
     # Study without milestones is not present
-    loc_1 = app_test_dataclass.plot_df.loc[app_test_dataclass.plot_df["DPN(Compound-Study)"] == "jN165-661"]
+    loc_1 = plot_df_2.loc[plot_df_2["DPN(Compound-Study)"] == "jN165-661"]
     assert loc_1.shape == (0, 7)
 
     # Study with all milestones is fully present, regardless of timeframe
-    loc_2 = app_test_dataclass.plot_df.loc[app_test_dataclass.plot_df["DPN(Compound-Study)"] == "DN053-007"]
+    loc_2 = plot_df_2.loc[plot_df_2["DPN(Compound-Study)"] == "DN053-007"]
     assert loc_2.shape == (5, 7)
     assert all(loc_2['type'] == ["Milestone 1", "Milestone 2", "Milestone 3", "Milestone 4", "Milestone 5"])
     assert all(loc_2['inside timeframe'] == ["Yes", "Yes", "No", "No", "No"])
 
     # Study with partial milestones is partially present, regardless of timeframe
-    loc_3 = app_test_dataclass.plot_df.loc[app_test_dataclass.plot_df["DPN(Compound-Study)"] == "jN165-061"]
+    loc_3 = plot_df_2.loc[plot_df_2["DPN(Compound-Study)"] == "jN165-061"]
     assert loc_3.shape == (1, 7)
     assert all(loc_3['type'] == ["Milestone 2"])
     assert all(loc_3['inside timeframe'] == ["No"])
+
+
+@pytest.mark.parametrize(
+    "timeblock_lst, expected_output, test_id",
+    [
+        # No timeblocks
+        (
+                [],
+                [],
+                "PYT27[No Timeblocks]"
+        ),
+        # Single timeblock
+        (
+                [
+                    Timeblock(start=pd.Timestamp(year=2022, month=5, day=20),
+                              end=pd.Timestamp(year=2022, month=6, day=17),
+                              milestone=Milestone("Milestone 1", offset_before=14, offset_after=14, active=True),
+                              timestamp=pd.Timestamp(year=2022, month=6, day=3))
+                ],
+                [
+                    Timeblock(start=pd.Timestamp(year=2022, month=5, day=20),
+                              end=pd.Timestamp(year=2022, month=6, day=17),
+                              milestone=Milestone("Milestone 1", offset_before=14, offset_after=14, active=True),
+                              timestamp=pd.Timestamp(year=2022, month=6, day=3))
+                ],
+                "PYT27[Single Timeblock]"
+        ),
+        # Two timeblocks with slight overlap
+        (
+                [
+                    Timeblock(start=pd.Timestamp(year=2022, month=5, day=20),
+                              end=pd.Timestamp(year=2022, month=6, day=17),
+                              milestone=Milestone("Milestone 1", offset_before=14, offset_after=14, active=True),
+                              timestamp=pd.Timestamp(year=2022, month=6, day=3)),
+                    Timeblock(start=pd.Timestamp(year=2022, month=5, day=30),
+                              end=pd.Timestamp(year=2022, month=6, day=23),
+                              milestone=Milestone("Milestone 2", offset_before=14, offset_after=10, active=True),
+                              timestamp=pd.Timestamp(year=2022, month=6, day=13))
+                ],
+                [
+                    MergedTimeblock(
+                        start=pd.Timestamp(year=2022, month=5, day=20),
+                        end=pd.Timestamp(year=2022, month=6, day=23),
+                        milestones=[
+                            Milestone("Milestone 1", offset_before=14, offset_after=14, active=True),
+                            Milestone("Milestone 2", offset_before=14, offset_after=10, active=True)
+                        ],
+                        timestamps=[
+                            pd.Timestamp(year=2022, month=6, day=3),
+                            pd.Timestamp(year=2022, month=6, day=13)
+                        ]
+                    )
+                ],
+                "PYT27[Two Timeblocks With Overlap]"
+        ),
+        # Two timeblocks with no overlap
+        (
+                [
+                    Timeblock(start=pd.Timestamp(year=2022, month=5, day=20),
+                              end=pd.Timestamp(year=2022, month=6, day=17),
+                              milestone=Milestone("Milestone 1", offset_before=14, offset_after=14, active=True),
+                              timestamp=pd.Timestamp(year=2022, month=6, day=3)),
+                    Timeblock(start=pd.Timestamp(year=2022, month=6, day=30),
+                              end=pd.Timestamp(year=2022, month=7, day=24),
+                              milestone=Milestone("Milestone 2", offset_before=14, offset_after=10, active=True),
+                              timestamp=pd.Timestamp(year=2022, month=7, day=14))
+                ],
+                [
+                    Timeblock(start=pd.Timestamp(year=2022, month=5, day=20),
+                              end=pd.Timestamp(year=2022, month=6, day=17),
+                              milestone=Milestone("Milestone 1", offset_before=14, offset_after=14, active=True),
+                              timestamp=pd.Timestamp(year=2022, month=6, day=3)),
+                    Timeblock(start=pd.Timestamp(year=2022, month=6, day=30),
+                              end=pd.Timestamp(year=2022, month=7, day=24),
+                              milestone=Milestone("Milestone 2", offset_before=14, offset_after=10, active=True),
+                              timestamp=pd.Timestamp(year=2022, month=7, day=14))
+                ],
+                "PYT27[Two Timeblocks With No Overlap]"
+        ),
+        # Three timeblocks where the middle overlaps the first and last
+        (
+                [
+                    Timeblock(start=pd.Timestamp(year=2022, month=5, day=20),
+                              end=pd.Timestamp(year=2022, month=6, day=17),
+                              milestone=Milestone("Milestone 1", offset_before=14, offset_after=14, active=True),
+                              timestamp=pd.Timestamp(year=2022, month=6, day=3)),
+                    Timeblock(start=pd.Timestamp(year=2022, month=5, day=30),
+                              end=pd.Timestamp(year=2022, month=6, day=23),
+                              milestone=Milestone("Milestone 2", offset_before=14, offset_after=10, active=True),
+                              timestamp=pd.Timestamp(year=2022, month=6, day=13)),
+                    Timeblock(start=pd.Timestamp(year=2022, month=6, day=20),
+                              end=pd.Timestamp(year=2022, month=7, day=14),
+                              milestone=Milestone("Milestone 3", offset_before=10, offset_after=14, active=True),
+                              timestamp=pd.Timestamp(year=2022, month=6, day=30))
+                ],
+                [
+                    MergedTimeblock(
+                        start=pd.Timestamp(year=2022, month=5, day=20),
+                        end=pd.Timestamp(year=2022, month=7, day=14),
+                        milestones=[
+                            Milestone("Milestone 1", offset_before=14, offset_after=14, active=True),
+                            Milestone("Milestone 2", offset_before=14, offset_after=10, active=True),
+                            Milestone("Milestone 3", offset_before=10, offset_after=14, active=True)
+                        ],
+                        timestamps=[
+                            pd.Timestamp(year=2022, month=6, day=3),
+                            pd.Timestamp(year=2022, month=6, day=13),
+                            pd.Timestamp(year=2022, month=6, day=30)
+                        ]
+                    )
+                ],
+                "PYT27[Three Timeblocks Overlap Start to End]"
+        ),
+        # Three timeblocks where the first two overlap last
+        (
+                [
+                    Timeblock(start=pd.Timestamp(year=2022, month=5, day=20),
+                              end=pd.Timestamp(year=2022, month=6, day=17),
+                              milestone=Milestone("Milestone 1", offset_before=14, offset_after=14, active=True),
+                              timestamp=pd.Timestamp(year=2022, month=6, day=3)),
+                    Timeblock(start=pd.Timestamp(year=2022, month=5, day=30),
+                              end=pd.Timestamp(year=2022, month=6, day=23),
+                              timestamp=pd.Timestamp(year=2022, month=6, day=13),
+                              milestone=Milestone("Milestone 2", offset_before=14, offset_after=10, active=True)),
+                    Timeblock(start=pd.Timestamp(year=2022, month=6, day=5),
+                              end=pd.Timestamp(year=2022, month=7, day=29),
+                              milestone=Milestone("Milestone 3", offset_before=10, offset_after=14, active=True),
+                              timestamp=pd.Timestamp(year=2022, month=7, day=15))
+                ],
+                [
+                    MergedTimeblock(
+                        start=pd.Timestamp(year=2022, month=5, day=20),
+                        end=pd.Timestamp(year=2022, month=7, day=29),
+                        milestones=[
+                            Milestone("Milestone 1", offset_before=14, offset_after=14, active=True),
+                            Milestone("Milestone 2", offset_before=14, offset_after=10, active=True),
+                            Milestone("Milestone 3", offset_before=10, offset_after=14, active=True)
+                        ],
+                        timestamps=[
+                            pd.Timestamp(year=2022, month=6, day=3),
+                            pd.Timestamp(year=2022, month=6, day=13),
+                            pd.Timestamp(year=2022, month=7, day=15)
+                        ]
+                    )
+                ],
+                "PYT27[Three Timeblocks First and Second Overlap Third]"
+        ),
+        # Timeblock Fully Encompassed By Another
+        (
+                [
+                    Timeblock(start=pd.Timestamp(year=2022, month=6, day=20),
+                              end=pd.Timestamp(year=2022, month=8, day=30),
+                              milestone=Milestone("Milestone 1", offset_before=20, offset_after=20, active=True),
+                              timestamp=pd.Timestamp(year=2022, month=8, day=10)),
+                    Timeblock(start=pd.Timestamp(year=2022, month=6, day=25),
+                              end=pd.Timestamp(year=2022, month=7, day=15),
+                              milestone=Milestone("Milestone 2", offset_before=10, offset_after=10, active=True),
+                              timestamp=pd.Timestamp(year=2022, month=7, day=5))
+                ],
+                [
+                    MergedTimeblock(
+                        start=pd.Timestamp(year=2022, month=6, day=20),
+                        end=pd.Timestamp(year=2022, month=8, day=30),
+                        milestones=[
+                            Milestone("Milestone 1", offset_before=20, offset_after=20, active=True),
+                            Milestone("Milestone 2", offset_before=10, offset_after=10, active=True)
+                        ],
+                        timestamps=[
+                            pd.Timestamp(year=2022, month=8, day=10),
+                            pd.Timestamp(year=2022, month=7, day=5)
+                        ]
+                    )
+                ],
+                "PYT27[Timeblock Fully Encompassed By Another]"
+        ),
+
+    ],
+    ids=["PYT27[No Timeblocks]", "PYT27[Single Timeblock]", "PYT27[Two Timeblocks With Overlap]",
+         "PYT27[Two Timeblocks With No Overlap]", "PYT27[Three Timeblocks Overlap Start to End]",
+         "PYT27[Three Timeblocks First and Second Overlap Third]", "PYT27[Timeblock Fully Encompassed By Another]"]
+)
+def test_merge_timeblock_apply(timeblock_lst, expected_output, test_id, app_test_dataclass, record_xml_attribute):
+    record_xml_attribute("qualification", "oq")
+    record_xml_attribute("test_id", test_id)
+    record_xml_attribute("srs_requirement", "")
+    record_xml_attribute("frs_requirement", "")
+    record_xml_attribute("scenario", "")
+
+    record_xml_attribute("purpose", "Validate that the _merge_timeblock_apply method correctly processes Timeblocks.")
+    record_xml_attribute("description",
+                         "Run the _merge_timeblock_apply method in 7 different cases which cover all areas/statements "
+                         "of the method.")
+    record_xml_attribute("acceptance_criteria",
+                         "Assert that the output from _merge_timeblock_apply is expected.")
+    assert expected_output == app_test_dataclass._merge_timeblock_apply(timeblock_lst)
+
+
+def test_merge_timeblocks(app_test_dataclass, record_xml_attribute):
+    record_xml_attribute("qualification", "oq")
+    record_xml_attribute("test_id", "PYT28")
+    record_xml_attribute("srs_requirement", "")
+    record_xml_attribute("frs_requirement", "")
+    record_xml_attribute("scenario", "")
+
+    record_xml_attribute("purpose", "Ensure the 'Merge Time Block' column is correctly created and populated when "
+                                    "running the method merge_timeblocks.")
+    record_xml_attribute("description",
+                         "Verify the functionality of the merge_timeblocks method on two test casess, one with a "
+                         "DataFrame containing no time blocks and another with a DataFrame containing time blocks.")
+    record_xml_attribute("acceptance_criteria",
+                         "Should correctly merge timeblocks into a new column called 'Merged Time Block' when "
+                         "timeblocks are provided. Should NOT add the new column when timeblocks are not provided.")
+
+    test_df_no_timeblocks = pd.DataFrame({
+        'Study_id': [43, 123]
+    })
+
+    test_df_with_timeblocks = pd.DataFrame({
+        'Study_id': [43, 123],
+        'Time Block': [
+            [],
+            [
+                Timeblock(start=pd.Timestamp(year=2022, month=6, day=20), end=pd.Timestamp(year=2022, month=7, day=10),
+                          milestone=Milestone("Milestone 1", offset_before=10, offset_after=10, active=True),
+                          timestamp=pd.Timestamp(year=2022, month=6, day=30)),
+                Timeblock(start=pd.Timestamp(year=2022, month=6, day=25), end=pd.Timestamp(year=2022, month=7, day=15),
+                          milestone=Milestone("Milestone 2", offset_before=10, offset_after=10, active=True),
+                          timestamp=pd.Timestamp(year=2022, month=7, day=5))
+            ]
+        ]
+    })
+
+    assert test_df_no_timeblocks.equals(app_test_dataclass.merge_timeblocks(test_df_no_timeblocks))
+    assert 'Merged Time Block' in app_test_dataclass.merge_timeblocks(test_df_with_timeblocks).columns
+
+
+@pytest.mark.parametrize(
+    "merged_timeblock_list, expected_item_information, test_id",
+    [
+        # Empty merged timeblock list
+        (
+                [],
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=1,
+                    gap_day_total=3654,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2016, month=1, day=1),
+                            end=pd.Timestamp(year=2026, month=1, day=1),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2016, month=1, day=1),
+                                    end=pd.Timestamp(year=2026, month=1, day=1)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=False,
+                    status=ItemStatus.NO_STATUS_GIVEN
+                ),
+                "PYT29[Empty Merged Timeblock List]",
+        ),
+        # Fully after timeframe
+        (
+                [
+                    Timeblock(
+                        start=pd.Timestamp(year=2028, month=2, day=13),
+                        end=pd.Timestamp(year=2028, month=2, day=23),
+                        milestone=Milestone("Milestone 1", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2028, month=2, day=18)
+                    )
+                ],
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=1,
+                    gap_day_total=3654,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2016, month=1, day=1),
+                            end=pd.Timestamp(year=2026, month=1, day=1),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2016, month=1, day=1),
+                                    end=pd.Timestamp(year=2026, month=1, day=1)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=False,
+                    status=ItemStatus.STARTING_AFTER_TIMEFRAME
+                ),
+                "PYT29[Fully After Timeframe]",
+        ),
+        # Fully before timeframe
+        (
+                [
+                    Timeblock(
+                        start=pd.Timestamp(year=2008, month=2, day=13),
+                        end=pd.Timestamp(year=2008, month=2, day=23),
+                        milestone=Milestone("Milestone 1", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2008, month=2, day=18)
+                    )
+                ],
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=1,
+                    gap_day_total=3654,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2016, month=1, day=1),
+                            end=pd.Timestamp(year=2026, month=1, day=1),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2016, month=1, day=1),
+                                    end=pd.Timestamp(year=2026, month=1, day=1)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=False,
+                    status=ItemStatus.CLOSING_BEFORE_TIMEFRAME
+                ),
+                "PYT29[Fully Before Timeframe]",
+        ),
+        # Inside And Before Timeframe
+        (
+                [
+                    Timeblock(
+                        start=pd.Timestamp(year=2008, month=2, day=13),
+                        end=pd.Timestamp(year=2008, month=2, day=23),
+                        milestone=Milestone("Milestone 1", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2008, month=2, day=18)
+                    ),
+                    Timeblock(
+                        start=pd.Timestamp(year=2018, month=2, day=13),
+                        end=pd.Timestamp(year=2018, month=2, day=23),
+                        milestone=Milestone("Milestone 2", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2018, month=2, day=18)
+                    )
+                ],
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=2,
+                    gap_day_total=3643,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2016, month=1, day=1),
+                            end=pd.Timestamp(year=2018, month=2, day=12),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2016, month=1, day=1),
+                                    end=pd.Timestamp(year=2018, month=2, day=12)
+                                ).date
+                            )
+                        ),
+                        Gap(
+                            start=pd.Timestamp(year=2018, month=2, day=24),
+                            end=pd.Timestamp(year=2026, month=1, day=1),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2018, month=2, day=24),
+                                    end=pd.Timestamp(year=2026, month=1, day=1)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_DURING_TIMEFRAME
+                ),
+                "PYT29[Inside And Before Timeframe]",
+        ),
+        # Inside And After Timeframe
+        (
+                [
+                    Timeblock(
+                        start=pd.Timestamp(year=2018, month=2, day=13),
+                        end=pd.Timestamp(year=2018, month=2, day=23),
+                        milestone=Milestone("Milestone 1", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2018, month=2, day=18)
+                    ),
+                    Timeblock(
+                        start=pd.Timestamp(year=2028, month=2, day=13),
+                        end=pd.Timestamp(year=2028, month=2, day=23),
+                        milestone=Milestone("Milestone 2", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2028, month=2, day=18)
+                    )
+                ],
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=2,
+                    gap_day_total=3643,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2016, month=1, day=1),
+                            end=pd.Timestamp(year=2018, month=2, day=12),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2016, month=1, day=1),
+                                    end=pd.Timestamp(year=2018, month=2, day=12)
+                                ).date
+                            )
+                        ),
+                        Gap(
+                            start=pd.Timestamp(year=2018, month=2, day=24),
+                            end=pd.Timestamp(year=2026, month=1, day=1),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2018, month=2, day=24),
+                                    end=pd.Timestamp(year=2026, month=1, day=1)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_AFTER_TIMEFRAME
+                ),
+                "PYT29[Inside And After Timeframe]",
+        ),
+        # Inside, Before And After Timeframe
+        (
+                [
+                    Timeblock(
+                        start=pd.Timestamp(year=2008, month=2, day=13),
+                        end=pd.Timestamp(year=2008, month=2, day=23),
+                        milestone=Milestone("Milestone 1", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2008, month=2, day=18)
+                    ),
+                    Timeblock(
+                        start=pd.Timestamp(year=2018, month=2, day=13),
+                        end=pd.Timestamp(year=2018, month=2, day=23),
+                        milestone=Milestone("Milestone 2", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2018, month=2, day=18)
+                    ),
+                    MergedTimeblock(
+                        start=pd.Timestamp(year=2028, month=2, day=13),
+                        end=pd.Timestamp(year=2028, month=2, day=23),
+                        milestones=[
+                            Milestone("Milestone 3", offset_before=2, offset_after=3, active=True),
+                            Milestone("Milestone 4", offset_before=3, offset_after=2, active=True)
+                        ],
+                        timestamps=[
+                            pd.Timestamp(year=2028, month=2, day=15),
+                            pd.Timestamp(year=2028, month=2, day=21)
+                        ]
+                    )
+                ],
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=2,
+                    gap_day_total=3643,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2016, month=1, day=1),
+                            end=pd.Timestamp(year=2018, month=2, day=12),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2016, month=1, day=1),
+                                    end=pd.Timestamp(year=2018, month=2, day=12)
+                                ).date
+                            )
+                        ),
+                        Gap(
+                            start=pd.Timestamp(year=2018, month=2, day=24),
+                            end=pd.Timestamp(year=2026, month=1, day=1),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2018, month=2, day=24),
+                                    end=pd.Timestamp(year=2026, month=1, day=1)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_AFTER_TIMEFRAME
+                ),
+                "PYT29[Inside, Before And After Timeframe]",
+        ),
+        # Before And After Timeframe
+        (
+                [
+                    Timeblock(
+                        start=pd.Timestamp(year=2008, month=2, day=13),
+                        end=pd.Timestamp(year=2008, month=2, day=23),
+                        milestone=Milestone("Milestone 1", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2008, month=2, day=18)
+                    ),
+                    Timeblock(
+                        start=pd.Timestamp(year=2028, month=2, day=13),
+                        end=pd.Timestamp(year=2028, month=2, day=23),
+                        milestone=Milestone("Milestone 3", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2028, month=2, day=18)
+                    )
+                ],
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=1,
+                    gap_day_total=3654,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2016, month=1, day=1),
+                            end=pd.Timestamp(year=2026, month=1, day=1),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2016, month=1, day=1),
+                                    end=pd.Timestamp(year=2026, month=1, day=1)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=True,
+                    status=ItemStatus.NO_ACTIVITY_OVER_TIMEFRAME
+                ),
+                "PYT29[Before And After Timeframe]",
+        ),
+        # Timeblock is exactly timeframe
+        (
+                [
+                    Timeblock(
+                        start=pd.Timestamp(year=2016, month=1, day=1),
+                        end=pd.Timestamp(year=2026, month=1, day=1),
+                        milestone=Milestone("Milestone 1", offset_before=1827, offset_after=1827, active=True),
+                        timestamp=pd.Timestamp(year=2021, month=1, day=1)
+                    )
+                ],
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=1,
+                    gap_day_total=3654,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2016, month=1, day=1),
+                            end=pd.Timestamp(year=2026, month=1, day=1),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2016, month=1, day=1),
+                                    end=pd.Timestamp(year=2026, month=1, day=1)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_AFTER_TIMEFRAME
+                ),
+                "PYT29[Timeblock is Exactly Timeframe]",
+        ),
+        # Partially after timeframe
+        (
+                [
+                    Timeblock(
+                        start=pd.Timestamp(year=2025, month=12, day=25),
+                        end=pd.Timestamp(year=2026, month=1, day=4),
+                        milestone=Milestone("Milestone 1", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2025, month=12, day=30)
+                    )
+                ],
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=1,
+                    gap_day_total=3646,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2016, month=1, day=1),
+                            end=pd.Timestamp(year=2025, month=12, day=24),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2016, month=1, day=1),
+                                    end=pd.Timestamp(year=2025, month=12, day=24)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_AFTER_TIMEFRAME
+                ),
+                "PYT29[Partially After Timeframe]",
+        ),
+        # Partially before timeframe
+        (
+                [
+                    Timeblock(
+                        start=pd.Timestamp(year=2015, month=12, day=25),
+                        end=pd.Timestamp(year=2016, month=1, day=4),
+                        milestone=Milestone("Milestone 1", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2015, month=12, day=30)
+                    )
+                ],
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=1,
+                    gap_day_total=3650,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2016, month=1, day=5),
+                            end=pd.Timestamp(year=2026, month=1, day=1),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2016, month=1, day=5),
+                                    end=pd.Timestamp(year=2026, month=1, day=1)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_DURING_TIMEFRAME
+                ),
+                "PYT29[Partially Before Timeframe]",
+        ),
+        # Inside and partially after
+        (
+                [
+                    Timeblock(
+                        start=pd.Timestamp(year=2018, month=2, day=13),
+                        end=pd.Timestamp(year=2018, month=2, day=23),
+                        milestone=Milestone("Milestone 1", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2018, month=2, day=18)
+                    ),
+                    Timeblock(
+                        start=pd.Timestamp(year=2025, month=12, day=25),
+                        end=pd.Timestamp(year=2026, month=1, day=4),
+                        milestone=Milestone("Milestone 2", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2025, month=12, day=30)
+                    )
+                ],
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=2,
+                    gap_day_total=774 + 2861,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2016, month=1, day=1),
+                            end=pd.Timestamp(year=2018, month=2, day=12),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2016, month=1, day=1),
+                                    end=pd.Timestamp(year=2018, month=2, day=12)
+                                ).date
+                            )
+                        ),
+                        Gap(
+                            start=pd.Timestamp(year=2018, month=2, day=24),
+                            end=pd.Timestamp(year=2025, month=12, day=24),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2018, month=2, day=24),
+                                    end=pd.Timestamp(year=2025, month=12, day=24)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_AFTER_TIMEFRAME
+                ),
+                "PYT29[Inside and Partially After Timeframe]",
+        ),
+        # Inside and partially before
+        (
+                [
+                    Timeblock(
+                        start=pd.Timestamp(year=2015, month=12, day=25),
+                        end=pd.Timestamp(year=2016, month=1, day=4),
+                        milestone=Milestone("Milestone 1", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2025, month=12, day=30)
+                    ),
+                    Timeblock(
+                        start=pd.Timestamp(year=2018, month=2, day=13),
+                        end=pd.Timestamp(year=2018, month=2, day=23),
+                        milestone=Milestone("Milestone 2", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2018, month=2, day=18)
+                    )
+                ],
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=2,
+                    gap_day_total=770 + 2869,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2016, month=1, day=5),
+                            end=pd.Timestamp(year=2018, month=2, day=12),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2016, month=1, day=5),
+                                    end=pd.Timestamp(year=2018, month=2, day=12)
+                                ).date
+                            )
+                        ),
+                        Gap(
+                            start=pd.Timestamp(year=2018, month=2, day=24),
+                            end=pd.Timestamp(year=2026, month=1, day=1),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2018, month=2, day=24),
+                                    end=pd.Timestamp(year=2026, month=1, day=1)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_DURING_TIMEFRAME
+                ),
+                "PYT29[Inside and Partially Before Timeframe]",
+        ),
+        # Two Inside and One Partially After
+        (
+                [
+                    Timeblock(
+                        start=pd.Timestamp(year=2018, month=2, day=13),
+                        end=pd.Timestamp(year=2018, month=2, day=23),
+                        milestone=Milestone("Milestone 1", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2018, month=2, day=18)
+                    ),
+                    Timeblock(
+                        start=pd.Timestamp(year=2021, month=4, day=11),
+                        end=pd.Timestamp(year=2021, month=4, day=21),
+                        milestone=Milestone("Milestone 2", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2021, month=4, day=16)
+                    ),
+                    Timeblock(
+                        start=pd.Timestamp(year=2025, month=12, day=25),
+                        end=pd.Timestamp(year=2026, month=1, day=4),
+                        milestone=Milestone("Milestone 3", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2025, month=12, day=30)
+                    )
+                ],
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=3,
+                    gap_day_total=774 + 1142 + 1708,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2016, month=1, day=1),
+                            end=pd.Timestamp(year=2018, month=2, day=12),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2016, month=1, day=1),
+                                    end=pd.Timestamp(year=2018, month=2, day=12)
+                                ).date
+                            )
+                        ),
+                        Gap(
+                            start=pd.Timestamp(year=2018, month=2, day=24),
+                            end=pd.Timestamp(year=2021, month=4, day=10),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2018, month=2, day=24),
+                                    end=pd.Timestamp(year=2021, month=4, day=10)
+                                ).date
+                            )
+                        ),
+                        Gap(
+                            start=pd.Timestamp(year=2021, month=4, day=22),
+                            end=pd.Timestamp(year=2025, month=12, day=24),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2021, month=4, day=22),
+                                    end=pd.Timestamp(year=2025, month=12, day=24)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_AFTER_TIMEFRAME
+                ),
+                "PYT29[Two Inside and One Partially After]",
+        ),
+        # Two Inside and One Partially Before
+        (
+                [
+                    Timeblock(
+                        start=pd.Timestamp(year=2015, month=12, day=25),
+                        end=pd.Timestamp(year=2016, month=1, day=4),
+                        milestone=Milestone("Milestone 1", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2015, month=12, day=30)
+                    ),
+                    MergedTimeblock(
+                        start=pd.Timestamp(year=2018, month=2, day=13),
+                        end=pd.Timestamp(year=2018, month=2, day=23),
+                        milestones=[
+                            Milestone("Milestone 1", offset_before=2, offset_after=3, active=True),
+                            Milestone("Milestone 1", offset_before=3, offset_after=2, active=True)
+                        ],
+                        timestamps=[
+                            pd.Timestamp(year=2018, month=2, day=15),
+                            pd.Timestamp(year=2018, month=2, day=21)
+                        ]
+                    ),
+                    Timeblock(
+                        start=pd.Timestamp(year=2021, month=4, day=11),
+                        end=pd.Timestamp(year=2021, month=4, day=21),
+                        milestone=Milestone("Milestone 2", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2021, month=4, day=16)
+                    )
+                ],
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=3,
+                    gap_day_total=770 + 1142 + 1716,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2016, month=1, day=5),
+                            end=pd.Timestamp(year=2018, month=2, day=12),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2016, month=1, day=5),
+                                    end=pd.Timestamp(year=2018, month=2, day=12)
+                                ).date
+                            )
+                        ),
+                        Gap(
+                            start=pd.Timestamp(year=2018, month=2, day=24),
+                            end=pd.Timestamp(year=2021, month=4, day=10),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2018, month=2, day=24),
+                                    end=pd.Timestamp(year=2021, month=4, day=10)
+                                ).date
+                            )
+                        ),
+                        Gap(
+                            start=pd.Timestamp(year=2021, month=4, day=22),
+                            end=pd.Timestamp(year=2026, month=1, day=1),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2021, month=4, day=22),
+                                    end=pd.Timestamp(year=2026, month=1, day=1)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_DURING_TIMEFRAME
+                ),
+                "PYT29[Two Inside and One Partially Before]",
+        ),
+        # Two Inside, One Partially Before and One Partially After
+        (
+                [
+                    Timeblock(
+                        start=pd.Timestamp(year=2015, month=12, day=25),
+                        end=pd.Timestamp(year=2016, month=1, day=4),
+                        milestone=Milestone("Milestone 1", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2015, month=12, day=30)
+                    ),
+                    MergedTimeblock(
+                        start=pd.Timestamp(year=2018, month=2, day=13),
+                        end=pd.Timestamp(year=2018, month=2, day=23),
+                        milestones=[
+                            Milestone("Milestone 1", offset_before=2, offset_after=3, active=True),
+                            Milestone("Milestone 1", offset_before=3, offset_after=2, active=True)
+                        ],
+                        timestamps=[
+                            pd.Timestamp(year=2018, month=2, day=15),
+                            pd.Timestamp(year=2018, month=2, day=21)
+                        ]
+                    ),
+                    Timeblock(
+                        start=pd.Timestamp(year=2021, month=4, day=11),
+                        end=pd.Timestamp(year=2021, month=4, day=21),
+                        milestone=Milestone("Milestone 2", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2021, month=4, day=16)
+                    ),
+                    Timeblock(
+                        start=pd.Timestamp(year=2025, month=12, day=25),
+                        end=pd.Timestamp(year=2026, month=1, day=4),
+                        milestone=Milestone("Milestone 3", offset_before=5, offset_after=5, active=True),
+                        timestamp=pd.Timestamp(year=2025, month=12, day=30)
+                    )
+                ],
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=3,
+                    gap_day_total=770 + 1142 + 1708,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2016, month=1, day=5),
+                            end=pd.Timestamp(year=2018, month=2, day=12),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2016, month=1, day=5),
+                                    end=pd.Timestamp(year=2018, month=2, day=12)
+                                ).date
+                            )
+                        ),
+                        Gap(
+                            start=pd.Timestamp(year=2018, month=2, day=24),
+                            end=pd.Timestamp(year=2021, month=4, day=10),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2018, month=2, day=24),
+                                    end=pd.Timestamp(year=2021, month=4, day=10)
+                                ).date
+                            )
+                        ),
+                        Gap(
+                            start=pd.Timestamp(year=2021, month=4, day=22),
+                            end=pd.Timestamp(year=2025, month=12, day=24),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2021, month=4, day=22),
+                                    end=pd.Timestamp(year=2025, month=12, day=24)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_AFTER_TIMEFRAME
+                ),
+                "PYT29[Two Inside, One Partially Before and One Partially After]",
+        ),
+    ],
+    ids=["PYT29[Empty Merged Timeblock List]", "PYT29[Fully After Timeframe]", "PYT29[Fully Before Timeframe]",
+         "PYT29[Inside And Before Timeframe]", "PYT29[Inside And After Timeframe]",
+         "PYT29[Inside, Before And After Timeframe]", "PYT29[Before And After Timeframe], ",
+         "PYT29[Timeblock is Exactly Timeframe]", "PYT29[Partially After Timeframe]",
+         "PYT29[Partially Before Timeframe]", "PYT29[Inside and Partially After Timeframe]",
+         "PYT29[Inside and Partially Before Timeframe]", "PYT29[Two Inside and One Partially After]",
+         "PYT29[Two Inside and One Partially Before]",
+         "PYT29[Two Inside, One Partially Before and One Partially After]"]
+)
+def test_generate_gap_information_apply(merged_timeblock_list, expected_item_information, test_id,
+                                        app_test_session_store, record_xml_attribute):
+    record_xml_attribute("qualification", "oq")
+    record_xml_attribute("test_id", test_id)
+    record_xml_attribute("srs_requirement", "")
+    record_xml_attribute("frs_requirement", "")
+    record_xml_attribute("scenario", "")
+
+    record_xml_attribute("purpose", "The purpose of this unit test is to ensure that the g"
+                                    "enerate_gap_information_apply method correctly generates gap information based "
+                                    "on the provided inputs.")
+    record_xml_attribute("description",
+                         "Provide a timeframe start, end, study_id and a merged_timeblock_list to the "
+                         "generate_gap_information_apply and compare it against the expected ItemInformation Object.")
+    record_xml_attribute("acceptance_criteria",
+                         "Assert that the output of the generate_gap_information_apply method is the expected "
+                         "ItemInformation object.")
+
+    study_id = 'test_study'
+    timeframe_start = pd.Timestamp(app_test_session_store["timeframe_start"])
+    timeframe_end = pd.Timestamp(app_test_session_store["timeframe_end"])
+
+    output = Data._generate_gap_information_apply(study_id, merged_timeblock_list, timeframe_start, timeframe_end)
+    assert output == expected_item_information
+
+
+def test_generate_gap_information(app_test_dataclass, app_test_session_store, record_xml_attribute):
+    record_xml_attribute("qualification", "oq")
+    record_xml_attribute("test_id", "PYT30")
+    record_xml_attribute("srs_requirement", "")
+    record_xml_attribute("frs_requirement", "")
+    record_xml_attribute("scenario", "")
+
+    record_xml_attribute("purpose", "Verify that the generate_gap_information method correctly generates gap "
+                                    "information based on the input dataframes and the app_test_session_store.")
+    record_xml_attribute("description",
+                         "Test the generate_gap_information methods's behavior with two different input dataframes,"
+                         " one without timeblocks and one with timeblocks.")
+    record_xml_attribute("acceptance_criteria",
+                         "Assert that when provided time blocks the generate_gap_information correctly adds the column "
+                         "'Gap Information' and that the contents of that column are as expected. When no timeblocks "
+                         "are supplied generate_gap_information should not modify the dataframe.")
+
+    test_df_no_timeblocks = pd.DataFrame({
+        app_test_dataclass.unique_identity_label: [43, 123]
+    })
+
+    test_df_with_timeblocks = pd.DataFrame({
+        app_test_dataclass.unique_identity_label: [43, 123, 342],
+        'Merged Time Block': [
+            [],
+            [
+                Timeblock(start=pd.Timestamp(year=2022, month=6, day=20), end=pd.Timestamp(year=2022, month=7, day=10),
+                          milestone=Milestone("Milestone 1", offset_before=10, offset_after=10, active=True),
+                          timestamp=pd.Timestamp(year=2022, month=6, day=30)),
+                Timeblock(start=pd.Timestamp(year=2022, month=6, day=25), end=pd.Timestamp(year=2022, month=7, day=15),
+                          milestone=Milestone("Milestone 2", offset_before=10, offset_after=10, active=True),
+                          timestamp=pd.Timestamp(year=2022, month=7, day=5))
+            ],
+            [
+                Timeblock(start=pd.Timestamp(year=2022, month=6, day=20), end=pd.Timestamp(year=2022, month=7, day=10),
+                          milestone=Milestone("Milestone 1", offset_before=10, offset_after=10, active=True),
+                          timestamp=pd.Timestamp(year=2022, month=6, day=30)),
+                MergedTimeblock(
+                    start=pd.Timestamp(year=2022, month=6, day=25),
+                    end=pd.Timestamp(year=2022, month=7, day=25),
+                    milestones=[
+                        Milestone("Milestone 2", offset_before=10, offset_after=10, active=True),
+                        Milestone("Milestone 3", offset_before=5, offset_after=5, active=True)
+                    ],
+                    timestamps=[
+                        pd.Timestamp(year=2022, month=7, day=5),
+                        pd.Timestamp(year=2022, month=7, day=20)
+                    ]
+                )
+            ]
+        ]
+    })
+
+    assert test_df_no_timeblocks.equals(app_test_dataclass.generate_gap_information(
+        test_df_no_timeblocks, app_test_session_store))
+    assert 'Gap Information' in app_test_dataclass.generate_gap_information(
+        test_df_with_timeblocks, app_test_session_store).columns
+
+
+@pytest.mark.parametrize(
+    "item_information, expected_weight, test_id",
+    [
+        (
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=0,
+                    gap_day_total=0,
+                    gap_lst=[],
+                    active_during_timeframe=False,
+                    status=ItemStatus.NO_STATUS_GIVEN
+                ),
+                pd.Series([0, 0]),
+                "PYT31[No Status Given]"
+        ),
+        (
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=0,
+                    gap_day_total=0,
+                    gap_lst=[],
+                    active_during_timeframe=False,
+                    status=ItemStatus.CLOSING_BEFORE_TIMEFRAME
+                ),
+                pd.Series([0, 0]),
+                "PYT31[Closing Before Timeframe]"
+        ),
+        (
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=0,
+                    gap_day_total=0,
+                    gap_lst=[],
+                    active_during_timeframe=False,
+                    status=ItemStatus.STARTING_AFTER_TIMEFRAME
+                ),
+                pd.Series([0, 0]),
+                "PYT31[Starting After Timeframe]"
+        ),
+        (
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=1,
+                    gap_day_total=1000,
+                    gap_lst=[],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_AFTER_TIMEFRAME
+                ),
+                pd.Series([1 / 1000, 1]),
+                "PYT31[One Gap]"
+        ),
+        (
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=4,
+                    gap_day_total=190,
+                    gap_lst=[],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_DURING_TIMEFRAME
+                ),
+                pd.Series([1 / 190, 1 / 4]),
+                "PYT31[Multiple Gaps]"
+        ),
+        # Closing after timeframe with no gaps in timeframe
+        (
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=0,
+                    gap_day_total=0,
+                    gap_lst=[],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_AFTER_TIMEFRAME
+                ),
+                pd.Series([1, 1]),
+                "PYT31[Study With No Gaps]"
+        )
+    ],
+    ids=["PYT31[No Status Given]", "PYT31[Closing Before Timeframe]", "PYT31[Starting After Timeframe]",
+         "PYT31[One Gap]", "PYT30[Multiple Gaps]", "PYT31[Study With No Gaps]"]
+)
+def test_compute_weights_apply(item_information: ItemInformation, expected_weight, test_id, app_test_dataclass,
+                               record_xml_attribute):
+    record_xml_attribute("qualification", "oq")
+    record_xml_attribute("test_id", test_id)
+    record_xml_attribute("srs_requirement", "")
+    record_xml_attribute("frs_requirement", "")
+    record_xml_attribute("scenario", "")
+
+    record_xml_attribute("purpose", "Ensure that the _compute_weights_apply method accurately computes the weights "
+                                    "based on the provided ItemInformation object.")
+    record_xml_attribute("description",
+                         "Parameterized to test the _compute_weights_apply method. It provides different scenarios of "
+                         "ItemInformation objects with various statuses and gap information, and verifies if the "
+                         "method computes the expected weights correctly.")
+    record_xml_attribute("acceptance_criteria",
+                         "Assert that the weight calculated by _compute_weights_apply are as expected for each "
+                         "different ItemInformation object provided.")
+
+    assert Data._compute_weights_apply(item_information).equals(expected_weight)
+
+
+def test_compute_weights(app_test_dataclass, record_xml_attribute):
+    record_xml_attribute("qualification", "oq")
+    record_xml_attribute("test_id", "PYT32")
+    record_xml_attribute("srs_requirement", "")
+    record_xml_attribute("frs_requirement", "")
+    record_xml_attribute("scenario", "")
+
+    record_xml_attribute("purpose", "Ensure that the compute_weights method behaves as expected and produces the "
+                                    "desired modifications to the DataFrame, including the correct column additions "
+                                    "and the expected order of unique identity labels.")
+    record_xml_attribute("description",
+                         "Verify that the compute_weights method correctly modifies a DataFrame by adding a 'Weights' "
+                         "column while not adding 'Day Weights' and 'Gap Weights' columns. Also check if the unique "
+                         "identity labels in the modified DataFrame are in the expected order.")
+    record_xml_attribute("acceptance_criteria",
+                         "Assert that the resultant dataframe from the method compute_weights has the correct columns "
+                         "and order of rows.")
+
+    test_df = pd.DataFrame({
+        app_test_dataclass.unique_identity_label: ["Study 1", "Study 2", "Study 3", "Study 4", "Study 5"],
+        'Gap Information': [
+            ItemInformation(
+                study_id="Study 1",
+                gap_number=0,
+                gap_day_total=0,
+                gap_lst=[],
+                active_during_timeframe=False,
+                status=ItemStatus.NO_STATUS_GIVEN
+            ),
+            ItemInformation(
+                study_id="Study 2",
+                gap_number=1,
+                gap_day_total=1000,
+                gap_lst=[],
+                active_during_timeframe=True,
+                status=ItemStatus.CLOSING_AFTER_TIMEFRAME
+            ),
+            ItemInformation(
+                study_id="Study 3",
+                gap_number=4,
+                gap_day_total=190,
+                gap_lst=[],
+                active_during_timeframe=True,
+                status=ItemStatus.CLOSING_DURING_TIMEFRAME
+            ),
+            ItemInformation(
+                study_id="Study 4",
+                gap_number=2,
+                gap_day_total=20,
+                gap_lst=[],
+                active_during_timeframe=True,
+                status=ItemStatus.CLOSING_DURING_TIMEFRAME
+            ),
+            ItemInformation(
+                study_id="Study 5",
+                gap_number=2,
+                gap_day_total=500,
+                gap_lst=[],
+                active_during_timeframe=True,
+                status=ItemStatus.CLOSING_DURING_TIMEFRAME
+            ),
+        ]
+    })
+
+    app_test_dataclass.compute_weights(test_df)
+
+    assert 'Day Weights' not in test_df.columns
+    assert 'Gap Weights' not in test_df.columns
+    assert 'Weights' in test_df.columns
+
+    assert list(test_df[app_test_dataclass.unique_identity_label]) == \
+           ['Study 4', 'Study 3', 'Study 5', 'Study 2', 'Study 1']
+
+
+@pytest.mark.parametrize(
+    "kwargs, expected_date_list, test_id",
+    [
+        (
+                {
+                    "timeframe_start": pd.Timestamp(year=2022, month=5, day=10),
+                    "timeframe_end": pd.Timestamp(year=2022, month=5, day=25),
+                    "transfer_window_type": 'D'
+                },
+                pd.date_range(
+                    start=pd.Timestamp(year=2022, month=5, day=10),
+                    end=pd.Timestamp(year=2022, month=5, day=25)
+                ).date.tolist(),
+                "PYT33[Day Frequency]"
+        ),
+        (
+                {
+                    "timeframe_start": pd.Timestamp(year=2022, month=5, day=10),  # Tuesday
+                    "timeframe_end": pd.Timestamp(year=2022, month=5, day=25),  # Wednesday
+                    "transfer_window_type": 'W'
+                },
+                [pd.Timestamp(year=2022, month=5, day=15).date()],  # only one week fully fits in the timeframe
+                "PYT33[2 Week Frequency With Remainder]"
+        ),
+        (
+                {
+                    "timeframe_start": pd.Timestamp(year=2022, month=5, day=8),  # Sunday
+                    "timeframe_end": pd.Timestamp(year=2022, month=5, day=22),  # Sunday
+                    "transfer_window_type": 'W'
+                },
+                # sunday is the starting day of the week in pandas
+                [pd.Timestamp(year=2022, month=5, day=8).date(), pd.Timestamp(year=2022, month=5, day=15).date()],
+                "PYT33[2 Week Frequency Without Remainder]"
+        )
+    ],
+    ids=["PYT33[Day Frequency]", "PYT33[2 Week Frequency With Remainder]", "PYT33[2 Week Frequency Without Remainder]"]
+)
+def test_timeframe_date_range(kwargs, expected_date_list, test_id, record_xml_attribute):
+    record_xml_attribute("qualification", "oq")
+    record_xml_attribute("test_id", test_id)
+    record_xml_attribute("srs_requirement", "")
+    record_xml_attribute("frs_requirement", "")
+    record_xml_attribute("scenario", "")
+
+    record_xml_attribute("purpose", "Ensure that the _timeframe_date_range method correctly generates a list "
+                                    "representing a date range based on the given input parameters.")
+    record_xml_attribute("description",
+                         "Test the _timeframe_date_range method with different sets of input parameters. It "
+                         "verifies whether the expected date list generated by the function matches an expected date list.")
+    record_xml_attribute("acceptance_criteria",
+                         "Assert that the date list generated by the method _timeframe_date_range is as expected "
+                         "depending on the inputs.")
+
+    assert expected_date_list == Data._timeframe_date_range(**kwargs)
+
+
+@pytest.mark.parametrize(
+    "item_info, moving_dates, transfer_window, expected_result, test_id",
+    [
+        # No moving dates - day
+        (
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=0,
+                    gap_day_total=0,
+                    gap_lst=[],
+                    active_during_timeframe=False,
+                    status=ItemStatus.NO_STATUS_GIVEN
+                ),
+                [
+                    {
+                        k: 2 for k in pd.date_range(
+                        start=pd.Timestamp(year=2022, month=5, day=10),
+                        end=pd.Timestamp(year=2022, month=5, day=25)
+                        ).date.tolist()
+                    }
+                ],
+                "D",
+                pd.Series([False, 'Not Moved', pd.NaT, '']),
+                "PYT34[No Moving Dates - Day]"
+        ),
+        # No moving dates - Week
+        (
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=0,
+                    gap_day_total=0,
+                    gap_lst=[],
+                    active_during_timeframe=False,
+                    status=ItemStatus.NO_STATUS_GIVEN
+                ),
+                [
+                    {
+                        k: 2 for k in pd.date_range(
+                        start=pd.Timestamp(year=2022, month=5, day=8),
+                        end=pd.Timestamp(year=2022, month=5, day=15),
+                        freq="W"
+                        ).date.tolist()
+                    }
+                ],
+                "W",
+                pd.Series([False, 'Not Moved', pd.NaT, '']),
+                "PYT34[No Moving Dates - Week]"
+        ),
+        # Can move on first gap and first period - days
+        (
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=1,
+                    gap_day_total=10,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2023, month=1, day=1),
+                            end=pd.Timestamp(year=2023, month=1, day=10),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2023, month=1, day=1),
+                                    end=pd.Timestamp(year=2023, month=1, day=10)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_DURING_TIMEFRAME
+                ),
+                [
+                    {
+                        k: 2 for k in pd.date_range(
+                        start=pd.Timestamp(year=2023, month=1, day=5),
+                        end=pd.Timestamp(year=2023, month=1, day=8)
+                        ).date.tolist()
+                    }
+                ],
+                "D",
+                pd.Series([True, 'Period 1', pd.Timestamp(year=2023, month=1, day=5), '']),
+                "PYT34[Moves In First Period - Days]"
+        ),
+        # Can move on first gap and first period - weeks
+        (
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=1,
+                    gap_day_total=10,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2023, month=6, day=9),
+                            end=pd.Timestamp(year=2023, month=6, day=19),
+                            timestamp_lst=set(
+                                # Should be overwritten
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2023, month=6, day=9),
+                                    end=pd.Timestamp(year=2023, month=6, day=19),
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_DURING_TIMEFRAME
+                ),
+                [
+                    {
+                        k: 2 for k in pd.date_range(
+                        start=pd.Timestamp(year=2023, month=6, day=11),
+                        end=pd.Timestamp(year=2023, month=6, day=25),
+                        freq="W"
+                        ).date.tolist()
+                    }
+                ],
+                "D",
+                pd.Series([True, 'Period 1', pd.Timestamp(year=2023, month=6, day=11), '']),
+                "PYT34[Moves In First Period - Weeks]"
+        ),
+        # Can move on second gap, third period - days
+        (
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=2,
+                    gap_day_total=10,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2023, month=1, day=1),
+                            end=pd.Timestamp(year=2023, month=1, day=5),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2023, month=1, day=1),
+                                    end=pd.Timestamp(year=2023, month=1, day=5)
+                                ).date
+                            )
+                        ),
+                        Gap(
+                            start=pd.Timestamp(year=2023, month=6, day=15),
+                            end=pd.Timestamp(year=2023, month=6, day=20),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2023, month=6, day=15),
+                                    end=pd.Timestamp(year=2023, month=6, day=20)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_DURING_TIMEFRAME
+                ),
+                [
+                    {
+                        k: 2 for k in pd.date_range(
+                        start=pd.Timestamp(year=2022, month=11, day=1),
+                        end=pd.Timestamp(year=2022, month=12, day=31)
+                        ).date.tolist()
+                    },
+                    {},
+                    {
+                        k: 2 for k in pd.date_range(
+                        start=pd.Timestamp(year=2023, month=6, day=15),
+                        end=pd.Timestamp(year=2023, month=6, day=17)
+                        ).date.tolist()
+                    },
+                ],
+                "D",
+                pd.Series([True, 'Period 3', pd.Timestamp(year=2023, month=6, day=15), '']),
+                "PYT34[Moves Second Gap, Period 3]"
+        ),
+        # Can move on second gap, third period - weeks
+        (
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=2,
+                    gap_day_total=10,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2022, month=3, day=3),
+                            end=pd.Timestamp(year=2022, month=3, day=20),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2022, month=3, day=3),
+                                    end=pd.Timestamp(year=2022, month=3, day=20)
+                                ).date
+                            )
+                        ),
+                        Gap(
+                            start=pd.Timestamp(year=2022, month=10, day=7),
+                            end=pd.Timestamp(year=2022, month=10, day=26),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2022, month=10, day=9),
+                                    end=pd.Timestamp(year=2022, month=10, day=23)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_DURING_TIMEFRAME
+                ),
+                [
+                    {
+                        k: 2 for k in pd.date_range(
+                        start=pd.Timestamp(year=2022, month=4, day=1),
+                        end=pd.Timestamp(year=2022, month=4, day=21),
+                        freq="W"
+                        ).date.tolist()
+                    },
+                    {},
+                    {
+                        k: 2 for k in pd.date_range(
+                        start=pd.Timestamp(year=2022, month=10, day=16),
+                        end=pd.Timestamp(year=2022, month=10, day=23),
+                        freq="W"
+                        ).date.tolist()
+                    },
+                ],
+                "D",
+                pd.Series([True, 'Period 3', pd.Timestamp(year=2022, month=10, day=16), '']),
+                "PYT34[Moves Second Gap, Period 3 - Week]"
+        ),
+    ],
+    ids=["PYT34[No Moving Dates]", "PYT34[No Moving Dates - Week]", "PYT34[Moves In First Period]",
+         "PYT34[Moves In First Period - Weeks]", "PYT34[Moves Second Gap, Period 3]",
+         "PYT34[Moves Second Gap, Period 3 - Week]"]
+)
+def test_migrate_study_apply_day_frequency(item_info, moving_dates, transfer_window, expected_result, test_id, 
+                                           record_xml_attribute):
+
+    record_xml_attribute("qualification", "oq")
+    record_xml_attribute("test_id", test_id)
+    record_xml_attribute("srs_requirement", "")
+    record_xml_attribute("frs_requirement", "")
+    record_xml_attribute("scenario", "")
+
+    record_xml_attribute("purpose",
+                         "Ensure the correctness of the _migrate_study_apply method in terms of producing the "
+                         "expected result for a given ItemInformation instance, moving_dates dictionary, "
+                         "and transfer_window, inorder to validate whether the method correctly identifies the "
+                         "moving date and period based on the provided inputs.")
+    record_xml_attribute("description",
+                         "Verifies the behavior of the _migrate_study_apply method when applied to a given "
+                         "ItemInformation instance, moving_dates dictionary, and transfer_window value to ensure the "
+                         "method correctly determines the expected result based on the provided inputs.")
+    record_xml_attribute("acceptance criteria",
+                         "Assert that the expected result produced by the _migrate_study_apply method matches the "
+                         "provided expected_result value. Additionally, if a specific date should be moved according "
+                         "to the expected result, the corresponding period in the moving_dates dictionary should "
+                         "have a value of 1 for that date.")
+
+    assert expected_result.equals(Data._migrate_study_apply(item_info, moving_dates, transfer_window))
+
+    should_move_date = expected_result[2]
+    should_move_period = expected_result[1].split('Period ')
+
+    if pd.notna(should_move_date):
+        assert len(should_move_period) == 2
+        period_index = int(should_move_period[1]) - 1
+        assert moving_dates[period_index][should_move_date.date()] == 1
+
+
+@pytest.mark.parametrize(
+    "item_info, moving_dates, should_remove, transfer_window_type, test_id",
+    [
+        # Day Frequency Filled
+        (
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=1,
+                    gap_day_total=10,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2023, month=6, day=13),
+                            end=pd.Timestamp(year=2023, month=6, day=23),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2023, month=6, day=13),
+                                    end=pd.Timestamp(year=2023, month=6, day=23)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_DURING_TIMEFRAME
+                ),
+                [
+                    {
+                        pd.Timestamp(year=2023, month=6, day=15).date(): 1,
+                        pd.Timestamp(year=2023, month=6, day=16).date(): 2
+                    },
+                ],
+                pd.Timestamp(year=2023, month=6, day=15).date(),
+                'D',
+                "PYT35[Day Frequency Filled]"
+        ),
+        # Week Frequency Filled
+        (
+                ItemInformation(
+                    study_id="test_study",
+                    gap_number=1,
+                    gap_day_total=10,
+                    gap_lst=[
+                        Gap(
+                            start=pd.Timestamp(year=2022, month=5, day=8),  # Sunday
+                            end=pd.Timestamp(year=2022, month=5, day=15),
+                            timestamp_lst=set(
+                                pd.date_range(
+                                    start=pd.Timestamp(year=2022, month=5, day=8),
+                                    end=pd.Timestamp(year=2022, month=5, day=15)
+                                ).date
+                            )
+                        )
+                    ],
+                    active_during_timeframe=True,
+                    status=ItemStatus.CLOSING_DURING_TIMEFRAME
+                ),
+                [
+                    {
+                        pd.Timestamp(year=2022, month=5, day=8).date(): 1,
+                        pd.Timestamp(year=2023, month=5, day=15).date(): 2,
+                        pd.Timestamp(year=2023, month=5, day=22).date(): 2
+                    }
+                ],
+                pd.Timestamp(year=2022, month=5, day=8).date(),
+                'W',
+                "PYT35[Week Frequency Filled]"
+        )
+    ],
+    ids=["PYT35[Day Frequency Filled]", "PYT35[Week Frequency Filled]"]
+)
+def test_migrate_study_apply_date_capacity(item_info, moving_dates, should_remove, transfer_window_type, test_id,
+                                           record_xml_attribute):
+    record_xml_attribute("qualification", "oq")
+    record_xml_attribute("test_id", test_id)
+    record_xml_attribute("srs_requirement", "")
+    record_xml_attribute("frs_requirement", "")
+    record_xml_attribute("scenario", "")
+
+    record_xml_attribute("purpose", "Ensures the correctness of the _migrate_study_apply method in terms of modifying "
+                                    "the moving_dates dictionary by removing a specific date and ensuring the "
+                                    "resulting dictionary is modified as expected.")
+    record_xml_attribute("description",
+                         "Verifies the behavior of the _migrate_study_apply method when applied to a given "
+                         "ItemInformation instance and moving_dates dictionary by checking whether the method "
+                         "correctly modifies the moving_dates dictionary when migrating studies.")
+    record_xml_attribute("acceptance_criteria",
+                         "Assert that the specific date (should_remove) is initially present in the moving_dates "
+                         "dictionary and is subsequently removed after calling the _migrate_study_apply method. "
+                         "Additionally, the remaining contents of the moving dictionary are compared against expected "
+                         "values to ensure they have not been modified.")
+
+    assert should_remove in moving_dates[0]
+
+    Data._migrate_study_apply(item_info, moving_dates, transfer_window_type)
+
+    assert should_remove not in moving_dates[0]
+    for key, value in moving_dates[0].items():
+        assert value == 2
+
+
+def test_migration_table_processing(app_test_dataclass, record_xml_attribute):
+    record_xml_attribute("qualification", "oq")
+    record_xml_attribute("test_id", "PYT36")
+    record_xml_attribute("srs_requirement", "")
+    record_xml_attribute("frs_requirement", "")
+    record_xml_attribute("scenario", "")
+
+    record_xml_attribute("purpose", "Ensure that the migration_table_processing method produces the expected "
+                                    "results, including the structure and values of the output DataFrames and the "
+                                    "correctness of the period start/end dates.")
+    record_xml_attribute("description",
+                         "This test verifies the correctness of the migration_table_processing method by checking "
+                         "whether the function generates the expected output DataFrames and period start/end dates "
+                         "when given a mock DataFrame and specific parameters.")
+    record_xml_attribute("acceptance_criteria",
+                         "Assert that the generated DataFrames (day_freq_df and week_freq_df) has the correct column "
+                         "structure and values, including the transfer flags, transfer start dates, transfer ranges, "
+                         "and period moved values. Additionally, the period start/end dates "
+                         "(day_period_start_end and week_period_start_end) should match the expected dates")
+
+    timeframe_start = pd.Timestamp(year=2022, month=1, day=2)
+    timeframe_end = pd.Timestamp(year=2022, month=12, day=31)
+
+    mock_df = pd.DataFrame({
+        "study id": ["12", "34", "56", "78"],
+        "Gap Information": [
+            # Study with no gaps
+            ItemInformation(
+                study_id="12",
+                gap_number=0,
+                gap_day_total=0,
+                gap_lst=[],
+                active_during_timeframe=False,
+                status=ItemStatus.NO_STATUS_GIVEN
+            ),
+            # Study with gap outside timeframe
+            ItemInformation(
+                study_id="34",
+                gap_number=1,
+                gap_day_total=20,
+                gap_lst=[
+                    Gap(
+                        start=pd.Timestamp(year=2021, month=9, day=1),
+                        end=pd.Timestamp(year=2021, month=9, day=20),
+                        timestamp_lst=pd.date_range(
+                            start=pd.Timestamp(year=2021, month=9, day=1),
+                            end=pd.Timestamp(year=2021, month=9, day=20)
+                        ).date
+                    )
+                ],
+                active_during_timeframe=False,
+                status=ItemStatus.CLOSING_BEFORE_TIMEFRAME
+            ),
+            # Study that moves as normal
+            ItemInformation(
+                study_id="56",
+                gap_number=1,
+                gap_day_total=17,
+                gap_lst=[
+                    Gap(
+                        start=pd.Timestamp(year=2021, month=12, day=24),
+                        end=pd.Timestamp(year=2022, month=1, day=9),
+                        timestamp_lst=pd.date_range(
+                            start=pd.Timestamp(year=2021, month=12, day=24),
+                            end=pd.Timestamp(year=2022, month=1, day=9),
+                        ).date
+                    )
+                ],
+                active_during_timeframe=True,
+                status=ItemStatus.CLOSING_DURING_TIMEFRAME
+            ),
+            # Study that cant move because its transfer date has been filled
+            ItemInformation(
+                study_id="78",
+                gap_number=1,
+                gap_day_total=17,
+                gap_lst=[
+                    Gap(
+                        start=pd.Timestamp(year=2021, month=12, day=24),
+                        end=pd.Timestamp(year=2022, month=1, day=9),
+                        timestamp_lst=pd.date_range(
+                            start=pd.Timestamp(year=2021, month=12, day=24),
+                            end=pd.Timestamp(year=2022, month=1, day=9),
+                        ).date
+                    )
+                ],
+                active_during_timeframe=True,
+                status=ItemStatus.CLOSING_DURING_TIMEFRAME
+            ),
+        ],
+        "Weights": [1, 0.8, 0.6, 0.4]
+    })
+
+    day_freq_df, day_period_start_end = app_test_dataclass.migration_table_processing(
+        mock_df, {"timeframe_start": timeframe_start, "timeframe_end": timeframe_end}, 1, 100, "D"
+    )
+
+    expected_day_cols = ['study id', 'Gap Information', 'Weights', 'Transfer Flag', 'Transfer Start Date',
+                         'Period Moved']
+
+    assert len(day_freq_df.columns) == len(expected_day_cols)
+    assert all(col in day_freq_df.columns for col in expected_day_cols)
+    assert day_freq_df['Transfer Flag'].equals(pd.Series([False, False, True, True]))
+    assert day_freq_df['Transfer Start Date'].equals(pd.Series([pd.NaT, pd.NaT, date(year=2022, month=1, day=2),
+                                                                date(year=2022, month=1, day=3)]))
+    assert day_freq_df['Period Moved'].equals(pd.Series(['Not Moved', 'Not Moved', 'Period 1', 'Period 1']))
+    assert day_period_start_end == [
+        (date(2022, 1, 2), date(2022, 4, 11)),
+        (date(2022, 4, 12), date(2022, 7, 20)),
+        (date(2022, 7, 21), date(2022, 10, 28)),
+        (date(2022, 10, 29), date(2022, 12, 31))
+    ]
+
+    expected_week_cols = ['study id', 'Gap Information', 'Weights', 'Transfer Flag', 'Transfer Start Date',
+                          'Transfer Range', 'Period Moved']
+
+    week_freq_df, week_period_start_end = app_test_dataclass.migration_table_processing(
+        mock_df, {"timeframe_start": timeframe_start, "timeframe_end": timeframe_end}, 1, 14, "W"
+    )
+    assert len(week_freq_df.columns) == len(expected_week_cols)
+    assert all(col in week_freq_df.columns for col in expected_week_cols)
+    assert week_freq_df['Transfer Flag'].equals(pd.Series([False, False, True, False]))
+    assert week_freq_df['Transfer Start Date'].equals(
+        pd.Series([pd.NaT, pd.NaT, date(year=2022, month=1, day=2), pd.NaT]))
+    assert week_freq_df['Transfer Range'].equals(pd.Series(['', '', '2022-01-02 to 2022-01-08', '']))
+    assert week_freq_df['Period Moved'].equals(pd.Series(['Not Moved', 'Not Moved', 'Period 1', 'Not Moved']))
+
+
+@pytest.mark.parametrize(
+    "input_df, group_col, expected_df, test_id",
+    [
+        (
+            pd.DataFrame({
+                'study_id': [12, 23, 34, 45, 56],
+                'Transfer Flag': [False, True, True, False, True],
+                'Period Moved': ['Not Moved', 'Period 1', 'Period 1', 'Not Moved', 'Period 2'],
+                'Transfer Range': ['', '', '', '', '']
+            }),
+            'Overall',
+            pd.DataFrame({
+                'Total Moved': [3],
+                'Total Not Moved': [2],
+                'Period 1': [2],
+                'Period 2': [1]
+            }),
+            "PYT37[Overall Grouping]"
+        ),
+    ],
+    ids=["PYT36[Overall Grouping]"]
+)
+def test_table_formatting(input_df, group_col, expected_df, test_id, record_xml_attribute):
+    record_xml_attribute("qualification", "oq")
+    record_xml_attribute("test_id", test_id)
+    record_xml_attribute("srs_requirement", "")
+    record_xml_attribute("frs_requirement", "")
+    record_xml_attribute("scenario", "")
+
+    record_xml_attribute("purpose", "Verify that the table_formatting method correctly formats the input DataFrame "
+                                    "according to the specified grouping column.")
+    record_xml_attribute("description",
+                         "Ensures that the table_formatting static method of the Data class correctly formats a "
+                         "migration DataFrame for presentation in a dash datatable.")
+    record_xml_attribute("acceptance_criteria",
+                         "Assert that the formatted DataFrame returned by the table_formatting method is equal to the "
+                         "expected DataFrame.")
+
+    result_df = Data.table_formatting(input_df, group_col)
+    assert result_df.equals(expected_df)
+
+
+def test_format_for_export(record_xml_attribute):
+    record_xml_attribute("qualification", "oq")
+    record_xml_attribute("test_id", "PYT38")
+    record_xml_attribute("srs_requirement", "")
+    record_xml_attribute("frs_requirement", "")
+    record_xml_attribute("scenario", "")
+
+    record_xml_attribute("purpose", "Ensure that the format_for_export method correctly formats the input dataframe "
+                                    "(input_df) according to specific transformation rules and generates the expected "
+                                    "dataframe (expected_df).")
+    record_xml_attribute("description",
+                         "Verify the functionality of the format_for_export method by comparing the output dataframe "
+                         "(result_df) with the expected dataframe (expected_df) for a specific input scenario.")
+    record_xml_attribute("acceptance_criteria",
+                         "Assert that the generated dataframe (result_df) is equal to the (expected_df), including "
+                         "column names, data values, and data types. The comparison should reset the index of both "
+                         "dataframes before the assertion as this is not relevant to the final result.")
+
+    input_df = pd.DataFrame({
+        "Study ID": ["123", "567", "890"],
+        "Transfer Flag": [False, True, True],
+        "Transfer Start Date": [
+            "",
+            pd.Timestamp(year=2021, month=12, day=24).date(),
+            pd.Timestamp(year=2016, month=1, day=1).date()
+        ],
+        "Period Moved": ["Not Moved", "Period 2", "Period 1"],
+        "Gap Information": [
+            ItemInformation(
+                study_id="123",
+                gap_number=0,
+                gap_day_total=0,
+                gap_lst=[],
+                active_during_timeframe=False,
+                status=ItemStatus.NO_STATUS_GIVEN
+            ),
+            ItemInformation(
+                study_id="567",
+                gap_number=1,
+                gap_day_total=17,
+                gap_lst=[
+                    Gap(
+                        start=pd.Timestamp(year=2021, month=12, day=24),
+                        end=pd.Timestamp(year=2022, month=1, day=9),
+                        timestamp_lst=pd.date_range(
+                            start=pd.Timestamp(year=2021, month=12, day=24),
+                            end=pd.Timestamp(year=2022, month=1, day=9),
+                        ).date
+                    )
+                ],
+                active_during_timeframe=True,
+                status=ItemStatus.CLOSING_DURING_TIMEFRAME
+            ),
+            ItemInformation(
+                study_id="890",
+                gap_number=3,
+                gap_day_total=774 + 1142 + 1708,
+                gap_lst=[
+                    Gap(
+                        start=pd.Timestamp(year=2016, month=1, day=1),
+                        end=pd.Timestamp(year=2018, month=2, day=12),
+                        timestamp_lst=set(
+                            pd.date_range(
+                                start=pd.Timestamp(year=2016, month=1, day=1),
+                                end=pd.Timestamp(year=2018, month=2, day=12)
+                            ).date
+                        )
+                    ),
+                    Gap(
+                        start=pd.Timestamp(year=2018, month=2, day=24),
+                        end=pd.Timestamp(year=2021, month=4, day=10),
+                        timestamp_lst=set(
+                            pd.date_range(
+                                start=pd.Timestamp(year=2018, month=2, day=24),
+                                end=pd.Timestamp(year=2021, month=4, day=10)
+                            ).date
+                        )
+                    ),
+                    Gap(
+                        start=pd.Timestamp(year=2021, month=4, day=22),
+                        end=pd.Timestamp(year=2025, month=12, day=24),
+                        timestamp_lst=set(
+                            pd.date_range(
+                                start=pd.Timestamp(year=2021, month=4, day=22),
+                                end=pd.Timestamp(year=2025, month=12, day=24)
+                            ).date
+                        )
+                    )
+                ],
+                active_during_timeframe=True,
+                status=ItemStatus.CLOSING_AFTER_TIMEFRAME
+            ),
+        ],
+        "Weights": [0, 1, 0.5],
+        "Time Block": [None, None, None],
+        "Merged Time Block": [None, None, None],
+        "Persistent Column": ["A", "B", "C"]
+    })
+
+    expected_df = pd.DataFrame({
+        "Study ID": ["567", "890", "123"],
+        "Transfer Status": [True, True, False],
+        "Transfer Start Date": [
+            pd.Timestamp(year=2021, month=12, day=24).date(),
+            pd.Timestamp(year=2016, month=1, day=1).date(),
+            ""
+        ],
+        "Period Moved": ["Period 2", "Period 1", "Not Moved"],
+        "Weights": [1, 0.5, 0],
+        "Persistent Column": ["B", "C", "A"],
+        "Gap Day Total": [17, 3624, 0],
+        "Closing Status": ["Closing During Timeframe", "Closing After Timeframe", "No Status Given"],
+        "Gap 1 Start": ["2021-12-24", "2016-01-01", None],
+        "Gap 1 End": ["2022-01-09", "2018-02-12", None],
+        "Gap 1 Length": pd.Series([17, 774, None], dtype=object),
+        "Gap 2 Start": [None, "2018-02-24", None],
+        "Gap 2 End": [None, "2021-04-10", None],
+        "Gap 2 Length": pd.Series([None, 1142, None], dtype=object),
+        "Gap 3 Start": [None, "2021-04-22", None],
+        "Gap 3 End": [None, "2025-12-24", None],
+        "Gap 3 Length": pd.Series([None, 1708, None], dtype=object),
+    })
+
+    result_df = Data.format_for_export(input_df).reset_index(drop=True)
+
+    pd.testing.assert_frame_equal(left=expected_df, right=result_df)
+
+
+@pytest.mark.parametrize(
+    "app_session_store, period_start_end, period_length, transfer_window_type, active_studies_per, test_id",
+    [
+        (
+            {
+                "timeframe_start": pd.Timestamp(year=2022, month=6, day=10),
+                "timeframe_end": pd.Timestamp(year=2022, month=6, day=19),
+                "milestones": {
+                    "milestone 1": Milestone("milestone 1", offset_after=10, offset_before=10).__dict__,
+                    "milestone 2": Milestone("milestone 2", offset_after=5, offset_before=5).__dict__
+                },
+                "active_filters": []
+            },
+            [(pd.Timestamp(year=2022, month=6, day=10).date(), pd.Timestamp(year=2022, month=6, day=14).date()),
+             (pd.Timestamp(year=2022, month=6, day=15).date(), pd.Timestamp(year=2022, month=6, day=19).date())],
+            10,
+            'D',
+            2,
+            "PYT39[Daily Without Filters]"
+        ),
+        (
+            {
+                "timeframe_start": pd.Timestamp(year=2022, month=6, day=10),
+                "timeframe_end": pd.Timestamp(year=2022, month=6, day=19),
+                "milestones": {
+                    "milestone 1": Milestone("milestone 1", offset_after=10, offset_before=10).__dict__,
+                    "milestone 2": Milestone("milestone 2", offset_after=5, offset_before=5).__dict__
+                },
+                "active_filters": []
+            },
+            [(pd.Timestamp(year=2022, month=6, day=12).date(), pd.Timestamp(year=2022, month=6, day=18).date())],
+            1,
+            'W',
+            2,
+            "PYT39[Weekly Without Filters]"
+        ),
+        (
+            {
+                "timeframe_start": pd.Timestamp(year=2022, month=6, day=10),
+                "timeframe_end": pd.Timestamp(year=2022, month=6, day=19),
+                "milestones": {
+                    "milestone 1": Milestone("milestone 1", offset_after=10, offset_before=10).__dict__,
+                    "milestone 2": Milestone("milestone 2", offset_after=5, offset_before=5, active=False).__dict__
+                },
+                "active_filters": [["Compound", [212, 323, 434]], ["Domain", ["VS", "DM"]]]
+            },
+            [(pd.Timestamp(year=2022, month=6, day=10).date(), pd.Timestamp(year=2022, month=6, day=14).date()),
+             (pd.Timestamp(year=2022, month=6, day=15).date(), pd.Timestamp(year=2022, month=6, day=19).date())],
+            10,
+            'D',
+            2,
+            "PYT39[Daily With Filters]"
+        ),
+        (
+            {
+                "timeframe_start": pd.Timestamp(year=2022, month=6, day=10),
+                "timeframe_end": pd.Timestamp(year=2022, month=6, day=19),
+                "milestones": {
+                    "milestone 1": Milestone("milestone 1", offset_after=10, offset_before=10).__dict__,
+                    "milestone 2": Milestone("milestone 2", offset_after=5, offset_before=5, active=False).__dict__
+                },
+                "active_filters": [["Compound", [212, 323, 434]], ["Domain", ["VS", "DM"]]]
+            },
+            [(pd.Timestamp(year=2022, month=6, day=12).date(), pd.Timestamp(year=2022, month=6, day=18).date())],
+            1,
+            'W',
+            2,
+            "PYT39[Weekly With Filters]"
+        )
+    ],
+    ids=["PYT39[Daily Without Filters]", "PYT39[Weekly Without Filters]", "PYT39[Daily With Filters]",
+         "PYT39[Weekly With Filters]"]
+)
+def test_format_config_sheet(app_session_store, period_start_end, period_length, transfer_window_type,
+                             active_studies_per, test_id, record_xml_attribute):
+    record_xml_attribute("qualification", "oq")
+    record_xml_attribute("test_id", test_id)
+    record_xml_attribute("srs_requirement", "")
+    record_xml_attribute("frs_requirement", "")
+    record_xml_attribute("scenario", "")
+
+    record_xml_attribute("purpose", "Ensure that the format_config_sheet method generates the expected dataframe by "
+                                    "comparing it with the pre-loaded expected dataframe for each test case.")
+    record_xml_attribute("description",
+                         "Verify the behavior of the format_config_sheet method with different input scenarios.")
+    record_xml_attribute("acceptance_criteria",
+                         "Assert that the generated dataframe (result_df) is equal to the the expected dataframe "
+                         "(expected_df) for each test case. The comparison should not check the data types of the "
+                         "columns.")
+
+    result_df = Data.format_config_sheet(app_session_store, period_start_end, period_length, transfer_window_type,
+                                         active_studies_per)
+
+    expected_df = load_json_test_dataframe(test_id)
+
+    # Dataframe used for presentation only so dtype comparison is not required
+    pd.testing.assert_frame_equal(left=expected_df, right=result_df, check_dtype=False)

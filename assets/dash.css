@@ -117,6 +117,68 @@ h2 {
     padding: 2px;
 }
 
-#study-graph, #filter-study-graph, #filter-compound-graph {
-  height: calc(100vh - 6rem);
+#migration-table .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner table {
+    font-family: inherit;
+}
+
+#study-graph, #filter-study-graph, #filter-compound-graph{
+    height: calc(100vh - 8.5rem);
+}
+
+.section4 {
+    min-height: calc(100vh - 3rem);
+}
+
+.form-select {
+    font-size: 0.875rem !important;
+}
+
+.select-with-unit {
+    display: flex;
+}
+
+.select-with-unit .form-select {
+    width: auto !important;
+}
+
+.select-with-unit .form-control {
+    margin-right: 10px;
+}
+
+.graph-options {
+    margin-bottom: 20px;
+}
+
+.accordion-header {
+    padding-top: 0;
+}
+
+.no-migration-table-created {
+    min-height: 400px;
+    display: flex;
+}
+
+.no-migration-table-created span {
+    margin: auto;
+}
+
+#custom-filter-wrapper:last-of-type {
+  padding-bottom: 200px;
+}
+
+.period-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.period-box {
+    padding: 10px;
+    background-color: #f8f5f0;
+    border-radius: 6px;
+}
+
+.period-box h4 {
+    color: #325d88;
 }
