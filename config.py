@@ -9,7 +9,7 @@ class AppConfiguration:
 
     # Source data configuration
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    data_path = os.path.join(dir_path, "data/clean_input_data_reduced - v2.csv")
+    data_path = os.path.join(dir_path, "data/input_data.csv")
     day_first_dates = True  # Toggle between international and European date formats
 
     # Required source data column labels
@@ -35,3 +35,7 @@ class AppConfiguration:
         milestone_type_4: utils.Milestone(milestone_type_4),
         milestone_type_5: utils.Milestone(milestone_type_5, offset_before=7, offset_after=7),
     }
+
+    # These coefficients affect the migration priorities, see the compute_weights method before modifying them
+    day_weight_coefficient = 5
+    gap_weight_coefficient = 0.1
