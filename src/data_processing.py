@@ -1,6 +1,11 @@
+import datetime
+import json
+
 import pandas as pd
+import numpy as np
 import re
-from typing import List
+from typing import List, Union
+from cryptography.fernet import Fernet
 
 from config import AppConfiguration
 from logger import logger
@@ -21,6 +26,7 @@ class Data:
         self.milestone_labels = list(app_configuration.milestone_definitions.keys())
         self.day_weight_coefficient = app_configuration.day_weight_coefficient
         self.gap_weight_coefficient = app_configuration.gap_weight_coefficient
+        self.fernet_instance = Fernet(Fernet.generate_key())
 
         source_name = app_configuration.data_path.split("/")[-1]
 
@@ -32,6 +38,19 @@ class Data:
         else:
             raise ValueError(f"Specified source path points to file: {source_name}, of unsupported type! \n "
                              "Supported types are: csv and xlsx.")
+
+    def encrypt_item(self, item: Union[str, list, dict, pd.DataFrame]) -> str:
+        if isinstance(item, pd.DataFrame):
+            json_str = item.to_json()
+        else:
+            json_str = json.dumps(item)
+        return self.fernet_instance.encrypt(json_str.encode()).decode()
+
+    def decrypt_item(self, item: str, expect_dataframe: bool = False) -> Union[str, list, dict, pd.DataFrame]:
+        if expect_dataframe:
+            return pd.read_json(self.fernet_instance.decrypt(item.encode()).decode())
+        else:
+            return json.loads(self.fernet_instance.decrypt(item.encode()).decode())
 
     @staticmethod
     def _create_timeblock_apply(series: pd.Series, milestones: dict) -> list:
@@ -808,7 +827,7 @@ class Data:
         """
 
         by_cols = ['Period Moved'] if group_col == 'Overall' else [group_col, 'Period Moved']
-        grouped_df = input_df.groupby(by=by_cols, sort=True).size().reset_index(name='Total Moved')
+        grouped_df = input_df.groupby(by=by_cols, sort=True).size().reset_index(name='Transfer Dates Found')
         if group_col == 'Overall':
             grouped_df['Group'] = 'Overall'
 
@@ -816,18 +835,29 @@ class Data:
             grouped_df,
             index=group_col if group_col != 'Overall' else 'Group',
             columns='Period Moved',
-            values='Total Moved'
-        ).reset_index().rename(columns={grouped_df.index.name: group_col, **{'Not Moved': 'Total Not Moved'}})
+            values='Transfer Dates Found'
+        ).reset_index().rename(columns={grouped_df.index.name: group_col, **{'Not Moved': 'Transfer Dates Not Found'}})
 
-        grouped_df['Total Moved'] = \
+        if 'Transfer Dates Not Found' not in grouped_df.columns:
+            grouped_df['Transfer Dates Not Found'] = 0
+
+        grouped_df['Transfer Dates Found'] = \
             grouped_df[grouped_df.columns[grouped_df.columns.str.startswith('Period')]].sum(axis=1)
 
-        df_cols = [group_col, 'Total Moved', 'Total Not Moved'] if group_col != 'Overall' else ['Total Moved',
-                                                                                                'Total Not Moved']
+        grouped_df['Total'] = grouped_df['Transfer Dates Found'] + grouped_df['Transfer Dates Not Found']
+
+        df_cols = [group_col, 'Total', 'Transfer Dates Found', 'Transfer Dates Not Found'] \
+            if group_col != 'Overall' \
+            else ['Total', 'Transfer Dates Found', 'Transfer Dates Not Found']
+
         df_cols.extend(sorted([col for col in grouped_df.columns if re.match(r'\bPeriod\s+(\d+)', col)],
                               key=lambda x: int(x.replace('Period ', ''))))
 
-        grouped_df = grouped_df.reindex(columns=df_cols).sort_values(by=['Total Moved'], ascending=False).fillna(0)
+        grouped_df = grouped_df.reindex(columns=df_cols)\
+            .sort_values(by=['Transfer Dates Found'], ascending=False).fillna(0)
+
+        float_cols = grouped_df.select_dtypes(include='float').columns
+        grouped_df[float_cols] = grouped_df[float_cols].astype(np.int64)
 
         return grouped_df
 
@@ -940,11 +970,11 @@ class Data:
             if transfer_window_type == 'D':
                 df_config.loc[i - 1, f'Period - Start'] = str(period_start)
                 df_config.loc[i - 1, f'Period - End'] = str(period_end)
-                df_config.loc[i - 1, f'Period - Length (Days)'] = period_length
+                df_config.loc[i - 1, f'Period - Length (Days)'] = len(pd.date_range(start=period_start, end=period_end, freq='D'))
 
             else:
                 df_config.loc[i - 1, f'Period - Start'] = str(period_start)
                 df_config.loc[i - 1, f'Period - End'] = str(period_end)
-                df_config.loc[i - 1, f'Period - Length (Weeks)'] = period_length
+                df_config.loc[i - 1, f'Period - Length (Weeks)'] = len(pd.date_range(start=period_start, end=period_end, freq='W'))
 
         return df_config

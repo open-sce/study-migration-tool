@@ -42,5 +42,5 @@ Open a new GitHub issue outlining the feature with an appropriate **title and cl
 - **src** Contains the data processing functionality
 - *tests** Contains Pytest unit tests
 - app.py is the application file containing the dash app layout and callbacks
-- config.py is where any changeable variable are stored
+- config.py is where any changeable variable is stored
 - utils.py contains useful standalone functions

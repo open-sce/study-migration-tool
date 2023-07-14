@@ -2,6 +2,7 @@ import datetime
 import math
 import time
 import uuid
+import toml
 from typing import List
 
 import dash
@@ -22,13 +23,20 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SANDSTONE, dbc.icons.
 server = app.server
 
 app.title = "Study Migration Tool"
-version = "2.0.1"  # Release . Feature . Bugfix
+
+try:
+    with open('pyproject.toml', 'r') as file:
+        config = toml.load(file)
+        project_info = config.get('project', {})
+        version = project_info.get('version', "Version Unavailable")  # Release . Feature . Bugfix
+except FileNotFoundError:
+    version = "Version Not Found"
 
 app_config = AppConfiguration()
 app_data = data_processing.Data(app_config)
 
-
 # COMPONENTS -----------------------------------------------------------------------------------------------------------
+
 
 def no_data_figure():
     return {
@@ -436,11 +444,11 @@ app.layout = html.Div([
         'milestones': {
             label: milestone.__dict__ for label, milestone in app_config.milestone_definitions.items()
         },
-        'active_filters': [],
+        'active_filters': app_data.encrypt_item([]),
         'first_start': True
     }),
-    dcc.Store(id="prev-study-selected-store", storage_type='session'),
-    dcc.Store(id="prev-compound-selected-store", storage_type='session'),
+    dcc.Store(id="prev-study-selected-store", storage_type='session', data=app_data.encrypt_item([])),
+    dcc.Store(id="prev-compound-selected-store", storage_type='session', data=app_data.encrypt_item([])),
     dcc.Store(id="data-plot-df-store", storage_type='session'),
     dcc.Store(id="app-mode-store", data={"test_mode": False, "test_data": None})
 ])
@@ -474,10 +482,17 @@ def collapse_sidebar(collapse_clicks, open_clicks):
     Input("data-plot-df-store", "data"),
     Input("timeframe-filter", "value"),
     State("app-session-store", "data"),
+    State("app-mode-store", "data"),
     prevent_initial_call=True
 )
-def set_study_graph_figure(frozen, timeframe_filter, app_session_store):
-    df = pd.read_json(frozen)
+def set_study_graph_figure(frozen, timeframe_filter, app_session_store, app_mode_store):
+
+    if app_mode_store.get('test_mode'):
+        active_app_data = app_mode_store['test_dataclass']
+    else:
+        active_app_data = app_data
+
+    df = active_app_data.decrypt_item(frozen, expect_dataframe=True)
     fig = no_data_figure()
 
     if not df.empty:
@@ -488,7 +503,7 @@ def set_study_graph_figure(frozen, timeframe_filter, app_session_store):
             df = df.loc[df["inside timeframe"] == "Yes"]
 
         if not df.empty:
-            fig = px.timeline(df, x_start="start", x_end="end", y=app_data.unique_identity_label,
+            fig = px.timeline(df, x_start="start", x_end="end", y=active_app_data.unique_identity_label,
                               color="type", opacity=0.8, range_x=[df["start"].min(), df["end"].max()])
             fig.update_layout(font={"size": 14}, xaxis_title="Time Period")
             fig.update_xaxes({"side": "top"})
@@ -507,34 +522,42 @@ def set_study_graph_figure(frozen, timeframe_filter, app_session_store):
           Input("timeframe-filter", "value"),
           State("prev-study-selected-store", "data"),
           State("app-session-store", "data"),
+          State("app-mode-store", "data"),
           prevent_initial_call=True)
-def set_filter_study_graph_figure(study_lst, frozen, timeframe_bool, prev_selected, app_session_store):
+def set_filter_study_graph_figure(study_lst, frozen, timeframe_bool, prev_selected, app_session_store, app_mode_store):
     if study_lst is None:
         # Catch initialisation cases
         raise PreventUpdate
 
+    if app_mode_store.get('test_mode'):
+        active_app_data = app_mode_store['test_dataclass']
+    else:
+        active_app_data = app_data
+
     if not study_lst:
-        return one_or_more_figure("Studies"), no_update
+        return one_or_more_figure("Studies"), active_app_data.encrypt_item([])
 
     activation_id = dash.callback_context.triggered[0]['prop_id'].split('.')[0]
+    prev_selected = active_app_data.decrypt_item(prev_selected)
+
     if (prev_selected == study_lst) and not (activation_id == "data-plot-df-store"):
         raise PreventUpdate
 
     fig = no_data_figure()
-    df = pd.read_json(frozen)
+    df = active_app_data.decrypt_item(frozen, expect_dataframe=True)
 
     if not df.empty:
 
         df["start"] = df["start"].apply(lambda x: pd.Timestamp(x, unit="ms"))
         df["end"] = df["end"].apply(lambda x: pd.Timestamp(x, unit="ms"))
 
-        df = df.loc[df[app_data.study_label].isin(study_lst)]
+        df = df.loc[df[active_app_data.study_label].isin(study_lst)]
 
         if timeframe_bool:
             df = df.loc[df["inside timeframe"] == "Yes"]
 
         if not df.empty:
-            fig = px.timeline(df, x_start="start", x_end="end", y=app_data.unique_identity_label,
+            fig = px.timeline(df, x_start="start", x_end="end", y=active_app_data.unique_identity_label,
                               opacity=0.8, color="type", range_x=[df["start"].min(), df["end"].max()])
             fig.update_layout(font={"size": 14}, xaxis_title="Time Period")
             fig.update_xaxes({"side": "top"})
@@ -542,7 +565,7 @@ def set_filter_study_graph_figure(study_lst, frozen, timeframe_bool, prev_select
             fig.add_vline(x=pd.Timestamp(app_session_store['timeframe_start']), line_color='gray', opacity=0.6)
             fig.add_vline(x=pd.Timestamp(app_session_store['timeframe_end']), line_color='gray', opacity=0.6)
 
-    return fig, study_lst
+    return fig, active_app_data.encrypt_item(study_lst)
 
 
 # Filtered Compound Graph Callback
@@ -553,34 +576,43 @@ def set_filter_study_graph_figure(study_lst, frozen, timeframe_bool, prev_select
           Input("timeframe-filter", "value"),
           State("prev-compound-selected-store", "data"),
           State("app-session-store", "data"),
+          State("app-mode-store", "data"),
           prevent_initial_call=True)
-def set_filter_compound_graph_figure(compound_lst, frozen, timeframe_bool, prev_selected, app_session_store):
+def set_filter_compound_graph_figure(compound_lst, frozen, timeframe_bool, prev_selected, app_session_store,
+                                     app_mode_store):
     if compound_lst is None:
         # Catch initialisation cases
         raise PreventUpdate
 
+    if app_mode_store.get('test_mode'):
+        active_app_data = app_mode_store['test_dataclass']
+    else:
+        active_app_data = app_data
+
     if not compound_lst:
-        return one_or_more_figure("Compounds"), no_update
+        return one_or_more_figure("Compounds"), active_app_data.encrypt_item([])
 
     activation_id = dash.callback_context.triggered[0]['prop_id'].split('.')[0]
+    prev_selected = active_app_data.decrypt_item(prev_selected)
+
     if (prev_selected == compound_lst) and not (activation_id == "data-plot-df-store"):
         raise PreventUpdate
 
     fig = no_data_figure()
-    df = pd.read_json(frozen)
+    df = active_app_data.decrypt_item(frozen, expect_dataframe=True)
 
     if not df.empty:
 
         df["start"] = df["start"].apply(lambda x: pd.Timestamp(x, unit="ms"))
         df["end"] = df["end"].apply(lambda x: pd.Timestamp(x, unit="ms"))
 
-        df = df.loc[df[app_data.compound_label].isin(compound_lst)]
+        df = df.loc[df[active_app_data.compound_label].isin(compound_lst)]
 
         if timeframe_bool:
             df = df.loc[df["inside timeframe"] == "Yes"]
 
         if not df.empty:
-            fig = px.timeline(df, x_start="start", x_end="end", y=app_data.unique_identity_label,
+            fig = px.timeline(df, x_start="start", x_end="end", y=active_app_data.unique_identity_label,
                               opacity=0.8, color="type", range_x=[df["start"].min(), df["end"].max()])
             fig.update_layout(font={"size": 14},
                               xaxis_title="Time Period")
@@ -591,7 +623,7 @@ def set_filter_compound_graph_figure(compound_lst, frozen, timeframe_bool, prev_
             fig.add_vline(x=pd.Timestamp(app_session_store['timeframe_start']), line_color='gray', opacity=0.6)
             fig.add_vline(x=pd.Timestamp(app_session_store['timeframe_end']), line_color='gray', opacity=0.6)
 
-    return fig, compound_lst
+    return fig, active_app_data.encrypt_item(compound_lst)
 
 
 # Migration Table Callback
@@ -600,31 +632,27 @@ def set_filter_compound_graph_figure(compound_lst, frozen, timeframe_bool, prev_
           Input("migration-generate-table-button", "n_clicks"),
           State("app-session-store", "data"),
           State("migration-study-rate", "value"),
-          State("migration-study-rate", "invalid"),
           State("migration-frequency", "value"),
           State("migration-period-length", "value"),
-          State("migration-period-length", "invalid"),
           State("migration-grouping-col", "value"),
           State("app-mode-store", "data"),
           prevent_initial_call=True)
-def update_migration_table(n_clicks, app_session_store, migration_study_rate, migration_study_rate_error,
-                           migration_frequency, migration_period_length, migration_period_length_error, group_col,
-                           app_mode_store):
+def update_migration_table(n_clicks, app_session_store, migration_study_rate, migration_frequency,
+                           migration_period_length, group_col, app_mode_store):
 
     if any(i is None for i in [n_clicks, migration_study_rate, migration_period_length]):
-        raise PreventUpdate
-
-    if any([migration_period_length_error, migration_study_rate_error]):
+        # Values are also none if input field is invalid
         raise PreventUpdate
 
     if all(not milestone["active"] for milestone in app_session_store['milestones'].values()):
         raise PreventUpdate
 
     if app_mode_store.get('test_mode'):
-        active_app_data = app_mode_store['test_data']
+        active_app_data = app_mode_store['test_dataclass']
     else:
         active_app_data = app_data
 
+    app_session_store["active_filters"] = active_app_data.decrypt_item(app_session_store["active_filters"])
     timeblock_df = active_app_data.create_timeblock(app_session_store)
 
     if app_session_store.get("active_filters", False):
@@ -687,7 +715,7 @@ def update_graphs_and_stores(n_clicks, start_date_input, end_date_input, app_ses
     end_date = pd.Timestamp(end_date_input)
 
     if app_mode_store.get('test_mode'):
-        active_app_data = app_mode_store['test_data']
+        active_app_data = app_mode_store['test_dataclass']
     else:
         active_app_data = app_data
 
@@ -697,7 +725,7 @@ def update_graphs_and_stores(n_clicks, start_date_input, end_date_input, app_ses
         app_session_store['first_start'] = False
         return {
             "app_session_store": app_session_store,
-            "plot_df": plotting_dataframe.to_json(),
+            "plot_df": active_app_data.encrypt_item(plotting_dataframe),
             "spinner_div": {"marginLeft": 50}
         }
     else:
@@ -722,20 +750,20 @@ def update_graphs_and_stores(n_clicks, start_date_input, end_date_input, app_ses
                     active_filters.append([col, values])
                     timeblock_dataframe = timeblock_dataframe.loc[timeblock_dataframe[col].isin(values)]
 
-            app_session_store["active_filters"] = active_filters
+            app_session_store["active_filters"] = active_app_data.encrypt_item(active_filters)
             plotting_dataframe = active_app_data.create_plotting_df(timeblock_dataframe, app_session_store)
 
             return {
                 "app_session_store": app_session_store,
-                "plot_df": plotting_dataframe.to_json(),
+                "plot_df": active_app_data.encrypt_item(plotting_dataframe),
                 "spinner_div": {"marginLeft": 50}
             }
         else:
             logger.info(f"STORE UPDATE: no active milestones")
-            app_session_store["active_filters"] = []
+            app_session_store["active_filters"] = active_app_data.encrypt_item([])
             return {
                 "app_session_store": app_session_store,
-                "plot_df": pd.DataFrame().to_json(),
+                "plot_df": active_app_data.encrypt_item(pd.DataFrame()),
                 "spinner_div": {"marginLeft": 50}
             }
 
@@ -752,7 +780,7 @@ def return_study_checklist_options(n_clicks, search_value, selected_items, app_m
         raise PreventUpdate
 
     if app_mode_store.get('test_mode'):
-        df = app_mode_store['test_data'].df
+        df = app_mode_store['test_dataclass'].df
     else:
         df = app_data.df
 
@@ -784,7 +812,7 @@ def return_compound_checklist_options(n_clicks, search_value, selected_items, ap
         raise PreventUpdate
 
     if app_mode_store.get('test_mode'):
-        df = app_mode_store['test_data'].df
+        df = app_mode_store['test_dataclass'].df
     else:
         df = app_data.df
 
@@ -919,7 +947,7 @@ def get_unique_column_values(column_label, app_mode_store):
         raise PreventUpdate
 
     if app_mode_store.get('test_mode'):
-        df = app_mode_store['test_data'].df
+        df = app_mode_store['test_dataclass'].df
     else:
         df = app_data.df
 
@@ -933,28 +961,24 @@ def get_unique_column_values(column_label, app_mode_store):
     State("migration-download-filetype", "value"),
     State("app-session-store", "data"),
     State("migration-study-rate", "value"),
-    State("migration-study-rate", "invalid"),
     State("migration-frequency", "value"),
     State("migration-period-length", "value"),
-    State("migration-period-length", "invalid"),
     State("app-mode-store", "data"),
     prevent_initial_call=True)
 def export_migration_to_download(n_clicks, download_filetype, app_session_store, migration_study_rate,
-                                 migration_study_rate_error, migration_frequency, migration_period_length,
-                                 migration_period_length_error, app_mode_store):
+                                 migration_frequency, migration_period_length, app_mode_store):
 
     if any(i is None for i in [n_clicks, download_filetype, migration_study_rate, migration_period_length]):
-        raise PreventUpdate
-
-    if any([migration_period_length_error, migration_study_rate_error]):
+        # Values are also none if input field is invalid
         raise PreventUpdate
 
     if app_mode_store.get('test_mode'):
-        active_app_data = app_mode_store['test_data']
+        active_app_data = app_mode_store['test_dataclass']
     else:
         active_app_data = app_data
 
     timeblock_df = active_app_data.create_timeblock(app_session_store)
+    app_session_store['active_filters'] = active_app_data.decrypt_item(app_session_store['active_filters'])
 
     if app_session_store.get("active_filters", False):
         for [col, values] in app_session_store["active_filters"]:
@@ -1002,4 +1026,4 @@ def set_maximum_period_length(app_session_store, transfer_window_type):
 
 # ----------------------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
-    app.run(debug=True, port=8051, dev_tools_hot_reload=False)
+    app.run()

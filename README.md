@@ -1,28 +1,31 @@
 # Study Migration Tool
 
-A Plotly-Dash Python application developed by [Achieve Intelligence](https://www.achieveintelligence.com/) that 
-generates visualisations of study milestone activity for analysis and migration scheduling.
+A Plotly-Dash Python web application, developed by [Achieve Intelligence](https://www.achieveintelligence.com/), that 
+generates tables and visualisations from pre-existing study milestone data for analysis and migration scheduling.
 
 Achieve Intelligence offers a fully validated version of this tool. For enquires regarding this validated version, 
 please contact Achieve Intelligence via email at: [info@achieveintelligence.com](info@achieveintelligence.com)
 
-## Setup & Installation
+## Setup
 
 By default, this application will attempt to load the example csv data provided with this repository. Please 
-replace this example data and update the other configuration options found in config.py as required.
+replace this example data with your own csv or xlsx file and update the other configuration options found in config.py 
+as required.
 
-## Local
+## Installation
 
-Create a virtual environment and run the `pip install -r requirements.txt` to install the required packages.
+### Local
 
-This application does not require any environment variables, however, when running locally app.run_server does default to 
-the following variables if set:
+Run app.py using a virtual environment containing the packages found in the requirements.txt file. By default this 
+launches the application on localhost port 8050.
+
+The host or port can be changed setting the following environment variables as described by the app.run_server function:
 
     host: str = os.getenv("HOST", "127.0.0.1"),
     port: int = os.getenv("PORT", "8050"),
     proxy: str = os.getenv("DASH_PROXY", None)
 
-## Cloud
+### Cloud
 
 See the following guides for deployment information suitable for this application:
 
@@ -30,7 +33,7 @@ See the following guides for deployment information suitable for this applicatio
 
 [AWS - Deploy python Flask](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-flask.html)
 
-## Domino
+### Domino
 
 Please see the [domino documentation](https://docs.dominodatalab.com/en/4.5/user_guide/de2589/publish-a-dash-app/) for 
 more information on dash app publication with Domino.
