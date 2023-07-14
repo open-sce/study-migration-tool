@@ -179,12 +179,12 @@ class Data:
             pd.DataFrame: A DataFrame containing the data for plotting.
 
         Description:
-            This method generates a pandas DataFrame for plotting based on the given time block DataFrame and 
-            application session store. It extracts relevant information from the time block DataFrame and calculates 
+            This method generates a pandas DataFrame for plotting based on the given time block DataFrame and
+            application session store. It extracts relevant information from the time block DataFrame and calculates
             the overlap between the desired timeframe and each time block.
 
             The method performs the following steps:
-            
+
             1. If the "Time Block" column is not present in the time block DataFrame, an empty DataFrame is returned.
             2. The start and end of the active timeframe are obtained from the application session store.
             4. The DataFrame is grouped by the unique identity label.
@@ -755,17 +755,17 @@ class Data:
 
         return pd.Series([transfer_flag, period_moved, transfer_start_date, transfer_range])
 
-    def migration_table_processing(self, input_df: pd.DataFrame, app_session_store: dict, active_studies_per: int,
+    def migration_table_processing(self, input_df: pd.DataFrame, app_session_store: dict, studies_per: int,
                                    period_length: int, transfer_window_type: str) -> tuple:
         """
         Takes in a dataframe of studies sorted by weights (See compute_weights) and attempts to assign each study a
         moving date on its first GAP DATE that aligns with an available date in period_moving_dates. Period moving dates
-        have a capacity (specified by active_studies_per) which when filled will no longer accept additional studies.
+        have a capacity (specified by studies_per) which when filled will no longer accept additional studies.
 
         Parameters:
             input_df (Dataframe): Contains and has been sorted by computed weights
             app_session_store (dict): User-specific app configuration settings from UI
-            active_studies_per (int): Active studies we can transfer per day/week
+            studies_per (int): Active studies we can transfer per day/week
             period_length (int): Number of days/weeks per period
             transfer_window_type (str): 'W' or 'D' for day/week transfer type. Treat days or weeks as smallest unit.
 
@@ -784,7 +784,7 @@ class Data:
         timeframe_date_list = self._timeframe_date_range(transfer_window_type, timeframe_start, timeframe_end)
 
         period_moving_dates = [
-            {k: active_studies_per for k in timeframe_date_list[i:i + period_length]}
+            {k: studies_per for k in timeframe_date_list[i:i + period_length]}
             for i in range(0, len(timeframe_date_list), period_length)
         ]
 
@@ -800,7 +800,7 @@ class Data:
         input_df['Transfer Range'] = ''
         input_df['Period Moved'] = 'Not Moved'
 
-        if active_studies_per == 0:
+        if studies_per == 0:
             return input_df, periods_start_end
 
         input_df[['Transfer Flag', 'Period Moved', 'Transfer Start Date', 'Transfer Range']] = \
@@ -903,7 +903,7 @@ class Data:
 
     @staticmethod
     def format_config_sheet(app_session_store: dict, period_start_end: List[tuple], period_length: int,
-                            transfer_window_type: str, active_studies_per: int):
+                            transfer_window_type: str, studies_per: int):
         """
         Creates a data frame containing a complete summary of the configuration used when exporting the migration table.
 
@@ -912,7 +912,7 @@ class Data:
             period_start_end (list): A list of tuples representing the start and end dates of each period.
             period_length (int): The length of each period in days or weeks.
             transfer_window_type (str): The type of transfer window ('D' for daily or 'W' for weekly).
-            active_studies_per (int): The number of active studies per day or week.
+            studies_per (int): The number of studies per day or week.
 
         Returns:
             pd.DataFrame: A data frame containing the configuration information.
@@ -941,10 +941,10 @@ class Data:
         df_config['Migration Schedule Type'] = ''
         if transfer_window_type == 'D':
             df_config.loc[0, 'Migration Schedule Type'] = 'Daily'
-            df_config.loc[1, 'Migration Schedule Type'] = str(active_studies_per) + ' active studies per day'
+            df_config.loc[1, 'Migration Schedule Type'] = str(studies_per) + ' studies per day'
         else:
             df_config.loc[0, 'Migration Schedule Type'] = 'Weekly'
-            df_config.loc[1, 'Migration Schedule Type'] = str(active_studies_per) + ' active studies per week'
+            df_config.loc[1, 'Migration Schedule Type'] = str(studies_per) + ' studies per week'
 
         if app_session_store['active_filters']:
             df_config['    '] = ''

@@ -1894,7 +1894,7 @@ def test_format_for_export():
 
 
 @pytest.mark.parametrize(
-    "app_session_store, period_start_end, period_length, transfer_window_type, active_studies_per, test_id",
+    "app_session_store, period_start_end, period_length, transfer_window_type, studies_per, test_id",
     [
         (
             {
@@ -1965,10 +1965,10 @@ def test_format_for_export():
     ]
 )
 def test_format_config_sheet(app_session_store, period_start_end, period_length, transfer_window_type,
-                             active_studies_per, test_id):
+                             studies_per, test_id):
 
     result_df = Data.format_config_sheet(app_session_store, period_start_end, period_length, transfer_window_type,
-                                         active_studies_per)
+                                         studies_per)
 
     expected_df = load_json_test_dataframe(test_id)
 

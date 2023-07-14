@@ -663,7 +663,7 @@ def update_migration_table(n_clicks, app_session_store, migration_study_rate, mi
     gap_info_df = active_app_data.generate_gap_information(merged_df, app_session_store)
     active_app_data.compute_weights(gap_info_df)
     migration_df, period_start_end = active_app_data.migration_table_processing(
-        gap_info_df, app_session_store, active_studies_per=migration_study_rate, period_length=migration_period_length,
+        gap_info_df, app_session_store, studies_per=migration_study_rate, period_length=migration_period_length,
         transfer_window_type='D' if migration_frequency == 'Days' else 'W'
     )
 
@@ -988,7 +988,7 @@ def export_migration_to_download(n_clicks, download_filetype, app_session_store,
     gap_info_df = active_app_data.generate_gap_information(merged_df, app_session_store)
     active_app_data.compute_weights(gap_info_df)
     migration_df, period_start_end = active_app_data.migration_table_processing(
-        gap_info_df, app_session_store, active_studies_per=migration_study_rate, period_length=migration_period_length,
+        gap_info_df, app_session_store, studies_per=migration_study_rate, period_length=migration_period_length,
         transfer_window_type='D' if migration_frequency == 'Days' else 'W'
     )
     spreadsheet_df = active_app_data.format_for_export(migration_df)
@@ -996,7 +996,7 @@ def export_migration_to_download(n_clicks, download_filetype, app_session_store,
                                                     period_start_end=period_start_end,
                                                     period_length=migration_period_length,
                                                     transfer_window_type='D' if migration_frequency == 'Days' else 'W',
-                                                    active_studies_per=migration_study_rate)
+                                                    studies_per=migration_study_rate)
 
     current_time = time.strftime('%Y%m%d-%H%M%S')
     data_csv = dcc.send_data_frame(spreadsheet_df.to_csv, f"migration_export_{current_time}.csv", index=False)
