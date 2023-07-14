@@ -1,6 +1,11 @@
+import datetime
+import json
+
 import pandas as pd
+import numpy as np
 import re
-from typing import List
+from typing import List, Union
+from cryptography.fernet import Fernet
 
 from config import AppConfiguration
 from logger import logger
@@ -21,6 +26,7 @@ class Data:
         self.milestone_labels = list(app_configuration.milestone_definitions.keys())
         self.day_weight_coefficient = app_configuration.day_weight_coefficient
         self.gap_weight_coefficient = app_configuration.gap_weight_coefficient
+        self.fernet_instance = Fernet(Fernet.generate_key())
 
         source_name = app_configuration.data_path.split("/")[-1]
 
@@ -32,6 +38,19 @@ class Data:
         else:
             raise ValueError(f"Specified source path points to file: {source_name}, of unsupported type! \n "
                              "Supported types are: csv and xlsx.")
+
+    def encrypt_item(self, item: Union[str, list, dict, pd.DataFrame]) -> str:
+        if isinstance(item, pd.DataFrame):
+            json_str = item.to_json()
+        else:
+            json_str = json.dumps(item)
+        return self.fernet_instance.encrypt(json_str.encode()).decode()
+
+    def decrypt_item(self, item: str, expect_dataframe: bool = False) -> Union[str, list, dict, pd.DataFrame]:
+        if expect_dataframe:
+            return pd.read_json(self.fernet_instance.decrypt(item.encode()).decode())
+        else:
+            return json.loads(self.fernet_instance.decrypt(item.encode()).decode())
 
     @staticmethod
     def _create_timeblock_apply(series: pd.Series, milestones: dict) -> list:
@@ -160,12 +179,12 @@ class Data:
             pd.DataFrame: A DataFrame containing the data for plotting.
 
         Description:
-            This method generates a pandas DataFrame for plotting based on the given time block DataFrame and 
-            application session store. It extracts relevant information from the time block DataFrame and calculates 
+            This method generates a pandas DataFrame for plotting based on the given time block DataFrame and
+            application session store. It extracts relevant information from the time block DataFrame and calculates
             the overlap between the desired timeframe and each time block.
 
             The method performs the following steps:
-            
+
             1. If the "Time Block" column is not present in the time block DataFrame, an empty DataFrame is returned.
             2. The start and end of the active timeframe are obtained from the application session store.
             4. The DataFrame is grouped by the unique identity label.
@@ -736,17 +755,17 @@ class Data:
 
         return pd.Series([transfer_flag, period_moved, transfer_start_date, transfer_range])
 
-    def migration_table_processing(self, input_df: pd.DataFrame, app_session_store: dict, active_studies_per: int,
+    def migration_table_processing(self, input_df: pd.DataFrame, app_session_store: dict, studies_per: int,
                                    period_length: int, transfer_window_type: str) -> tuple:
         """
         Takes in a dataframe of studies sorted by weights (See compute_weights) and attempts to assign each study a
         moving date on its first GAP DATE that aligns with an available date in period_moving_dates. Period moving dates
-        have a capacity (specified by active_studies_per) which when filled will no longer accept additional studies.
+        have a capacity (specified by studies_per) which when filled will no longer accept additional studies.
 
         Parameters:
             input_df (Dataframe): Contains and has been sorted by computed weights
             app_session_store (dict): User-specific app configuration settings from UI
-            active_studies_per (int): Active studies we can transfer per day/week
+            studies_per (int): Active studies we can transfer per day/week
             period_length (int): Number of days/weeks per period
             transfer_window_type (str): 'W' or 'D' for day/week transfer type. Treat days or weeks as smallest unit.
 
@@ -765,7 +784,7 @@ class Data:
         timeframe_date_list = self._timeframe_date_range(transfer_window_type, timeframe_start, timeframe_end)
 
         period_moving_dates = [
-            {k: active_studies_per for k in timeframe_date_list[i:i + period_length]}
+            {k: studies_per for k in timeframe_date_list[i:i + period_length]}
             for i in range(0, len(timeframe_date_list), period_length)
         ]
 
@@ -781,7 +800,7 @@ class Data:
         input_df['Transfer Range'] = ''
         input_df['Period Moved'] = 'Not Moved'
 
-        if active_studies_per == 0:
+        if studies_per == 0:
             return input_df, periods_start_end
 
         input_df[['Transfer Flag', 'Period Moved', 'Transfer Start Date', 'Transfer Range']] = \
@@ -808,7 +827,7 @@ class Data:
         """
 
         by_cols = ['Period Moved'] if group_col == 'Overall' else [group_col, 'Period Moved']
-        grouped_df = input_df.groupby(by=by_cols, sort=True).size().reset_index(name='Total Moved')
+        grouped_df = input_df.groupby(by=by_cols, sort=True).size().reset_index(name='Transfer Dates Found')
         if group_col == 'Overall':
             grouped_df['Group'] = 'Overall'
 
@@ -816,18 +835,29 @@ class Data:
             grouped_df,
             index=group_col if group_col != 'Overall' else 'Group',
             columns='Period Moved',
-            values='Total Moved'
-        ).reset_index().rename(columns={grouped_df.index.name: group_col, **{'Not Moved': 'Total Not Moved'}})
+            values='Transfer Dates Found'
+        ).reset_index().rename(columns={grouped_df.index.name: group_col, **{'Not Moved': 'Transfer Dates Not Found'}})
 
-        grouped_df['Total Moved'] = \
+        if 'Transfer Dates Not Found' not in grouped_df.columns:
+            grouped_df['Transfer Dates Not Found'] = 0
+
+        grouped_df['Transfer Dates Found'] = \
             grouped_df[grouped_df.columns[grouped_df.columns.str.startswith('Period')]].sum(axis=1)
 
-        df_cols = [group_col, 'Total Moved', 'Total Not Moved'] if group_col != 'Overall' else ['Total Moved',
-                                                                                                'Total Not Moved']
+        grouped_df['Total'] = grouped_df['Transfer Dates Found'] + grouped_df['Transfer Dates Not Found']
+
+        df_cols = [group_col, 'Total', 'Transfer Dates Found', 'Transfer Dates Not Found'] \
+            if group_col != 'Overall' \
+            else ['Total', 'Transfer Dates Found', 'Transfer Dates Not Found']
+
         df_cols.extend(sorted([col for col in grouped_df.columns if re.match(r'\bPeriod\s+(\d+)', col)],
                               key=lambda x: int(x.replace('Period ', ''))))
 
-        grouped_df = grouped_df.reindex(columns=df_cols).sort_values(by=['Total Moved'], ascending=False).fillna(0)
+        grouped_df = grouped_df.reindex(columns=df_cols)\
+            .sort_values(by=['Transfer Dates Found'], ascending=False).fillna(0)
+
+        float_cols = grouped_df.select_dtypes(include='float').columns
+        grouped_df[float_cols] = grouped_df[float_cols].astype(np.int64)
 
         return grouped_df
 
@@ -873,7 +903,7 @@ class Data:
 
     @staticmethod
     def format_config_sheet(app_session_store: dict, period_start_end: List[tuple], period_length: int,
-                            transfer_window_type: str, active_studies_per: int):
+                            transfer_window_type: str, studies_per: int):
         """
         Creates a data frame containing a complete summary of the configuration used when exporting the migration table.
 
@@ -882,7 +912,7 @@ class Data:
             period_start_end (list): A list of tuples representing the start and end dates of each period.
             period_length (int): The length of each period in days or weeks.
             transfer_window_type (str): The type of transfer window ('D' for daily or 'W' for weekly).
-            active_studies_per (int): The number of active studies per day or week.
+            studies_per (int): The number of studies per day or week.
 
         Returns:
             pd.DataFrame: A data frame containing the configuration information.
@@ -911,10 +941,10 @@ class Data:
         df_config['Migration Schedule Type'] = ''
         if transfer_window_type == 'D':
             df_config.loc[0, 'Migration Schedule Type'] = 'Daily'
-            df_config.loc[1, 'Migration Schedule Type'] = str(active_studies_per) + ' active studies per day'
+            df_config.loc[1, 'Migration Schedule Type'] = str(studies_per) + ' studies per day'
         else:
             df_config.loc[0, 'Migration Schedule Type'] = 'Weekly'
-            df_config.loc[1, 'Migration Schedule Type'] = str(active_studies_per) + ' active studies per week'
+            df_config.loc[1, 'Migration Schedule Type'] = str(studies_per) + ' studies per week'
 
         if app_session_store['active_filters']:
             df_config['    '] = ''
@@ -940,11 +970,11 @@ class Data:
             if transfer_window_type == 'D':
                 df_config.loc[i - 1, f'Period - Start'] = str(period_start)
                 df_config.loc[i - 1, f'Period - End'] = str(period_end)
-                df_config.loc[i - 1, f'Period - Length (Days)'] = period_length
+                df_config.loc[i - 1, f'Period - Length (Days)'] = len(pd.date_range(start=period_start, end=period_end, freq='D'))
 
             else:
                 df_config.loc[i - 1, f'Period - Start'] = str(period_start)
                 df_config.loc[i - 1, f'Period - End'] = str(period_end)
-                df_config.loc[i - 1, f'Period - Length (Weeks)'] = period_length
+                df_config.loc[i - 1, f'Period - Length (Weeks)'] = len(pd.date_range(start=period_start, end=period_end, freq='W'))
 
         return df_config

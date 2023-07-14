@@ -105,7 +105,7 @@ class Gap:
     def __repr__(self):
         return f"Gap(" \
                f"start={repr(self.start)}," \
-               f"end={repr(self.end)},"  \
+               f"end={repr(self.end)}"  \
                f")"
 
 
@@ -133,12 +133,12 @@ class ItemInformation:
 
     def __repr__(self):
         return f"ItemInformation(" \
-               f"gap_number={repr(self.gap_number)}," \
-               f"gap_day_total={repr(self.gap_day_total)}," \
-               f"gap_lst={repr(self.gap_lst)}," \
-               f"inside_timeframe_flag={repr(self.active_during_timeframe)}," \
+               f"study_id={repr(self.study_id)}, " \
+               f"gap_number={repr(self.gap_number)}, " \
+               f"gap_day_total={repr(self.gap_day_total)}, " \
+               f"gap_lst={repr(self.gap_lst)}, " \
+               f"active_during_timeframe={repr(self.active_during_timeframe)}, " \
                f"status={repr(self.status)}" \
-               f"study_id={repr(self.study_id)}" \
                f")"
 
 

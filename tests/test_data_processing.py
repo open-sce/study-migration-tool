@@ -56,54 +56,36 @@ def app_test_dataclass(app_test_configuration):
 
 
 @pytest.mark.parametrize(
-    "file_path, day_first_dates, test_id",
+    "file_path, day_first_dates",
     [
         (
             "data/test-data-1-eu.csv",
-            True,
-            "PYT21[Day First CSV]"
+            True
         ),
         (
             "data/test-data-2-us.csv",
-            False,
-            "PYT21[Month First CSV]"
+            False
         ),
         (
             "data/test-data-3-iso.csv",
-            True,
-            "PYT21[ISO 8601 CSV]"
+            True
         ),
         (
             "data/test-data-1-eu.xlsx",
-            True,
-            "PYT21[Day First XLSX]"
+            True
         ),
         (
             "data/test-data-2-us.xlsx",
-            False,
-            "PYT21[Month First XLSX]"
+            False
         ),
         (
             "data/test-data-3-iso.xlsx",
-            True,
-            "PYT21[ISO 8601 XLSX]"
+            True
         )
-    ],
-    ids=["PYT21[Day First CSV]", "PYT21[Month First CSV]", "PYT21[ISO 8601 CSV]", "PYT21[Day First XLSX]",
-         "PYT21[Month First XLSX]", "PYT21[ISO 8601 XLSX]"]
+    ]
 )
-def test_date_parsing(file_path, day_first_dates, test_id, app_test_configuration, record_xml_attribute):
-    record_xml_attribute("qualification", "oq")
-    record_xml_attribute("test_id", test_id)
-    record_xml_attribute("srs_requirement", "SRSREQ2")
-    record_xml_attribute("frs_requirement", "FRSREQ7")
-    record_xml_attribute("scenario", "OQSCE2")
+def test_date_parsing(file_path, day_first_dates, app_test_configuration):
 
-    record_xml_attribute("purpose", "Test source data date parsing on import.")
-    record_xml_attribute("description",
-                         "Load a single study from csv file to df containing various date formats and compare "
-                         "milestones against expected date values.")
-    record_xml_attribute("acceptance_criteria", "Assert milestones are equal to expected Pandas Timestamp dates.")
 
     dir_path = os.path.dirname(os.path.realpath(__file__))
     app_test_configuration.data_path = os.path.join(dir_path, file_path)
@@ -119,18 +101,8 @@ def test_date_parsing(file_path, day_first_dates, test_id, app_test_configuratio
     assert ambiguous_study.iloc[0]['Milestone 5'] == pd.Timestamp(year=2003, month=6, day=10)
 
 
-def test_create_timeblock_apply(app_test_dataclass, app_test_session_store, record_xml_attribute):
-    record_xml_attribute("qualification", "oq")
-    record_xml_attribute("test_id", "PYT22")
-    record_xml_attribute("srs_requirement", "SRSREQ4")
-    record_xml_attribute("frs_requirement", "FRSREQ6")
-    record_xml_attribute("scenario", "OQSCE3")
+def test_create_timeblock_apply(app_test_dataclass, app_test_session_store):
 
-    record_xml_attribute("purpose", "Test milestone offset creation from user configuration.")
-    record_xml_attribute("description",
-                         "Create test milestones and run create_timeblock_apply. Then test against expected "
-                         "Timeblock objects.")
-    record_xml_attribute("acceptance_criteria", "Assert created Timeblock objects are equal to expected Timeblocks.")
 
     test_milestone_1 = Milestone('Milestone 1', offset_before=14, offset_after=14, active=True)
     test_milestone_2 = Milestone('Milestone 2', offset_before=14, offset_after=14, active=True)
@@ -159,22 +131,7 @@ def test_create_timeblock_apply(app_test_dataclass, app_test_session_store, reco
                                timestamp=test_milestone_2_date)
 
 
-def test_create_timeblock_with_active_milestones(app_test_dataclass, app_test_session_store, record_xml_attribute):
-    record_xml_attribute("qualification", "oq")
-    record_xml_attribute("test_id", "PYT23")
-    record_xml_attribute("srs_requirement", "SRSREQ4")
-    record_xml_attribute("frs_requirement", "FRSREQ6")
-    record_xml_attribute("scenario", "OQSCE3")
-
-    record_xml_attribute("purpose", "Ensure timeblock classes are correctly generated and appended to the Data class "
-                                    "df during processing.")
-    record_xml_attribute("description",
-                         "Invokes create_timeblock on the app_test_session_store Data class instance and compares "
-                         "the state of its dataframe against expected values.")
-    record_xml_attribute("acceptance_criteria",
-                         "Assert that the first item in the Time Block column is an empty list corresponding to the "
-                         "first study in the test data with no milestones. Then assert other entries in the timeblock "
-                         "column from index 1 onwards are instances of the Timeblock class as expected.")
+def test_create_timeblock_with_active_milestones(app_test_dataclass, app_test_session_store):
 
     timeblock_df = app_test_dataclass.create_timeblock(app_test_session_store)
 
@@ -188,18 +145,7 @@ def test_create_timeblock_with_active_milestones(app_test_dataclass, app_test_se
             assert isinstance(timeblock, Timeblock)
 
 
-def test_create_timeblock_without_active_milestones(app_test_dataclass, app_test_session_store, record_xml_attribute):
-    record_xml_attribute("qualification", "oq")
-    record_xml_attribute("test_id", "PYT24")
-    record_xml_attribute("srs_requirement", "SRSREQ4")
-    record_xml_attribute("frs_requirement", "FRSREQ6")
-    record_xml_attribute("scenario", "OQSCE3")
-
-    record_xml_attribute("purpose", "Test milestone offset creation from user configuration with no active milestones.")
-    record_xml_attribute("description",
-                         "Create test session store with all inactive milestones then run method create_timeblock.")
-    record_xml_attribute("acceptance_criteria",
-                         "Assert no Timeblock present in app_test_dataclass df's attribute columns.")
+def test_create_timeblock_without_active_milestones(app_test_dataclass, app_test_session_store):
 
     app_test_session_store['milestones'] = {
         "Milestone 1": {"label": "Milestone 1", "offset_before": 14, "offset_after": 14, "active": False},
@@ -212,19 +158,7 @@ def test_create_timeblock_without_active_milestones(app_test_dataclass, app_test
     assert "Time Block" not in app_test_dataclass.df.columns
 
 
-def test_create_plotting_df_apply(app_test_dataclass, app_test_session_store, record_xml_attribute):
-    record_xml_attribute("qualification", "oq")
-    record_xml_attribute("test_id", "PYT25")
-    record_xml_attribute("srs_requirement", "SRSREQ4")
-    record_xml_attribute("frs_requirement", "FRSREQ1")
-    record_xml_attribute("scenario", "OQSCE4")
-
-    record_xml_attribute("purpose", "Test plot dataframe data generation for visualisation.")
-    record_xml_attribute("description",
-                         "Create test df with three timeblocks and a timeframe start/end. Then run "
-                         "create_plotting_df_apply and test the output df against an expected df.")
-    record_xml_attribute("acceptance_criteria",
-                         "Assert test df is equal to an expected df.")
+def test_create_plotting_df_apply(app_test_dataclass, app_test_session_store):
 
     test_df = pd.DataFrame(data={
         app_test_dataclass.study_label: "study",
@@ -270,19 +204,7 @@ def test_create_plotting_df_apply(app_test_dataclass, app_test_session_store, re
     assert plot_df.equals(expected_df)
 
 
-def test_create_plotting_df(app_test_dataclass, app_test_session_store, record_xml_attribute):
-    record_xml_attribute("qualification", "oq")
-    record_xml_attribute("test_id", "PYT26")
-    record_xml_attribute("srs_requirement", "SRSREQ4")
-    record_xml_attribute("frs_requirement", "FRSREQ1")
-    record_xml_attribute("scenario", "OQSCE4")
-
-    record_xml_attribute("purpose", "Ensure plotting dataframe is created with the correct content as expected")
-    record_xml_attribute("description",
-                         "Invokes create_plotting_df under a variety of operating conditions and validates the "
-                         "contents, shape and columns of resulting dataframe.")
-    record_xml_attribute("acceptance_criteria",
-                         "Assert that the plot_df columns, contents and shape match the expected values after")
+def test_create_plotting_df(app_test_dataclass, app_test_session_store):
 
     # No timeblocks created
     plot_df_1 = app_test_dataclass.create_plotting_df(app_test_dataclass.df, app_test_session_store)
@@ -316,13 +238,12 @@ def test_create_plotting_df(app_test_dataclass, app_test_session_store, record_x
 
 
 @pytest.mark.parametrize(
-    "timeblock_lst, expected_output, test_id",
+    "timeblock_lst, expected_output",
     [
         # No timeblocks
         (
                 [],
-                [],
-                "PYT27[No Timeblocks]"
+                []
         ),
         # Single timeblock
         (
@@ -337,8 +258,7 @@ def test_create_plotting_df(app_test_dataclass, app_test_session_store, record_x
                               end=pd.Timestamp(year=2022, month=6, day=17),
                               milestone=Milestone("Milestone 1", offset_before=14, offset_after=14, active=True),
                               timestamp=pd.Timestamp(year=2022, month=6, day=3))
-                ],
-                "PYT27[Single Timeblock]"
+                ]
         ),
         # Two timeblocks with slight overlap
         (
@@ -365,8 +285,7 @@ def test_create_plotting_df(app_test_dataclass, app_test_session_store, record_x
                             pd.Timestamp(year=2022, month=6, day=13)
                         ]
                     )
-                ],
-                "PYT27[Two Timeblocks With Overlap]"
+                ]
         ),
         # Two timeblocks with no overlap
         (
@@ -389,8 +308,7 @@ def test_create_plotting_df(app_test_dataclass, app_test_session_store, record_x
                               end=pd.Timestamp(year=2022, month=7, day=24),
                               milestone=Milestone("Milestone 2", offset_before=14, offset_after=10, active=True),
                               timestamp=pd.Timestamp(year=2022, month=7, day=14))
-                ],
-                "PYT27[Two Timeblocks With No Overlap]"
+                ]
         ),
         # Three timeblocks where the middle overlaps the first and last
         (
@@ -423,8 +341,7 @@ def test_create_plotting_df(app_test_dataclass, app_test_session_store, record_x
                             pd.Timestamp(year=2022, month=6, day=30)
                         ]
                     )
-                ],
-                "PYT27[Three Timeblocks Overlap Start to End]"
+                ]
         ),
         # Three timeblocks where the first two overlap last
         (
@@ -457,8 +374,7 @@ def test_create_plotting_df(app_test_dataclass, app_test_session_store, record_x
                             pd.Timestamp(year=2022, month=7, day=15)
                         ]
                     )
-                ],
-                "PYT27[Three Timeblocks First and Second Overlap Third]"
+                ]
         ),
         # Timeblock Fully Encompassed By Another
         (
@@ -485,46 +401,16 @@ def test_create_plotting_df(app_test_dataclass, app_test_session_store, record_x
                             pd.Timestamp(year=2022, month=7, day=5)
                         ]
                     )
-                ],
-                "PYT27[Timeblock Fully Encompassed By Another]"
+                ]
         ),
-
-    ],
-    ids=["PYT27[No Timeblocks]", "PYT27[Single Timeblock]", "PYT27[Two Timeblocks With Overlap]",
-         "PYT27[Two Timeblocks With No Overlap]", "PYT27[Three Timeblocks Overlap Start to End]",
-         "PYT27[Three Timeblocks First and Second Overlap Third]", "PYT27[Timeblock Fully Encompassed By Another]"]
+    ]
 )
-def test_merge_timeblock_apply(timeblock_lst, expected_output, test_id, app_test_dataclass, record_xml_attribute):
-    record_xml_attribute("qualification", "oq")
-    record_xml_attribute("test_id", test_id)
-    record_xml_attribute("srs_requirement", "")
-    record_xml_attribute("frs_requirement", "")
-    record_xml_attribute("scenario", "")
+def test_merge_timeblock_apply(timeblock_lst, expected_output, app_test_dataclass):
 
-    record_xml_attribute("purpose", "Validate that the _merge_timeblock_apply method correctly processes Timeblocks.")
-    record_xml_attribute("description",
-                         "Run the _merge_timeblock_apply method in 7 different cases which cover all areas/statements "
-                         "of the method.")
-    record_xml_attribute("acceptance_criteria",
-                         "Assert that the output from _merge_timeblock_apply is expected.")
     assert expected_output == app_test_dataclass._merge_timeblock_apply(timeblock_lst)
 
 
-def test_merge_timeblocks(app_test_dataclass, record_xml_attribute):
-    record_xml_attribute("qualification", "oq")
-    record_xml_attribute("test_id", "PYT28")
-    record_xml_attribute("srs_requirement", "")
-    record_xml_attribute("frs_requirement", "")
-    record_xml_attribute("scenario", "")
-
-    record_xml_attribute("purpose", "Ensure the 'Merge Time Block' column is correctly created and populated when "
-                                    "running the method merge_timeblocks.")
-    record_xml_attribute("description",
-                         "Verify the functionality of the merge_timeblocks method on two test casess, one with a "
-                         "DataFrame containing no time blocks and another with a DataFrame containing time blocks.")
-    record_xml_attribute("acceptance_criteria",
-                         "Should correctly merge timeblocks into a new column called 'Merged Time Block' when "
-                         "timeblocks are provided. Should NOT add the new column when timeblocks are not provided.")
+def test_merge_timeblocks(app_test_dataclass):
 
     test_df_no_timeblocks = pd.DataFrame({
         'Study_id': [43, 123]
@@ -550,7 +436,7 @@ def test_merge_timeblocks(app_test_dataclass, record_xml_attribute):
 
 
 @pytest.mark.parametrize(
-    "merged_timeblock_list, expected_item_information, test_id",
+    "merged_timeblock_list, expected_item_information",
     [
         # Empty merged timeblock list
         (
@@ -573,8 +459,7 @@ def test_merge_timeblocks(app_test_dataclass, record_xml_attribute):
                     ],
                     active_during_timeframe=False,
                     status=ItemStatus.NO_STATUS_GIVEN
-                ),
-                "PYT29[Empty Merged Timeblock List]",
+                )
         ),
         # Fully after timeframe
         (
@@ -604,8 +489,7 @@ def test_merge_timeblocks(app_test_dataclass, record_xml_attribute):
                     ],
                     active_during_timeframe=False,
                     status=ItemStatus.STARTING_AFTER_TIMEFRAME
-                ),
-                "PYT29[Fully After Timeframe]",
+                )
         ),
         # Fully before timeframe
         (
@@ -635,8 +519,7 @@ def test_merge_timeblocks(app_test_dataclass, record_xml_attribute):
                     ],
                     active_during_timeframe=False,
                     status=ItemStatus.CLOSING_BEFORE_TIMEFRAME
-                ),
-                "PYT29[Fully Before Timeframe]",
+                )
         ),
         # Inside And Before Timeframe
         (
@@ -682,8 +565,7 @@ def test_merge_timeblocks(app_test_dataclass, record_xml_attribute):
                     ],
                     active_during_timeframe=True,
                     status=ItemStatus.CLOSING_DURING_TIMEFRAME
-                ),
-                "PYT29[Inside And Before Timeframe]",
+                )
         ),
         # Inside And After Timeframe
         (
@@ -729,8 +611,7 @@ def test_merge_timeblocks(app_test_dataclass, record_xml_attribute):
                     ],
                     active_during_timeframe=True,
                     status=ItemStatus.CLOSING_AFTER_TIMEFRAME
-                ),
-                "PYT29[Inside And After Timeframe]",
+                )
         ),
         # Inside, Before And After Timeframe
         (
@@ -788,8 +669,7 @@ def test_merge_timeblocks(app_test_dataclass, record_xml_attribute):
                     ],
                     active_during_timeframe=True,
                     status=ItemStatus.CLOSING_AFTER_TIMEFRAME
-                ),
-                "PYT29[Inside, Before And After Timeframe]",
+                )
         ),
         # Before And After Timeframe
         (
@@ -825,8 +705,7 @@ def test_merge_timeblocks(app_test_dataclass, record_xml_attribute):
                     ],
                     active_during_timeframe=True,
                     status=ItemStatus.NO_ACTIVITY_OVER_TIMEFRAME
-                ),
-                "PYT29[Before And After Timeframe]",
+                )
         ),
         # Timeblock is exactly timeframe
         (
@@ -856,8 +735,7 @@ def test_merge_timeblocks(app_test_dataclass, record_xml_attribute):
                     ],
                     active_during_timeframe=True,
                     status=ItemStatus.CLOSING_AFTER_TIMEFRAME
-                ),
-                "PYT29[Timeblock is Exactly Timeframe]",
+                )
         ),
         # Partially after timeframe
         (
@@ -887,8 +765,7 @@ def test_merge_timeblocks(app_test_dataclass, record_xml_attribute):
                     ],
                     active_during_timeframe=True,
                     status=ItemStatus.CLOSING_AFTER_TIMEFRAME
-                ),
-                "PYT29[Partially After Timeframe]",
+                )
         ),
         # Partially before timeframe
         (
@@ -918,8 +795,7 @@ def test_merge_timeblocks(app_test_dataclass, record_xml_attribute):
                     ],
                     active_during_timeframe=True,
                     status=ItemStatus.CLOSING_DURING_TIMEFRAME
-                ),
-                "PYT29[Partially Before Timeframe]",
+                )
         ),
         # Inside and partially after
         (
@@ -965,8 +841,7 @@ def test_merge_timeblocks(app_test_dataclass, record_xml_attribute):
                     ],
                     active_during_timeframe=True,
                     status=ItemStatus.CLOSING_AFTER_TIMEFRAME
-                ),
-                "PYT29[Inside and Partially After Timeframe]",
+                )
         ),
         # Inside and partially before
         (
@@ -1012,8 +887,7 @@ def test_merge_timeblocks(app_test_dataclass, record_xml_attribute):
                     ],
                     active_during_timeframe=True,
                     status=ItemStatus.CLOSING_DURING_TIMEFRAME
-                ),
-                "PYT29[Inside and Partially Before Timeframe]",
+                )
         ),
         # Two Inside and One Partially After
         (
@@ -1075,8 +949,7 @@ def test_merge_timeblocks(app_test_dataclass, record_xml_attribute):
                     ],
                     active_during_timeframe=True,
                     status=ItemStatus.CLOSING_AFTER_TIMEFRAME
-                ),
-                "PYT29[Two Inside and One Partially After]",
+                )
         ),
         # Two Inside and One Partially Before
         (
@@ -1144,8 +1017,7 @@ def test_merge_timeblocks(app_test_dataclass, record_xml_attribute):
                     ],
                     active_during_timeframe=True,
                     status=ItemStatus.CLOSING_DURING_TIMEFRAME
-                ),
-                "PYT29[Two Inside and One Partially Before]",
+                )
         ),
         # Two Inside, One Partially Before and One Partially After
         (
@@ -1219,36 +1091,11 @@ def test_merge_timeblocks(app_test_dataclass, record_xml_attribute):
                     ],
                     active_during_timeframe=True,
                     status=ItemStatus.CLOSING_AFTER_TIMEFRAME
-                ),
-                "PYT29[Two Inside, One Partially Before and One Partially After]",
+                )
         ),
-    ],
-    ids=["PYT29[Empty Merged Timeblock List]", "PYT29[Fully After Timeframe]", "PYT29[Fully Before Timeframe]",
-         "PYT29[Inside And Before Timeframe]", "PYT29[Inside And After Timeframe]",
-         "PYT29[Inside, Before And After Timeframe]", "PYT29[Before And After Timeframe], ",
-         "PYT29[Timeblock is Exactly Timeframe]", "PYT29[Partially After Timeframe]",
-         "PYT29[Partially Before Timeframe]", "PYT29[Inside and Partially After Timeframe]",
-         "PYT29[Inside and Partially Before Timeframe]", "PYT29[Two Inside and One Partially After]",
-         "PYT29[Two Inside and One Partially Before]",
-         "PYT29[Two Inside, One Partially Before and One Partially After]"]
+    ]
 )
-def test_generate_gap_information_apply(merged_timeblock_list, expected_item_information, test_id,
-                                        app_test_session_store, record_xml_attribute):
-    record_xml_attribute("qualification", "oq")
-    record_xml_attribute("test_id", test_id)
-    record_xml_attribute("srs_requirement", "")
-    record_xml_attribute("frs_requirement", "")
-    record_xml_attribute("scenario", "")
-
-    record_xml_attribute("purpose", "The purpose of this unit test is to ensure that the g"
-                                    "enerate_gap_information_apply method correctly generates gap information based "
-                                    "on the provided inputs.")
-    record_xml_attribute("description",
-                         "Provide a timeframe start, end, study_id and a merged_timeblock_list to the "
-                         "generate_gap_information_apply and compare it against the expected ItemInformation Object.")
-    record_xml_attribute("acceptance_criteria",
-                         "Assert that the output of the generate_gap_information_apply method is the expected "
-                         "ItemInformation object.")
+def test_generate_gap_information_apply(merged_timeblock_list, expected_item_information, app_test_session_store):
 
     study_id = 'test_study'
     timeframe_start = pd.Timestamp(app_test_session_store["timeframe_start"])
@@ -1258,22 +1105,7 @@ def test_generate_gap_information_apply(merged_timeblock_list, expected_item_inf
     assert output == expected_item_information
 
 
-def test_generate_gap_information(app_test_dataclass, app_test_session_store, record_xml_attribute):
-    record_xml_attribute("qualification", "oq")
-    record_xml_attribute("test_id", "PYT30")
-    record_xml_attribute("srs_requirement", "")
-    record_xml_attribute("frs_requirement", "")
-    record_xml_attribute("scenario", "")
-
-    record_xml_attribute("purpose", "Verify that the generate_gap_information method correctly generates gap "
-                                    "information based on the input dataframes and the app_test_session_store.")
-    record_xml_attribute("description",
-                         "Test the generate_gap_information methods's behavior with two different input dataframes,"
-                         " one without timeblocks and one with timeblocks.")
-    record_xml_attribute("acceptance_criteria",
-                         "Assert that when provided time blocks the generate_gap_information correctly adds the column "
-                         "'Gap Information' and that the contents of that column are as expected. When no timeblocks "
-                         "are supplied generate_gap_information should not modify the dataframe.")
+def test_generate_gap_information(app_test_dataclass, app_test_session_store):
 
     test_df_no_timeblocks = pd.DataFrame({
         app_test_dataclass.unique_identity_label: [43, 123]
@@ -1318,7 +1150,7 @@ def test_generate_gap_information(app_test_dataclass, app_test_session_store, re
 
 
 @pytest.mark.parametrize(
-    "item_information, expected_weight, test_id",
+    "item_information, expected_weight",
     [
         (
                 ItemInformation(
@@ -1329,8 +1161,7 @@ def test_generate_gap_information(app_test_dataclass, app_test_session_store, re
                     active_during_timeframe=False,
                     status=ItemStatus.NO_STATUS_GIVEN
                 ),
-                pd.Series([0, 0]),
-                "PYT31[No Status Given]"
+                pd.Series([0, 0])
         ),
         (
                 ItemInformation(
@@ -1341,8 +1172,7 @@ def test_generate_gap_information(app_test_dataclass, app_test_session_store, re
                     active_during_timeframe=False,
                     status=ItemStatus.CLOSING_BEFORE_TIMEFRAME
                 ),
-                pd.Series([0, 0]),
-                "PYT31[Closing Before Timeframe]"
+                pd.Series([0, 0])
         ),
         (
                 ItemInformation(
@@ -1353,8 +1183,7 @@ def test_generate_gap_information(app_test_dataclass, app_test_session_store, re
                     active_during_timeframe=False,
                     status=ItemStatus.STARTING_AFTER_TIMEFRAME
                 ),
-                pd.Series([0, 0]),
-                "PYT31[Starting After Timeframe]"
+                pd.Series([0, 0])
         ),
         (
                 ItemInformation(
@@ -1365,8 +1194,7 @@ def test_generate_gap_information(app_test_dataclass, app_test_session_store, re
                     active_during_timeframe=True,
                     status=ItemStatus.CLOSING_AFTER_TIMEFRAME
                 ),
-                pd.Series([1 / 1000, 1]),
-                "PYT31[One Gap]"
+                pd.Series([1 / 1000, 1])
         ),
         (
                 ItemInformation(
@@ -1377,8 +1205,7 @@ def test_generate_gap_information(app_test_dataclass, app_test_session_store, re
                     active_during_timeframe=True,
                     status=ItemStatus.CLOSING_DURING_TIMEFRAME
                 ),
-                pd.Series([1 / 190, 1 / 4]),
-                "PYT31[Multiple Gaps]"
+                pd.Series([1 / 190, 1 / 4])
         ),
         # Closing after timeframe with no gaps in timeframe
         (
@@ -1390,51 +1217,16 @@ def test_generate_gap_information(app_test_dataclass, app_test_session_store, re
                     active_during_timeframe=True,
                     status=ItemStatus.CLOSING_AFTER_TIMEFRAME
                 ),
-                pd.Series([1, 1]),
-                "PYT31[Study With No Gaps]"
+                pd.Series([1, 1])
         )
-    ],
-    ids=["PYT31[No Status Given]", "PYT31[Closing Before Timeframe]", "PYT31[Starting After Timeframe]",
-         "PYT31[One Gap]", "PYT30[Multiple Gaps]", "PYT31[Study With No Gaps]"]
+    ]
 )
-def test_compute_weights_apply(item_information: ItemInformation, expected_weight, test_id, app_test_dataclass,
-                               record_xml_attribute):
-    record_xml_attribute("qualification", "oq")
-    record_xml_attribute("test_id", test_id)
-    record_xml_attribute("srs_requirement", "")
-    record_xml_attribute("frs_requirement", "")
-    record_xml_attribute("scenario", "")
-
-    record_xml_attribute("purpose", "Ensure that the _compute_weights_apply method accurately computes the weights "
-                                    "based on the provided ItemInformation object.")
-    record_xml_attribute("description",
-                         "Parameterized to test the _compute_weights_apply method. It provides different scenarios of "
-                         "ItemInformation objects with various statuses and gap information, and verifies if the "
-                         "method computes the expected weights correctly.")
-    record_xml_attribute("acceptance_criteria",
-                         "Assert that the weight calculated by _compute_weights_apply are as expected for each "
-                         "different ItemInformation object provided.")
+def test_compute_weights_apply(item_information: ItemInformation, expected_weight, app_test_dataclass):
 
     assert Data._compute_weights_apply(item_information).equals(expected_weight)
 
 
-def test_compute_weights(app_test_dataclass, record_xml_attribute):
-    record_xml_attribute("qualification", "oq")
-    record_xml_attribute("test_id", "PYT32")
-    record_xml_attribute("srs_requirement", "")
-    record_xml_attribute("frs_requirement", "")
-    record_xml_attribute("scenario", "")
-
-    record_xml_attribute("purpose", "Ensure that the compute_weights method behaves as expected and produces the "
-                                    "desired modifications to the DataFrame, including the correct column additions "
-                                    "and the expected order of unique identity labels.")
-    record_xml_attribute("description",
-                         "Verify that the compute_weights method correctly modifies a DataFrame by adding a 'Weights' "
-                         "column while not adding 'Day Weights' and 'Gap Weights' columns. Also check if the unique "
-                         "identity labels in the modified DataFrame are in the expected order.")
-    record_xml_attribute("acceptance_criteria",
-                         "Assert that the resultant dataframe from the method compute_weights has the correct columns "
-                         "and order of rows.")
+def test_compute_weights(app_test_dataclass):
 
     test_df = pd.DataFrame({
         app_test_dataclass.unique_identity_label: ["Study 1", "Study 2", "Study 3", "Study 4", "Study 5"],
@@ -1493,7 +1285,7 @@ def test_compute_weights(app_test_dataclass, record_xml_attribute):
 
 
 @pytest.mark.parametrize(
-    "kwargs, expected_date_list, test_id",
+    "kwargs, expected_date_list",
     [
         (
                 {
@@ -1504,8 +1296,7 @@ def test_compute_weights(app_test_dataclass, record_xml_attribute):
                 pd.date_range(
                     start=pd.Timestamp(year=2022, month=5, day=10),
                     end=pd.Timestamp(year=2022, month=5, day=25)
-                ).date.tolist(),
-                "PYT33[Day Frequency]"
+                ).date.tolist()
         ),
         (
                 {
@@ -1513,8 +1304,7 @@ def test_compute_weights(app_test_dataclass, record_xml_attribute):
                     "timeframe_end": pd.Timestamp(year=2022, month=5, day=25),  # Wednesday
                     "transfer_window_type": 'W'
                 },
-                [pd.Timestamp(year=2022, month=5, day=15).date()],  # only one week fully fits in the timeframe
-                "PYT33[2 Week Frequency With Remainder]"
+                [pd.Timestamp(year=2022, month=5, day=15).date()]  # only one week fully fits in the timeframe
         ),
         (
                 {
@@ -1523,33 +1313,17 @@ def test_compute_weights(app_test_dataclass, record_xml_attribute):
                     "transfer_window_type": 'W'
                 },
                 # sunday is the starting day of the week in pandas
-                [pd.Timestamp(year=2022, month=5, day=8).date(), pd.Timestamp(year=2022, month=5, day=15).date()],
-                "PYT33[2 Week Frequency Without Remainder]"
+                [pd.Timestamp(year=2022, month=5, day=8).date(), pd.Timestamp(year=2022, month=5, day=15).date()]
         )
-    ],
-    ids=["PYT33[Day Frequency]", "PYT33[2 Week Frequency With Remainder]", "PYT33[2 Week Frequency Without Remainder]"]
+    ]
 )
-def test_timeframe_date_range(kwargs, expected_date_list, test_id, record_xml_attribute):
-    record_xml_attribute("qualification", "oq")
-    record_xml_attribute("test_id", test_id)
-    record_xml_attribute("srs_requirement", "")
-    record_xml_attribute("frs_requirement", "")
-    record_xml_attribute("scenario", "")
-
-    record_xml_attribute("purpose", "Ensure that the _timeframe_date_range method correctly generates a list "
-                                    "representing a date range based on the given input parameters.")
-    record_xml_attribute("description",
-                         "Test the _timeframe_date_range method with different sets of input parameters. It "
-                         "verifies whether the expected date list generated by the function matches an expected date list.")
-    record_xml_attribute("acceptance_criteria",
-                         "Assert that the date list generated by the method _timeframe_date_range is as expected "
-                         "depending on the inputs.")
+def test_timeframe_date_range(kwargs, expected_date_list):
 
     assert expected_date_list == Data._timeframe_date_range(**kwargs)
 
 
 @pytest.mark.parametrize(
-    "item_info, moving_dates, transfer_window, expected_result, test_id",
+    "item_info, moving_dates, transfer_window, expected_result",
     [
         # No moving dates - day
         (
@@ -1570,8 +1344,7 @@ def test_timeframe_date_range(kwargs, expected_date_list, test_id, record_xml_at
                     }
                 ],
                 "D",
-                pd.Series([False, 'Not Moved', pd.NaT, '']),
-                "PYT34[No Moving Dates - Day]"
+                pd.Series([False, 'Not Moved', pd.NaT, ''])
         ),
         # No moving dates - Week
         (
@@ -1593,8 +1366,7 @@ def test_timeframe_date_range(kwargs, expected_date_list, test_id, record_xml_at
                     }
                 ],
                 "W",
-                pd.Series([False, 'Not Moved', pd.NaT, '']),
-                "PYT34[No Moving Dates - Week]"
+                pd.Series([False, 'Not Moved', pd.NaT, ''])
         ),
         # Can move on first gap and first period - days
         (
@@ -1626,8 +1398,7 @@ def test_timeframe_date_range(kwargs, expected_date_list, test_id, record_xml_at
                     }
                 ],
                 "D",
-                pd.Series([True, 'Period 1', pd.Timestamp(year=2023, month=1, day=5), '']),
-                "PYT34[Moves In First Period - Days]"
+                pd.Series([True, 'Period 1', pd.Timestamp(year=2023, month=1, day=5).date(), ''])
         ),
         # Can move on first gap and first period - weeks
         (
@@ -1661,8 +1432,7 @@ def test_timeframe_date_range(kwargs, expected_date_list, test_id, record_xml_at
                     }
                 ],
                 "D",
-                pd.Series([True, 'Period 1', pd.Timestamp(year=2023, month=6, day=11), '']),
-                "PYT34[Moves In First Period - Weeks]"
+                pd.Series([True, 'Period 1', pd.Timestamp(year=2023, month=6, day=11).date(), ''])
         ),
         # Can move on second gap, third period - days
         (
@@ -1711,8 +1481,7 @@ def test_timeframe_date_range(kwargs, expected_date_list, test_id, record_xml_at
                     },
                 ],
                 "D",
-                pd.Series([True, 'Period 3', pd.Timestamp(year=2023, month=6, day=15), '']),
-                "PYT34[Moves Second Gap, Period 3]"
+                pd.Series([True, 'Period 3', pd.Timestamp(year=2023, month=6, day=15).date(), ''])
         ),
         # Can move on second gap, third period - weeks
         (
@@ -1763,37 +1532,11 @@ def test_timeframe_date_range(kwargs, expected_date_list, test_id, record_xml_at
                     },
                 ],
                 "D",
-                pd.Series([True, 'Period 3', pd.Timestamp(year=2022, month=10, day=16), '']),
-                "PYT34[Moves Second Gap, Period 3 - Week]"
+                pd.Series([True, 'Period 3', pd.Timestamp(year=2022, month=10, day=16).date(), ''])
         ),
-    ],
-    ids=["PYT34[No Moving Dates]", "PYT34[No Moving Dates - Week]", "PYT34[Moves In First Period]",
-         "PYT34[Moves In First Period - Weeks]", "PYT34[Moves Second Gap, Period 3]",
-         "PYT34[Moves Second Gap, Period 3 - Week]"]
+    ]
 )
-def test_migrate_study_apply_day_frequency(item_info, moving_dates, transfer_window, expected_result, test_id, 
-                                           record_xml_attribute):
-
-    record_xml_attribute("qualification", "oq")
-    record_xml_attribute("test_id", test_id)
-    record_xml_attribute("srs_requirement", "")
-    record_xml_attribute("frs_requirement", "")
-    record_xml_attribute("scenario", "")
-
-    record_xml_attribute("purpose",
-                         "Ensure the correctness of the _migrate_study_apply method in terms of producing the "
-                         "expected result for a given ItemInformation instance, moving_dates dictionary, "
-                         "and transfer_window, inorder to validate whether the method correctly identifies the "
-                         "moving date and period based on the provided inputs.")
-    record_xml_attribute("description",
-                         "Verifies the behavior of the _migrate_study_apply method when applied to a given "
-                         "ItemInformation instance, moving_dates dictionary, and transfer_window value to ensure the "
-                         "method correctly determines the expected result based on the provided inputs.")
-    record_xml_attribute("acceptance criteria",
-                         "Assert that the expected result produced by the _migrate_study_apply method matches the "
-                         "provided expected_result value. Additionally, if a specific date should be moved according "
-                         "to the expected result, the corresponding period in the moving_dates dictionary should "
-                         "have a value of 1 for that date.")
+def test_migrate_study_apply_day_frequency(item_info, moving_dates, transfer_window, expected_result):
 
     assert expected_result.equals(Data._migrate_study_apply(item_info, moving_dates, transfer_window))
 
@@ -1803,11 +1546,11 @@ def test_migrate_study_apply_day_frequency(item_info, moving_dates, transfer_win
     if pd.notna(should_move_date):
         assert len(should_move_period) == 2
         period_index = int(should_move_period[1]) - 1
-        assert moving_dates[period_index][should_move_date.date()] == 1
+        assert moving_dates[period_index][should_move_date] == 1
 
 
 @pytest.mark.parametrize(
-    "item_info, moving_dates, should_remove, transfer_window_type, test_id",
+    "item_info, moving_dates, should_remove, transfer_window_type",
     [
         # Day Frequency Filled
         (
@@ -1837,8 +1580,7 @@ def test_migrate_study_apply_day_frequency(item_info, moving_dates, transfer_win
                     },
                 ],
                 pd.Timestamp(year=2023, month=6, day=15).date(),
-                'D',
-                "PYT35[Day Frequency Filled]"
+                'D'
         ),
         # Week Frequency Filled
         (
@@ -1869,32 +1611,11 @@ def test_migrate_study_apply_day_frequency(item_info, moving_dates, transfer_win
                     }
                 ],
                 pd.Timestamp(year=2022, month=5, day=8).date(),
-                'W',
-                "PYT35[Week Frequency Filled]"
+                'W'
         )
-    ],
-    ids=["PYT35[Day Frequency Filled]", "PYT35[Week Frequency Filled]"]
+    ]
 )
-def test_migrate_study_apply_date_capacity(item_info, moving_dates, should_remove, transfer_window_type, test_id,
-                                           record_xml_attribute):
-    record_xml_attribute("qualification", "oq")
-    record_xml_attribute("test_id", test_id)
-    record_xml_attribute("srs_requirement", "")
-    record_xml_attribute("frs_requirement", "")
-    record_xml_attribute("scenario", "")
-
-    record_xml_attribute("purpose", "Ensures the correctness of the _migrate_study_apply method in terms of modifying "
-                                    "the moving_dates dictionary by removing a specific date and ensuring the "
-                                    "resulting dictionary is modified as expected.")
-    record_xml_attribute("description",
-                         "Verifies the behavior of the _migrate_study_apply method when applied to a given "
-                         "ItemInformation instance and moving_dates dictionary by checking whether the method "
-                         "correctly modifies the moving_dates dictionary when migrating studies.")
-    record_xml_attribute("acceptance_criteria",
-                         "Assert that the specific date (should_remove) is initially present in the moving_dates "
-                         "dictionary and is subsequently removed after calling the _migrate_study_apply method. "
-                         "Additionally, the remaining contents of the moving dictionary are compared against expected "
-                         "values to ensure they have not been modified.")
+def test_migrate_study_apply_date_capacity(item_info, moving_dates, should_remove, transfer_window_type):
 
     assert should_remove in moving_dates[0]
 
@@ -1905,25 +1626,7 @@ def test_migrate_study_apply_date_capacity(item_info, moving_dates, should_remov
         assert value == 2
 
 
-def test_migration_table_processing(app_test_dataclass, record_xml_attribute):
-    record_xml_attribute("qualification", "oq")
-    record_xml_attribute("test_id", "PYT36")
-    record_xml_attribute("srs_requirement", "")
-    record_xml_attribute("frs_requirement", "")
-    record_xml_attribute("scenario", "")
-
-    record_xml_attribute("purpose", "Ensure that the migration_table_processing method produces the expected "
-                                    "results, including the structure and values of the output DataFrames and the "
-                                    "correctness of the period start/end dates.")
-    record_xml_attribute("description",
-                         "This test verifies the correctness of the migration_table_processing method by checking "
-                         "whether the function generates the expected output DataFrames and period start/end dates "
-                         "when given a mock DataFrame and specific parameters.")
-    record_xml_attribute("acceptance_criteria",
-                         "Assert that the generated DataFrames (day_freq_df and week_freq_df) has the correct column "
-                         "structure and values, including the transfer flags, transfer start dates, transfer ranges, "
-                         "and period moved values. Additionally, the period start/end dates "
-                         "(day_period_start_end and week_period_start_end) should match the expected dates")
+def test_migration_table_processing(app_test_dataclass):
 
     timeframe_start = pd.Timestamp(year=2022, month=1, day=2)
     timeframe_end = pd.Timestamp(year=2022, month=12, day=31)
@@ -1940,7 +1643,7 @@ def test_migration_table_processing(app_test_dataclass, record_xml_attribute):
                 active_during_timeframe=False,
                 status=ItemStatus.NO_STATUS_GIVEN
             ),
-            # Study with gap outside timeframe
+            # Study with Gap outside timeframe
             ItemInformation(
                 study_id="34",
                 gap_number=1,
@@ -2034,7 +1737,7 @@ def test_migration_table_processing(app_test_dataclass, record_xml_attribute):
 
 
 @pytest.mark.parametrize(
-    "input_df, group_col, expected_df, test_id",
+    "input_df, group_col, expected_df",
     [
         (
             pd.DataFrame({
@@ -2045,53 +1748,40 @@ def test_migration_table_processing(app_test_dataclass, record_xml_attribute):
             }),
             'Overall',
             pd.DataFrame({
-                'Total Moved': [3],
-                'Total Not Moved': [2],
+                'Total': [5],
+                'Transfer Dates Found': [3],
+                'Transfer Dates Not Found': [2],
                 'Period 1': [2],
                 'Period 2': [1]
-            }),
-            "PYT37[Overall Grouping]"
+            })
         ),
-    ],
-    ids=["PYT36[Overall Grouping]"]
+        (
+            pd.DataFrame({
+                'study_id': [12, 23, 34, 45, 56],
+                'grouping_col': ["type 1", "type 1", "type 1", "type 2", "type 2"],
+                'Transfer Flag': [False, True, True, False, True],
+                'Period Moved': ['Not Moved', 'Period 1', 'Period 1', 'Not Moved', 'Period 2'],
+                'Transfer Range': ['', '', '', '', '']
+            }),
+            'grouping_col',
+            pd.DataFrame({
+                'grouping_col': ["type 1", "type 2"],
+                'Total': [3, 2],
+                'Transfer Dates Found': [2, 1],
+                'Transfer Dates Not Found': [1, 1],
+                'Period 1': [2, 0],
+                'Period 2': [0, 1]
+            })
+        ),
+    ]
 )
-def test_table_formatting(input_df, group_col, expected_df, test_id, record_xml_attribute):
-    record_xml_attribute("qualification", "oq")
-    record_xml_attribute("test_id", test_id)
-    record_xml_attribute("srs_requirement", "")
-    record_xml_attribute("frs_requirement", "")
-    record_xml_attribute("scenario", "")
-
-    record_xml_attribute("purpose", "Verify that the table_formatting method correctly formats the input DataFrame "
-                                    "according to the specified grouping column.")
-    record_xml_attribute("description",
-                         "Ensures that the table_formatting static method of the Data class correctly formats a "
-                         "migration DataFrame for presentation in a dash datatable.")
-    record_xml_attribute("acceptance_criteria",
-                         "Assert that the formatted DataFrame returned by the table_formatting method is equal to the "
-                         "expected DataFrame.")
+def test_table_formatting(input_df, group_col, expected_df):
 
     result_df = Data.table_formatting(input_df, group_col)
-    assert result_df.equals(expected_df)
+    pd.testing.assert_frame_equal(result_df, expected_df, check_names=False)
 
 
-def test_format_for_export(record_xml_attribute):
-    record_xml_attribute("qualification", "oq")
-    record_xml_attribute("test_id", "PYT38")
-    record_xml_attribute("srs_requirement", "")
-    record_xml_attribute("frs_requirement", "")
-    record_xml_attribute("scenario", "")
-
-    record_xml_attribute("purpose", "Ensure that the format_for_export method correctly formats the input dataframe "
-                                    "(input_df) according to specific transformation rules and generates the expected "
-                                    "dataframe (expected_df).")
-    record_xml_attribute("description",
-                         "Verify the functionality of the format_for_export method by comparing the output dataframe "
-                         "(result_df) with the expected dataframe (expected_df) for a specific input scenario.")
-    record_xml_attribute("acceptance_criteria",
-                         "Assert that the generated dataframe (result_df) is equal to the (expected_df), including "
-                         "column names, data values, and data types. The comparison should reset the index of both "
-                         "dataframes before the assertion as this is not relevant to the final result.")
+def test_format_for_export():
 
     input_df = pd.DataFrame({
         "Study ID": ["123", "567", "890"],
@@ -2204,7 +1894,7 @@ def test_format_for_export(record_xml_attribute):
 
 
 @pytest.mark.parametrize(
-    "app_session_store, period_start_end, period_length, transfer_window_type, active_studies_per, test_id",
+    "app_session_store, period_start_end, period_length, transfer_window_type, studies_per, test_id",
     [
         (
             {
@@ -2272,29 +1962,13 @@ def test_format_for_export(record_xml_attribute):
             2,
             "PYT39[Weekly With Filters]"
         )
-    ],
-    ids=["PYT39[Daily Without Filters]", "PYT39[Weekly Without Filters]", "PYT39[Daily With Filters]",
-         "PYT39[Weekly With Filters]"]
+    ]
 )
 def test_format_config_sheet(app_session_store, period_start_end, period_length, transfer_window_type,
-                             active_studies_per, test_id, record_xml_attribute):
-    record_xml_attribute("qualification", "oq")
-    record_xml_attribute("test_id", test_id)
-    record_xml_attribute("srs_requirement", "")
-    record_xml_attribute("frs_requirement", "")
-    record_xml_attribute("scenario", "")
-
-    record_xml_attribute("purpose", "Ensure that the format_config_sheet method generates the expected dataframe by "
-                                    "comparing it with the pre-loaded expected dataframe for each test case.")
-    record_xml_attribute("description",
-                         "Verify the behavior of the format_config_sheet method with different input scenarios.")
-    record_xml_attribute("acceptance_criteria",
-                         "Assert that the generated dataframe (result_df) is equal to the the expected dataframe "
-                         "(expected_df) for each test case. The comparison should not check the data types of the "
-                         "columns.")
+                             studies_per, test_id):
 
     result_df = Data.format_config_sheet(app_session_store, period_start_end, period_length, transfer_window_type,
-                                         active_studies_per)
+                                         studies_per)
 
     expected_df = load_json_test_dataframe(test_id)
 
