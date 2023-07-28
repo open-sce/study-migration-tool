@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "Study Migration Tool"
-version = "2.5.3"
+version = "2.5.4"
 authors = [
   { name="Jonathan Deacon", email="jonathan.deacon@achieveintelligence.com" },
   { name="William McDermott", email="will.mcdermott@achieveintelligence.com" },
